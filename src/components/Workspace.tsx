@@ -96,18 +96,18 @@ const WorkspaceContent = ({ projectId, userId }: { projectId: string; userId: st
       {/* 3-Column Resizable Layout */}
       <Group orientation="horizontal" className="flex-1">
         
-        {/* Column 1: Gemini-style Sidebar */}
-        <Panel defaultSize={15} minSize={5} maxSize={40}>
+        {/* Column 1: Gemini-style Sidebar - Reduced default size for better space */}
+        <Panel defaultSize={12} minSize={10} maxSize={25}>
           <AppSidebar />
         </Panel>
 
-        <Separator className="w-1.5 bg-slate-50 hover:bg-indigo-100 transition-colors flex items-center justify-center group cursor-col-resize">
-          <div className="w-0.5 h-8 bg-slate-200 rounded-full group-hover:bg-indigo-300" />
+        <Separator className="w-1 bg-slate-200 hover:bg-indigo-400 transition-colors flex items-center justify-center cursor-col-resize z-20">
+          <div className="w-px h-full bg-slate-300" />
         </Separator>
 
-        {/* Column 2: React Flow Canvas (Swapped to Middle) */}
-        <Panel defaultSize={60} minSize={20} maxSize={85}>
-          <div className="relative h-full w-full bg-slate-50 border-r border-slate-200">
+        {/* Column 2: React Flow Canvas (Main Workspace) */}
+        <Panel defaultSize={63} minSize={30}>
+          <div className="relative h-full w-full bg-white">
             <ReactFlow
               nodes={nodes}
               edges={edges}
@@ -118,20 +118,20 @@ const WorkspaceContent = ({ projectId, userId }: { projectId: string; userId: st
               nodeTypes={nodeTypes}
               fitView
             >
-              <Background color="#cbd5e1" gap={20} />
+              <Background color="#f1f5f9" gap={20} />
               <Controls />
               
               {/* Top Panel: Status */}
-              <FlowPanel position="top-left" className="flex gap-2 items-center bg-white/90 p-2 rounded-lg shadow-sm border backdrop-blur">
+              <FlowPanel position="top-left" className="flex gap-2 items-center bg-white/95 p-2 rounded-lg shadow-md border border-slate-200 backdrop-blur m-4">
                 <LayoutDashboard className="w-4 h-4 text-indigo-600" />
                 <h1 className="font-bold text-slate-700 text-xs mr-2">Clinical Flowchart</h1>
               </FlowPanel>
 
               {/* Action Panel */}
-              <FlowPanel position="bottom-right">
+              <FlowPanel position="bottom-right" className="m-4">
                 <Button 
                   size="sm" 
-                  className="bg-indigo-600 hover:bg-indigo-700 shadow-lg text-xs"
+                  className="bg-indigo-600 hover:bg-indigo-700 shadow-xl text-xs h-10 px-4 rounded-full"
                   onClick={requestFinalize}
                 >
                   <ShieldAlert className="w-4 h-4 mr-1.5" />
@@ -142,12 +142,12 @@ const WorkspaceContent = ({ projectId, userId }: { projectId: string; userId: st
           </div>
         </Panel>
 
-        <Separator className="w-1.5 bg-slate-50 hover:bg-indigo-100 transition-colors flex items-center justify-center group cursor-col-resize">
-          <div className="w-0.5 h-8 bg-slate-200 rounded-full group-hover:bg-indigo-300" />
+        <Separator className="w-1.5 bg-slate-200 hover:bg-indigo-500 transition-colors flex items-center justify-center cursor-col-resize z-20">
+          <div className="w-0.5 h-12 bg-slate-400 rounded-full" />
         </Separator>
 
-        {/* Column 3: NotebookLM-style Middle Pane (Swapped to Right) */}
-        <Panel defaultSize={25} minSize={15} maxSize={40}>
+        {/* Column 3: AI Assistant Pane - Optimized size constraints */}
+        <Panel defaultSize={25} minSize={20} maxSize={45}>
           <MiddlePane 
             chatInput={chatInput}
             setChatInput={setChatInput}

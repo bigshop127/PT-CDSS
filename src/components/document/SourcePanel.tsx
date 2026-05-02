@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge';
 
 export const SourcePanel = () => {
   return (
-    <div className="flex flex-col h-full bg-slate-50 border-r w-full">
+    <div className="flex flex-col h-full bg-slate-50 w-full">
       <div className="p-4 border-b bg-white space-y-3">
         <h3 className="font-bold text-slate-800 text-sm flex items-center gap-2">
           <Database className="w-4 h-4 text-indigo-500" />

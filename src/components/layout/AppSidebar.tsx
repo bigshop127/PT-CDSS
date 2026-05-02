@@ -59,7 +59,7 @@ export const AppSidebar = () => {
   }, []);
 
   return (
-    <div className="flex flex-col h-full bg-slate-900 text-slate-300 w-full border-r border-slate-800">
+    <div className="flex flex-col h-full bg-slate-900 text-slate-300 w-full">
       {/* 1. Header & New Project */}
       <div className="p-4 space-y-4 bg-slate-800/50">
         <div className="flex items-center gap-3 px-2">

@@ -27,9 +27,12 @@
 - **3_final_ccb/**嚗??暹?蝯??? Markdown ?雁撠???
 - **scripts/**嚗?蝙?函??隞歹?憒?`puhui_synthesize.js`, `sync_to_obsidian.js`嚗脰??芸???雿?
 
-## 4. ?誘閫貊蝧
-- ?芾?雿輻???啜???CCB???唾?炎?亥??舀??蒂霈?迨閬???
-- ?冽?甈∩遙????嚗?銝餃?閰Ｗ??臬?閬?甇亥?亥?摨恬?Obsidian嚗?
+## 4. 協作規範與授權 (SOP & Authorization)
+- **指令優先**：僅在收到 Directive 時進行代碼修改。
+- **GitHub 同步**：每次結束 Directive 任務前，必須執行 `git add .`, `git commit` 與 `git push origin master`。
+- **全權授權**：使用者全權授權 Gemini CLI 直接更新專案計畫書與相關說明文件（如 Obsidian 中的計畫清單），無需針對「更新紀錄」重複詢問，以確保進度同步。
+- **語氣控制**：保持 Senior Engineer 的專業、冷靜、無情緒對話風格，嚴格遵守無廢話原則。
+- **安全第一**：紅旗警示邏輯（15字理由）不可移除。
 
 
 ## Project Location Update (2026-05-01)
