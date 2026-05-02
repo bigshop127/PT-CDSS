@@ -1,0 +1,65 @@
+{
+  "id": "30A4F7E3E31A30D742CFF1139C3C9942",
+  "title": "30A4F7E3E31A30D742CFF1139C3C9942",
+  "pubDate": "2025-11-24",
+  "model": "gemini-cli",
+  "analysis": {
+    "market_regime": "BEAR",
+    "market_regime_reason": "台股尚未封閉第三個空方缺口，短線未見止跌訊號，建議持股水位維持在三成以下甚至空手。",
+    "global_macro": [
+      "聯準會官員內部分歧嚴重，紐約聯銀總裁Williams釋放鴿派訊號使12月降息機率回升至75%以上",
+      "市場對AI基礎建設的高額資本支出（ROI）產生疑慮，擔心重演.com泡沫",
+      "比特幣週跌幅達11%，顯示市場冒險投機情緒顯著降溫並影響美股信心",
+      "感恩節前將集中發布PPI、零售銷售與消費者信心指數等重要經濟數據"
+    ],
+    "index_0050_observation": "台股大盤目前受制於新的第三個空方缺口，需完全封閉缺口方能初步判斷止跌，目前趨勢仍偏弱。",
+    "volume_signal": "利多不漲（Nvidia財報亮眼但股價下跌）顯示市場信心崩潰且追價意願薄弱。",
+    "mentioned_stocks": [
+      {
+        "code": "NVDA",
+        "name": "Nvidia",
+        "signal": "WATCH",
+        "reason": "財報與財測亮眼但股價被無情賣壓衝擊，顯示市場情緒極不穩定"
+      },
+      {
+        "code": "ORCL",
+        "name": "Oracle",
+        "signal": "SELL",
+        "reason": "本月崩跌24%創2001年以來最慘紀錄，反映市場對AI雲端成長的質疑"
+      },
+      {
+        "code": "META",
+        "name": "Meta",
+        "signal": "SELL",
+        "reason": "公布財報後重挫21%，市場擔憂其爆炸性資本支出能否回收"
+      },
+      {
+        "code": "MSTR",
+        "name": "微策略",
+        "signal": "SELL",
+        "reason": "今年跌幅逾40%，反映加密貨幣市場投機情緒撤離"
+      }
+    ],
+    "sector_special_reports": [
+      {
+        "sector": "AI供應鏈",
+        "content": "四大客戶(微軟、亞馬遜、Meta、Google)未來一年資本支出高達4400億美元，市場正檢視其獲利證據"
+      },
+      {
+        "sector": "半導體",
+        "content": "SOX指數由高點25%回落至15%，半導體族群熱度快速降溫"
+      }
+    ],
+    "entry_conditions_mentioned": [
+      "台股完全封閉第三個空方缺口",
+      "市場看到AI真正帶來的獲利證據（預計尚需1-2季）",
+      "技術指標確認止跌而非僅參考恐懼與貪婪指數"
+    ],
+    "exit_conditions_mentioned": [
+      "台股反彈未能封閉缺口",
+      "AI族群估值過高且股價跌破關鍵支撐",
+      "比特幣持續走弱引發系統性風險聯動"
+    ],
+    "strategy_insights": "技術分析應優先於總經與情緒指標，因市場恐懼時間可能長於預期。目前應維持高現金水位（70%以上），待市場潮水退去、檢視真正具備AI獲利能力的個股後再行低接。"
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "id": "BD07FB543F17D3383A937D498BDA8C7C",
+  "title": "BD07FB543F17D3383A937D498BDA8C7C",
+  "pubDate": "2026-02-24",
+  "model": "groq",
+  "analysis": {
+    "market_regime": "BULL",
+    "market_regime_reason": "聯亞、聯電、群創等股價表現強勁，台股大盤指數持續創新高",
+    "global_macro": [
+      "聯準會利率會議按兵不動",
+      "Meta、Microsoft財報超越市場預期",
+      "Tesla財報表現穩定"
+    ],
+    "index_0050_observation": "台股大盤指數持續創新高，櫃買市場下跌約1.3%",
+    "volume_signal": "短線強勢創高",
+    "mentioned_stocks": [
+      {
+        "code": "2454",
+        "name": "聯亞",
+        "signal": "BUY",
+        "reason": "股價表現強勁"
+      },
+      {
+        "code": "2337",
+        "name": "聯電",
+        "signal": "SELL",
+        "reason": "法說會可能導致股價下跌"
+      },
+      {
+        "code": "2451",
+        "name": "群創",
+        "signal": "SELL",
+        "reason": "跌破十日均線"
+      }
+    ],
+    "sector_special_reports": [
+      {
+        "sector": "記憶體",
+        "content": "記憶體相關個股表現強勁，可能是十年一遇的超級大週期循環"
+      },
+      {
+        "sector": "光纖",
+        "content": "光纖相關個股表現穩定"
+      }
+    ],
+    "entry_conditions_mentioned": [
+      "買入聯亞",
+      "賣出聯電",
+      "賣出群創"
+    ],
+    "exit_conditions_mentioned": [
+      "賣出聯亞",
+      "買入聯電",
+      "買入群創"
+    ],
+    "strategy_insights": "老王建議會員維持八成以上持股水位，買入聯亞、賣出聯電、賣出群創"
+  }
+}

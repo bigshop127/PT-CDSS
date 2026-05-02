@@ -1,0 +1,53 @@
+{
+  "id": "A98168BAAA9C455AB84CC0A7309F2FA1",
+  "title": "A98168BAAA9C455AB84CC0A7309F2FA1",
+  "pubDate": "2026-03-24",
+  "model": "qwen2.5:7b",
+  "analysis": {
+    "market_regime": "NEUTRAL",
+    "market_regime_reason": "台股已跌破月均線，但尚未跌破季均線，顯示市場處於修正態勢中。",
+    "global_macro": [
+      "地緣政治衝突升溫",
+      "記憶體族群股價重挫"
+    ],
+    "index_0050_observation": "台股已達月均線，短期內可能尋找支撐。",
+    "volume_signal": "成交量已創下歷史新低點，顯示市場信心不足。",
+    "mentioned_stocks": [
+      {
+        "code": "2498",
+        "name": "華邦電",
+        "signal": "SELL",
+        "reason": "跳空跌破三條短期均線，形成短線空方型態"
+      },
+      {
+        "code": "2303",
+        "name": "南亞科",
+        "signal": "WATCH",
+        "reason": "需觀察長線支撐季均線能否守住"
+      },
+      {
+        "code": "6105",
+        "name": "力積電",
+        "signal": "SELL",
+        "reason": "三條短期均線全部跌破，形成假突破"
+      }
+    ],
+    "sector_special_reports": [
+      {
+        "sector": "半導體",
+        "content": "記憶體族群股價重挫，影響台股表現。"
+      },
+      {
+        "sector": "電子元件",
+        "content": "載板三雄及南電需特別注意空方缺口型態。"
+      }
+    ],
+    "entry_conditions_mentioned": [
+      "台股出現短線止跌"
+    ],
+    "exit_conditions_mentioned": [
+      "跌破月均線到季均線區間"
+    ],
+    "strategy_insights": "建議會員維持五成持股水位，並根據個股表現做出汰弱留強動作。"
+  }
+}

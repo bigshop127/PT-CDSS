@@ -1,0 +1,43 @@
+{
+  "id": "C3D9E9A4705E1A281846C94113B1ABBE",
+  "title": "2025/07/17 台股盤中急殺要緊嗎？個股激烈震盪該怎麼辦？櫃買市場準備突破 - PressPlay",
+  "pubDate": "2025-07-24",
+  "model": "qwen2.5:7b",
+  "analysis": {
+    "market_regime": "NEUTRAL",
+    "market_regime_reason": "台股盤中出現劇烈震盪，但老王認為短期波動不影響長線趨勢。",
+    "global_macro": [
+      "美國聯準會主席鮑爾去留問題引發市場波動",
+      "川普宣布新一輪關稅政策"
+    ],
+    "index_0050_observation": "台股盤中急殺，但下午受台積電法說會影響可能轉強",
+    "volume_signal": "成交量是觀察個股和大盤震盪的重要指標。大量爆發後需持續關注量能是否維持。",
+    "mentioned_stocks": [
+      {
+        "code": "2385",
+        "name": "神達電子",
+        "signal": "WATCH",
+        "reason": "今日劇烈震盪，需觀察明日成交量"
+      },
+      {
+        "code": "6700",
+        "name": "環球晶圓",
+        "signal": "BUY",
+        "reason": "跌深反彈，突破季均線且出量"
+      }
+    ],
+    "sector_special_reports": [
+      {
+        "sector": "半導體",
+        "content": "矽晶圓族群表現強勢，如環球晶、中美晶等"
+      }
+    ],
+    "entry_conditions_mentioned": [
+      "成交量維持大量是短線買入的重要條件"
+    ],
+    "exit_conditions_mentioned": [
+      "快速量縮可能是賣出的信號"
+    ],
+    "strategy_insights": "投資者應關注個股和大盤成交量，避免被短期波動所困擾。台積電法說會將是明日關鍵。"
+  }
+}

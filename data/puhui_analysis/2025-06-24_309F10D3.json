@@ -1,0 +1,53 @@
+{
+  "id": "309F10D3EB249A5D67D8267302BBBB82",
+  "title": "309F10D3EB249A5D67D8267302BBBB82",
+  "pubDate": "2025-06-24",
+  "model": "qwen2.5:7b",
+  "analysis": {
+    "market_regime": "NEUTRAL",
+    "market_regime_reason": "櫃買市場尚未突破季均線，形成長線全面翻多之前，個股難以百花齊放。",
+    "global_macro": [
+      "美國經濟動能逐步降溫",
+      "聯準會可能降息"
+    ],
+    "index_0050_observation": "台積電重返千元大關",
+    "volume_signal": "有量就有價，南亞科突破前高壓力，富喬成交量始終維持大量",
+    "mentioned_stocks": [
+      {
+        "code": "2307",
+        "name": "南亞科",
+        "signal": "BUY",
+        "reason": "突破前高壓力，後續可能大漲"
+      },
+      {
+        "code": "2615",
+        "name": "萬海",
+        "signal": "SELL",
+        "reason": "跌破爆大量低點，十日均線被破"
+      },
+      {
+        "code": "2408",
+        "name": "富喬",
+        "signal": "WATCH",
+        "reason": "成交量始終維持大量"
+      }
+    ],
+    "sector_special_reports": [
+      {
+        "sector": "半導體",
+        "content": "南亞科突破前高壓力後表現強勁，需注意成交量變化"
+      },
+      {
+        "sector": "航運",
+        "content": "萬海跌破爆大量低點和十日均線，短期走勢偏弱"
+      }
+    ],
+    "entry_conditions_mentioned": [
+      "突破前高壓力"
+    ],
+    "exit_conditions_mentioned": [
+      "收盤跌破作認定停損"
+    ],
+    "strategy_insights": "在操作股票時，需注意成交量變化，選擇市場主流或熱門人氣股，短線選股應注重量能"
+  }
+}

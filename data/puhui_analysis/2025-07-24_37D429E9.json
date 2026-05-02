@@ -1,0 +1,49 @@
+{
+  "id": "37D429E9841B8B840EFC16436D393776",
+  "title": "2025/07/14 川普招待墨西哥與歐盟30%關稅！美股財報週揭開序幕！漲漲跌 - PressPlay",
+  "pubDate": "2025-07-24",
+  "model": "qwen2.5:7b",
+  "analysis": {
+    "market_regime": "BULL",
+    "market_regime_reason": "美股在经过川普关税政策的冲击后，市场已经逐渐适应，并且科技股财报预期良好。",
+    "global_macro": [
+      "美国与欧盟、墨西哥之间的贸易紧张关系加剧",
+      "CPI通膨数据可能影响美联储利率决策"
+    ],
+    "index_0050_observation": "台股指数重新站回三线均线上方，但缺乏突破缺口的强力支撑",
+    "volume_signal": "成交量的变化可以作为短期进出的重要观察指标",
+    "mentioned_stocks": [
+      {
+        "code": "2382",
+        "name": "台光电",
+        "signal": "SELL",
+        "reason": "隔天出现量缩，应立即卖出"
+      },
+      {
+        "code": "6105",
+        "name": "金像电",
+        "signal": "WATCH",
+        "reason": "成交量快速萎缩，需关注"
+      }
+    ],
+    "sector_special_reports": [
+      {
+        "sector": "科技与通讯服务",
+        "content": "FactSet预估第二季度盈余表现强劲，科技股有望继续推动市场"
+      },
+      {
+        "sector": "银行",
+        "content": "美国六大银行财报将公布，关注IPO和并购市场的复苏情况"
+      }
+    ],
+    "entry_conditions_mentioned": [
+      "长期趋势未改变",
+      "突破季线形成多方型态"
+    ],
+    "exit_conditions_mentioned": [
+      "跌破月均线",
+      "成交量快速萎缩"
+    ],
+    "strategy_insights": "短期操作需密切关注成交量变化，而长线投资者应耐心持有，不被短线下跌所影响。"
+  }
+}

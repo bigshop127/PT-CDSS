@@ -1,0 +1,74 @@
+{
+  "id": "48384235DC8CC891995B6E5759E1EFEE",
+  "title": "48384235DC8CC891995B6E5759E1EFEE",
+  "pubDate": "2026-03-24",
+  "model": "qwen2.5:7b",
+  "analysis": {
+    "market_regime": "BULL",
+    "market_regime_reason": "台股在戰爭消息下表現堅挺，維持五日與十日均線未被跌破，強勢族群如低軌衛星、光纖等繼續上漲。",
+    "global_macro": [
+      "地緣政治衝突",
+      "通膨壓力",
+      "AI技術發展"
+    ],
+    "index_0050_observation": "台股表現堅挺，封關前的主流族群在長假結束後依舊強勢，未見明顯調整。",
+    "volume_signal": "成交量維持穩定，冷門個股成交量不足，建議投資主流強勢族群。",
+    "mentioned_stocks": [
+      {
+        "code": "4838",
+        "name": "華通",
+        "signal": "BUY",
+        "reason": "低軌衛星題材，十日均線未被跌破"
+      },
+      {
+        "code": "6108",
+        "name": "燿華",
+        "signal": "BUY",
+        "reason": "同族群強勢個股，漲停創波段新高"
+      },
+      {
+        "code": "2409",
+        "name": "啟碁",
+        "signal": "WATCH",
+        "reason": "月均線反彈上漲，表現良好"
+      },
+      {
+        "code": "3037",
+        "name": "聯亞",
+        "signal": "BUY",
+        "reason": "光纖族群指標，五日均線未被跌破"
+      },
+      {
+        "code": "3481",
+        "name": "華星光",
+        "signal": "BUY",
+        "reason": "跟進聯亞表現，漲停創波段新高"
+      },
+      {
+        "code": "2408",
+        "name": "南亞科",
+        "signal": "SELL",
+        "reason": "短期均線微幅跌破，需注意風險"
+      }
+    ],
+    "sector_special_reports": [
+      {
+        "sector": "低軌衛星",
+        "content": "戰爭消息下，低軌衛星題材繼續上漲，華通與燿華表現強勁"
+      },
+      {
+        "sector": "光纖",
+        "content": "聯亞與華星光表現堅挺，維持五日均線未被跌破"
+      }
+    ],
+    "entry_conditions_mentioned": [
+      "守住五日與十日均線",
+      "選擇主流強勢族群"
+    ],
+    "exit_conditions_mentioned": [
+      "短期均線被跌破",
+      "冷門個股成交量不足"
+    ],
+    "strategy_insights": "戰爭消息下，台股表現堅挺，建議投資者持續關注主流強勢族群，避免追高冷門個股。"
+  }
+}

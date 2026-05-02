@@ -1,0 +1,71 @@
+{
+  "id": "E3089BD014A06DE5DE613BC148825630",
+  "title": "E3089BD014A06DE5DE613BC148825630",
+  "pubDate": "2025-05-24",
+  "model": "qwen2.5:7b",
+  "analysis": {
+    "market_regime": "BULL",
+    "market_regime_reason": "台股再創反彈新高，ABF三雄和機器人概念股表現亮眼，顯示市場情緒積極。",
+    "global_macro": [
+      "聯準會政策兩難",
+      "美中貿易談判進展順利"
+    ],
+    "index_0050_observation": "台北股市再度大漲，創下本波反彈新高",
+    "volume_signal": "成交量未明確提及，但市場情緒積極",
+    "mentioned_stocks": [
+      {
+        "code": "2368",
+        "name": "欣興電子",
+        "signal": "BUY",
+        "reason": "突破月均線形成跌深反彈型態"
+      },
+      {
+        "code": "3047",
+        "name": "景碩科技",
+        "signal": "BUY",
+        "reason": "突破月均線形成跌深反彈型態，持續守住月均線有機會挑戰季均線"
+      },
+      {
+        "code": "2454",
+        "name": "南電股份",
+        "signal": "BUY",
+        "reason": "突破月均線形成跌深反彈型態，持續守住月均線有機會挑戰季均線"
+      },
+      {
+        "code": "2049",
+        "name": "上銀科技",
+        "signal": "BUY",
+        "reason": "突破月均線形成跌深反彈型態，穩守月均線有機會挑戰季均線"
+      },
+      {
+        "code": "3018",
+        "name": "直得精密",
+        "signal": "BUY",
+        "reason": "突破月均線形成跌深反彈型態，回檔修正時仍能續抱"
+      },
+      {
+        "code": "2456",
+        "name": "和椿科技",
+        "signal": "BUY",
+        "reason": "突破月均線形成三陽開泰，持續守住月均線有機會挑戰季均線"
+      }
+    ],
+    "sector_special_reports": [
+      {
+        "sector": "矽光子概念股",
+        "content": "跌深反彈型態，可期待未來反彈往上的表現"
+      },
+      {
+        "sector": "機器人概念股",
+        "content": "同樣是突破月均線後的跌深反彈型態，穩守月均線有機會挑戰季均線"
+      }
+    ],
+    "entry_conditions_mentioned": [
+      "突破月均線形成跌深反彈型態"
+    ],
+    "exit_conditions_mentioned": [
+      "回檔修正時觀察月均线能否持续守住，若跌破则减码一半持股"
+    ],
+    "strategy_insights": "透過觀察個股是否突破月均線並穩守，可以找到具有跌深反彈型態的股票進行操作。"
+  }
+}

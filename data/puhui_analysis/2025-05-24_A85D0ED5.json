@@ -1,0 +1,54 @@
+{
+  "id": "A85D0ED55E6CBA4292844107E6CBD74A",
+  "title": "A85D0ED55E6CBA4292844107E6CBD74A",
+  "pubDate": "2025-05-24",
+  "model": "qwen2.5:7b",
+  "analysis": {
+    "market_regime": "BULL",
+    "market_regime_reason": "美股连续六日上涨，道琼斯、S&P500与纳斯达克指数均创近半年来最长涨势；台股虽狭幅震荡但有多个中小型股表现出色。",
+    "global_macro": [
+      "美国劳工市场持续降温",
+      "关税谈判露出曙光"
+    ],
+    "index_0050_observation": "台北股市今日狭幅震荡，但盘面上仍有多个中小型股表现出色。",
+    "volume_signal": "成交量未见明显放大，资金在各板块间轮动。",
+    "mentioned_stocks": [
+      {
+        "code": "3426",
+        "name": "所罗门",
+        "signal": "BUY",
+        "reason": "突破短期均线形成三阳开泰"
+      },
+      {
+        "code": "3015",
+        "name": "昆盈",
+        "signal": "BUY",
+        "reason": "站上短期均线形成三阳开泰"
+      },
+      {
+        "code": "3087",
+        "name": "钰创",
+        "signal": "BUY",
+        "reason": "刚站上月均线，符合选股逻辑"
+      }
+    ],
+    "sector_special_reports": [
+      {
+        "sector": "机器人",
+        "content": "关注低基期股票突破短期均线，如和椿、直得、彬台等"
+      },
+      {
+        "sector": "光学镜头",
+        "内容": "佳能、华晶科等光学镜头个股被带动上涨"
+      }
+    ],
+    "entry_conditions_mentioned": [
+      "刚站上月均线形成三阳开泰的跌深个股"
+    ],
+    "exit_conditions_mentioned": [
+      "短期均线五日均线下破时减码或出货",
+      "触及长期均线季均线压力时减码"
+    ],
+    "strategy_insights": "抢反弹策略需关注短期均线，避免抱上抱下；同时注意市场情绪变化和板块轮动。"
+  }
+}

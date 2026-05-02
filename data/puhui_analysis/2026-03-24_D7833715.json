@@ -1,0 +1,51 @@
+{
+  "id": "D78337157DA5C10684A28D5883999F7A",
+  "title": "D78337157DA5C10684A28D5883999F7A",
+  "pubDate": "2026-03-24",
+  "model": "qwen2.5:7b",
+  "analysis": {
+    "market_regime": "BEAR",
+    "market_regime_reason": "台股開高走低跌破五日均線，記憶體族群表現疲弱。",
+    "global_macro": [
+      "美股大逆轉收漲",
+      "伊朗戰爭影響有限",
+      "能源與國防股受追捧",
+      "科技股短期承壓"
+    ],
+    "index_0050_observation": "台股開高走低，五日均線被跌破，需注意短線調整風險。",
+    "volume_signal": "大盤爆大量後破歷史巨量低點，需警惕市場情緒轉變。",
+    "mentioned_stocks": [
+      {
+        "code": "2356",
+        "name": "群創",
+        "signal": "SELL",
+        "reason": "突破前高壓力失敗"
+      },
+      {
+        "code": "2498",
+        "name": "旺宏",
+        "signal": "WATCH",
+        "reason": "五日均線接近跌破，需注意短線調整"
+      },
+      {
+        "code": "8037",
+        "name": "華邦電",
+        "signal": "SELL",
+        "reason": "長黑打到跌停"
+      }
+    ],
+    "sector_special_reports": [
+      {
+        "sector": "記憶體",
+        "content": "記憶體族群表現疲弱，需分散投資風險"
+      }
+    ],
+    "entry_conditions_mentioned": [
+      "等待個股突破成功"
+    ],
+    "exit_conditions_mentioned": [
+      "五日均線跌破獲利減碼至少一半持股"
+    ],
+    "strategy_insights": "老王建議順勢交易，短期注意五日均線，長期關注十日及月均線支撐。"
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "id": "9EDA8551B2C8E8030C8A510FA2F7DBEA",
+  "title": "2025/07/25 爆大量區間等待多空表態！櫃買市場形成上升楔型！十日均線就是 - PressPlay",
+  "pubDate": "2025-07-24",
+  "model": "qwen2.5:7b",
+  "analysis": {
+    "market_regime": "NEUTRAL",
+    "market_regime_reason": "櫃買市場形成上升楔型，等待多空表態；台北股市在高檔震盪，需突破爆大量高點才能持續多方趨勢。",
+    "global_macro": [
+      "美股S&P500再創新高並連續第四天收紅",
+      "道瓊指數前高突破失敗"
+    ],
+    "index_0050_observation": "",
+    "volume_signal": "台北股市過去二天走勢符合爆大量區間震盪，需突破爆大量高點才能完成大量換手。",
+    "mentioned_stocks": [
+      {
+        "code": "3481",
+        "name": "南電",
+        "signal": "WATCH",
+        "reason": "守住十日均線，股價休息後再度轉強"
+      },
+      {
+        "code": "6279",
+        "name": "宏捷科",
+        "signal": "BUY",
+        "reason": "大漲重新回到波段高點"
+      }
+    ],
+    "sector_special_reports": [
+      {
+        "sector": "電子半導體",
+        "content": "南電和宏捷科表現強勢，需注意十日均線支撐"
+      },
+      {
+        "sector": "汽車",
+        "content": "Tesla股價重挫8.2%，Intel財報喜中帶憂"
+      }
+    ],
+    "entry_conditions_mentioned": [
+      "等待股價回檔到十日均線"
+    ],
+    "exit_conditions_mentioned": [
+      "跌破五日或十日均線需獲利了結"
+    ],
+    "strategy_insights": "櫃買市場形成上升楔型，需突破才能轉強；南電和宏捷科等強勢股需注意十日均線支撐"
+  }
+}

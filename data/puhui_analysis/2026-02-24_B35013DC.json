@@ -1,0 +1,70 @@
+{
+  "id": "B35013DCCAFB1844870C52AB0A0ED8BE",
+  "title": "B35013DCCAFB1844870C52AB0A0ED8BE",
+  "pubDate": "2026-02-24",
+  "model": "gemini-cli",
+  "analysis": {
+    "market_regime": "BEAR",
+    "market_regime_reason": "AI投資敘事轉向資本支出過高疑慮，大盤與櫃買跌破短均線且未能化解超級大量套牢壓力，呈現凶多吉少格局。",
+    "global_macro": [
+      "華爾街質疑AI資本支出回收速度",
+      "AMD與美光等科技指標股財測利空崩跌",
+      "資金撤離高本益比科技族群轉向傳產防禦股",
+      "Alphabet雲端業務雖強但高資本支出引發盤後重挫"
+    ],
+    "index_0050_observation": "大盤回檔大跌失守五日與十日線，且未能站回一兆成交超級大量低點，支撐需觀察月均線。",
+    "volume_signal": "跌破超級巨量低點，顯示上方套牢賣壓沉重，短線修正趨勢持續。",
+    "mentioned_stocks": [
+      {
+        "code": "2344",
+        "name": "華邦電",
+        "signal": "SELL",
+        "reason": "跌破十日與月均線形成三聲無奈空方型態，且跌破爆大量低點。"
+      },
+      {
+        "code": "2408",
+        "name": "南亞科",
+        "signal": "WATCH",
+        "reason": "跌破十日線進入震盪，防守月均線支撐，若跌破則轉空。"
+      },
+      {
+        "code": "6770",
+        "name": "力積電",
+        "signal": "WATCH",
+        "reason": "前高壓力未過，跌破十日線上下洗盤，以月均線為出場依據。"
+      },
+      {
+        "code": "2337",
+        "name": "旺宏",
+        "signal": "WATCH",
+        "reason": "五日線破位已減碼，剩餘持股沿十日線慣性支撐續抱。"
+      },
+      {
+        "code": "3481",
+        "name": "群創",
+        "signal": "WATCH",
+        "reason": "月線反壓未過，需待重新站回三條短期均線形成三陽開泰。"
+      }
+    ],
+    "sector_special_reports": [
+      {
+        "sector": "記憶體",
+        "content": "受美光重挫拖累，族群陷入高檔震盪洗盤，操作難度高，需注意指標股跌破慣性均線。"
+      },
+      {
+        "sector": "AI與半導體",
+        "content": "AI題材轉為變現質疑，AMD、Nvidia等重型資本支出股遭修正，成長故事需重新檢視利潤結構。"
+      }
+    ],
+    "entry_conditions_mentioned": [
+      "重新站回三條短期均線 (三陽開泰)",
+      "站穩超級爆大量低點化解套牢賣壓"
+    ],
+    "exit_conditions_mentioned": [
+      "收盤跌破五日均線 (初步減碼)",
+      "跌破十日線 (慣性支撐結束)",
+      "跌破月均線 (形成三聲無奈空方型態)"
+    ],
+    "strategy_insights": "維持三成低持股水位避開修正波，保留七成現金等待低接機會，強調高檔震盪區間應避免頻繁交易做白工。"
+  }
+}

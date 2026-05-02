@@ -1,0 +1,44 @@
+{
+  "id": "E270BED6B5948BD003B1EB63498C4D69",
+  "title": "E270BED6B5948BD003B1EB63498C4D69",
+  "pubDate": "2025-04-24",
+  "model": "qwen2.5:7b",
+  "analysis": {
+    "market_regime": "BULL",
+    "market_regime_reason": "老王認為美股短空長多，預期四月份利空出盡後將出現強勁反彈。",
+    "global_macro": [
+      "美國經濟前景不明朗",
+      "川普政策不確定性影響市場情緒"
+    ],
+    "index_0050_observation": "台股跟隨美國科技股反彈，但大盤指數尚未封閉空方缺口",
+    "volume_signal": "成交量連續滾量放大是新盛力轉強的重要關鍵",
+    "mentioned_stocks": [
+      {
+        "code": "2317",
+        "name": "順達電",
+        "signal": "BUY",
+        "reason": "順達股價橫盤震盪，但穩守月、季均線，維持長線多方型態"
+      },
+      {
+        "code": "6489",
+        "name": "新盛力",
+        "signal": "BUY",
+        "reason": "新盛力突破前高壓力，成交量放大顯示強勢"
+      }
+    ],
+    "sector_special_reports": [
+      {
+        "sector": "BBU族群",
+        "content": "老王認為順達和新盛力是BBU族群的領頭指標股，未來表現值得關注"
+      }
+    ],
+    "entry_conditions_mentioned": [
+      "突破季均線",
+      "站回所有均線"
+    ],
+    "exit_conditions_mentioned": [
+      "跌破收盤價"
+    ],
+    "strategy_insights": "老王建議投資者在選擇股票時應注意籌碼面和成交量的變化，並遵循個股技術分析來決定進場和出場時間"
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "id": "6EE4C47D7E47BCBCA7B6DD19AB1021BD",
+  "title": "6EE4C47D7E47BCBCA7B6DD19AB1021BD",
+  "pubDate": "2025-06-24",
+  "model": "qwen2.5:7b",
+  "analysis": {
+    "market_regime": "BULL",
+    "market_regime_reason": "台股在矽光子題材和低基期翻多型態的支撐下表現強勁，且全球地緣政治衝突對股市影響有限。",
+    "global_macro": [
+      "聯準會降息機率不高，預計九月才有望降息",
+      "以色列與伊朗的地緣政治衝突推高國際油價"
+    ],
+    "index_0050_observation": "台股表現相對強勢，未出現明顯重挫，且盤中跌幅收斂。",
+    "volume_signal": "成交量維持穩定，未見大幅放量或縮量。",
+    "mentioned_stocks": [
+      {
+        "code": "3481",
+        "name": "華星光",
+        "signal": "BUY",
+        "reason": "穩守五日均線，短線多頭趨勢未變"
+      },
+      {
+        "code": "6275",
+        "name": "眾達-KY",
+        "signal": "BUY",
+        "reason": "突破月均線，形成跌深反彈型態"
+      }
+    ],
+    "sector_special_reports": [
+      {
+        "sector": "矽光子",
+        "content": "逆勢續強，低基期翻多型態守月均線續彈"
+      },
+      {
+        "sector": "砷化鎵",
+        "content": "由空翻多，試圖挑戰季均線"
+      }
+    ],
+    "entry_conditions_mentioned": [
+      "守住五日均線的個股應持續抱牢",
+      "空方缺口封閉"
+    ],
+    "exit_conditions_mentioned": [
+      "跌破五日均線的個股短線會開始漲多震盪"
+    ],
+    "strategy_insights": "投資者應關注大盤指數和個股是否守住短期均線，維持多頭反彈結構。"
+  }
+}

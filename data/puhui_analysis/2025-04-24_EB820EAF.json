@@ -1,0 +1,48 @@
+{
+  "id": "EB820EAF8605CA2DD21A85A56A5173DE",
+  "title": "EB820EAF8605CA2DD21A85A56A5173DE",
+  "pubDate": "2025-04-24",
+  "model": "qwen2.5:7b",
+  "analysis": {
+    "market_regime": "NEUTRAL",
+    "market_regime_reason": "美股表现疲软，但台股在老王出國期間表现出一定的反弹迹象。",
+    "global_macro": [
+      "全球贸易紧张局势升级",
+      "美股一季度表现惨烈"
+    ],
+    "index_0050_observation": "台股短期内可能受益于美股反弹和政策不确定性带来的避险情绪。",
+    "volume_signal": "成交量在下跌后有所放大，显示市场参与者开始重新评估投资机会。",
+    "mentioned_stocks": [
+      {
+        "code": "2330",
+        "name": "TSMC (台積電)",
+        "signal": "WATCH",
+        "reason": "台積電股价已破底，但反弹力度需进一步观察。"
+      },
+      {
+        "code": "2454",
+        "name": "鴻海",
+        "signal": "SELL",
+        "reason": "鴻海股价连续下跌，短期内无明显止跌信号。"
+      }
+    ],
+    "sector_special_reports": [
+      {
+        "sector": "科技股",
+        "content": "美股科技股表现疲软，投资者资金转向其他避险板块如可口可乐和沃尔玛等道琼斯成分股。"
+      },
+      {
+        "sector": "比特幣",
+        "content": "比特币短期内表现出抗跌性，但长期来看仍与美股涨跌高度相关。"
+      }
+    ],
+    "entry_conditions_mentioned": [
+      "台股站上五日均线续涨",
+      "投信逆勢买超股自救"
+    ],
+    "exit_conditions_mentioned": [
+      "收盤跌破作认定期限"
+    ],
+    "strategy_insights": "短期内建议关注台股反弹机会，但需警惕全球贸易紧张局势对市场情绪的影响。"
+  }
+}

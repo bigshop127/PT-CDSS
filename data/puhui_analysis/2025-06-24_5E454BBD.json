@@ -1,0 +1,46 @@
+{
+  "id": "5E454BBDDE29600F4026655072FB41A2",
+  "title": "5E454BBDDE29600F4026655072FB41A2",
+  "pubDate": "2025-06-24",
+  "model": "qwen2.5:7b",
+  "analysis": {
+    "market_regime": "BULL",
+    "market_regime_reason": "台積電重返千元，大盤指數持續上漲並創下近期新高，顯示市場情緒正面。",
+    "global_macro": [
+      "非農就業數據中性",
+      "聯準會降息預期延後"
+    ],
+    "index_0050_observation": "台積電重回千元整數大關，帶動權值股表現強勁。",
+    "volume_signal": "成交量是關鍵指標，有量才有價。品安突破前波高點壓力，顯示多頭趨勢。",
+    "mentioned_stocks": [
+      {
+        "code": "2317",
+        "name": "台積電",
+        "signal": "BUY",
+        "reason": "重返千元整數大關，創下波段新高"
+      },
+      {
+        "code": "6489",
+        "name": "品安",
+        "signal": "BUY",
+        "reason": "突破前波高點壓力，成交量持續放大"
+      }
+    ],
+    "sector_special_reports": [
+      {
+        "sector": "半導體",
+        "content": "記憶體模組廠如南亞科、威剛、宇瞻等表現強勁，矽光子族群如眾達-KY、聯鈞、華星光等則表現較弱。"
+      }
+    ],
+    "entry_conditions_mentioned": [
+      "等待突破前波高點壓力",
+      "成交量持續放大",
+      "順勢操作"
+    ],
+    "exit_conditions_mentioned": [
+      "快速量縮",
+      "跌破短期均線"
+    ],
+    "strategy_insights": "有量才有價，成交量是判斷股價走向的重要指標。維持三成持股水位，等待櫃買市場突破季均線形成四海遊龍的長線翻多型態。"
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "id": "1FE36A0EBFEC4E9C6B26076EEAA7BCC2",
+  "title": "1FE36A0EBFEC4E9C6B26076EEAA7BCC2",
+  "pubDate": "2026-03-24",
+  "model": "groq",
+  "analysis": {
+    "market_regime": "BULL",
+    "market_regime_reason": "IMF最新報告指出AI正在重新塑造職場，具備新技能的職缺與薪資成長呈現顯著正相關",
+    "global_macro": [
+      "美股道瓊上漲307點",
+      "S&amp;P500上漲0.8%",
+      "那斯達克與費城半導體指數分別大漲1.2%與1.6%",
+      "Nvidia財報財測優於預期"
+    ],
+    "index_0050_observation": "台股跌破月均線，但有機會反彈",
+    "volume_signal": "高",
+    "mentioned_stocks": [
+      {
+        "code": "2354",
+        "name": "鴻海",
+        "signal": "BUY",
+        "reason": "散戶持股比例連續增加，股價有反彈機會"
+      },
+      {
+        "code": "2454",
+        "name": "Nvidia",
+        "signal": "BUY",
+        "reason": "財報財測優於預期，股價有上漲機會"
+      }
+    ],
+    "sector_special_reports": [
+      {
+        "sector": "科技",
+        "content": "AI發展仍是很大的成長動能"
+      }
+    ],
+    "entry_conditions_mentioned": [
+      "散戶持股比例連續增加",
+      "財報財測優於預期"
+    ],
+    "exit_conditions_mentioned": [
+      "股價跌破月均線"
+    ],
+    "strategy_insights": "投資者可以考慮買入鴻海和Nvidia股票，同時注意市場的反彈機會"
+  }
+}

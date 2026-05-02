@@ -1,0 +1,52 @@
+{
+  "id": "5FD7F3D45400E4C8CAAB861C5F20C283",
+  "title": "5FD7F3D45400E4C8CAAB861C5F20C283",
+  "pubDate": "2025-06-24",
+  "model": "qwen2.5:7b",
+  "analysis": {
+    "market_regime": "BULL",
+    "market_regime_reason": "櫃買市場突破季均線，矽光子族群和散熱族群表現強勁，美股主要指數上漲。",
+    "global_macro": [
+      "美中貿易代表坐下來在倫敦談判"
+    ],
+    "index_0050_observation": "S&P500指數與那斯達克指數分別上漲0.55%與0.63%，逼近歷史高點。",
+    "volume_signal": "市場資金從PCB及銅箔基板等族群轉向矽光子和散熱族群。",
+    "mentioned_stocks": [
+      {
+        "code": "4328",
+        "name": "華星光",
+        "signal": "BUY",
+        "reason": "突破所有均線形成四海遊龍的多方型態"
+      },
+      {
+        "code": "1506",
+        "name": "波若威",
+        "signal": "BUY",
+        "reason": "站上所有的短中長期均線，形成四海遊龍的多方型態"
+      },
+      {
+        "code": "3482",
+        "name": "世紀鋼",
+        "signal": "WATCH",
+        "reason": "短期需看五日均線支撐能否守住"
+      }
+    ],
+    "sector_special_reports": [
+      {
+        "sector": "矽光子",
+        "content": "櫃買市場突破季均線，矽光子族群表現強勁"
+      },
+      {
+        "sector": "散熱",
+        "content": "奇鋐與雙鴻短線守住五日均線維持了短線強勢"
+      }
+    ],
+    "entry_conditions_mentioned": [
+      "等待個股重新站回所有均線"
+    ],
+    "exit_conditions_mentioned": [
+      "五日均線支撐能否守住，十日均線是否跌破"
+    ],
+    "strategy_insights": "投資者應關注個股的均線支撐，並根據成交量變化進行判斷。"
+  }
+}

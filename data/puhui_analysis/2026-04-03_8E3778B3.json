@@ -1,0 +1,60 @@
+{
+  "id": "8E3778B35F7B62829B2972F8F20DD187",
+  "title": "2026/04/01 美股報復性反彈，台股翻多了嗎？玻纖布族群強弱分歧！封裝測試 - PressPlay",
+  "pubDate": "2026-04-03",
+  "model": "qwen2.5:7b",
+  "analysis": {
+    "market_regime": "BULL",
+    "market_regime_reason": "美股与台股因伊朗战争局势缓和出现报复性反弹，市场情绪乐观。",
+    "global_macro": [
+      "地缘政治紧张局势缓解",
+      "科技板块ETF表现强劲"
+    ],
+    "index_0050_observation": "台指期夜盘大涨1130点，显示市场对后市持乐观态度。",
+    "volume_signal": "成交量未提及具体数据，但市场情绪积极。",
+    "mentioned_stocks": [
+      {
+        "code": "2317",
+        "name": "德宏",
+        "signal": "BUY",
+        "reason": "股价稳守月均线之上，维持三阳开泰多方形态"
+      },
+      {
+        "code": "8049",
+        "name": "富喬",
+        "signal": "WATCH",
+        "reason": "季均线下破后反弹，需观察能否站上短期均线"
+      },
+      {
+        "code": "2317",
+        "name": "台玻",
+        "signal": "WATCH",
+        "reason": "股价仍在短期均线下方，但季均线未失守"
+      },
+      {
+        "code": "8049",
+        "name": "建榮",
+        "signal": "WATCH",
+        "reason": "等待重新站回三条短均线"
+      }
+    ],
+    "sector_special_reports": [
+      {
+        "sector": "玻纤布族群",
+        "content": "德宏表现最强，股价稳守月均线；富喬需观察能否站上短期均线"
+      },
+      {
+        "sector": "封装测试",
+        "content": "日月光与京元电被看好，建议关注季均线支撑"
+      }
+    ],
+    "entry_conditions_mentioned": [
+      "突破三阳开泰形态",
+      "站回所有短中长期均线"
+    ],
+    "exit_conditions_mentioned": [
+      "跌破重要均线且无明显支撑"
+    ],
+    "strategy_insights": "建议维持三成持股水位，等待趋势扭转再加码；关注投信动向和基本面变化。"
+  }
+}

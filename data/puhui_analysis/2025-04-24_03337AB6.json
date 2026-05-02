@@ -1,0 +1,48 @@
+{
+  "id": "03337AB601810DB29C56DC49C9FE94B3",
+  "title": "03337AB601810DB29C56DC49C9FE94B3",
+  "pubDate": "2025-04-24",
+  "model": "qwen2.5:7b",
+  "analysis": {
+    "market_regime": "BEAR",
+    "market_regime_reason": "全球股市因美國對等關稅影響而遭受重創，道瓊、S&P500、那斯達克指數均大幅下跌。台積電ADR也受波及，開盤再跌近6%。",
+    "global_macro": [
+      "停滯性通膨風險增加",
+      "全球貿易摩擦加劇",
+      "美國經濟前景不明朗"
+    ],
+    "index_0050_observation": "台指期貨一開盤就跌停板鎖住，顯示市場情緒非常悲观。",
+    "volume_signal": "外資持續大賣手上現貨，引發台股重挫。",
+    "mentioned_stocks": [
+      {
+        "code": "2330",
+        "name": "台積電",
+        "signal": "SELL",
+        "reason": "ADR慘跌逾7.6%，創下去年8月以來新低"
+      },
+      {
+        "code": "2317",
+        "name": "鴻海",
+        "signal": "WATCH",
+        "reason": "爆大量續跌，需密切關注"
+      }
+    ],
+    "sector_special_reports": [
+      {
+        "sector": "科技",
+        "content": "科技七大巨頭市值在這二天就蒸發逾1兆美元，包括台積電、蘋果、英偉達等。"
+      },
+      {
+        "sector": "能源",
+        "content": "能源股因油價下滑也拖累重挫8.6%。"
+      }
+    ],
+    "entry_conditions_mentioned": [
+      "台指期貨跌停板鎖住"
+    ],
+    "exit_conditions_mentioned": [
+      "美股止跌，VIX恐慌指數回穩"
+    ],
+    "strategy_insights": "建議投資者在市場情緒轉好前保持謹慎，注意外資動向和權重股表現。"
+  }
+}

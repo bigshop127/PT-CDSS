@@ -1,0 +1,48 @@
+{
+  "id": "A23C19FF9E97BB057698E8E4E34A8FC1",
+  "title": "2026/03/24 川普又TACO了！台股反彈翻多了嗎？反指標超強發揮，台積電 - PressPlay",
+  "pubDate": "2026-03-24",
+  "model": "qwen2.5:7b",
+  "analysis": {
+    "market_regime": "BULL",
+    "market_regime_reason": "美股在三巫日結算爆量後出現反彈，且台積電和鴻海等科技股的反指標顯示市場情緒轉強。",
+    "global_macro": [
+      "能源價格波動影響全球通膨路徑",
+      "地緣政治風險短期衝擊市場"
+    ],
+    "index_0050_observation": "台股在川普宣布暫緩對伊朗軍事打擊後出現反彈，但需注意籌碼面的結構轉換。",
+    "volume_signal": "三巫日結算爆量低點守住，顯示短期止跌反彈。",
+    "mentioned_stocks": [
+      {
+        "code": "2330",
+        "name": "台積電",
+        "signal": "SELL",
+        "reason": "股價跌破月均線且外資持續賣超"
+      },
+      {
+        "code": "2317",
+        "name": "鴻海",
+        "signal": "SELL",
+        "reason": "籌碼面結構轉換，大戶持續賣出"
+      }
+    ],
+    "sector_special_reports": [
+      {
+        "sector": "科技",
+        "content": "遠期本益比已大幅回落至合理水準，但需注意個股籌碼面的影響"
+      },
+      {
+        "sector": "能源",
+        "content": "油價波動對全球通膨影響不一，歐洲與新興亞洲受衝擊較大"
+      }
+    ],
+    "entry_conditions_mentioned": [
+      "站上短期均線",
+      "外資轉為買超"
+    ],
+    "exit_conditions_mentioned": [
+      "跌破重要支撐位"
+    ],
+    "strategy_insights": "長期投資者可考慮逢低布局科技股，但需注意個股籌碼面的影響；短線操作則需依賴均線及籌碼面變化進行"
+  }
+}

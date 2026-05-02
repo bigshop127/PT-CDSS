@@ -1,0 +1,51 @@
+{
+  "id": "0592C164512CE11B79329D6F01BBE399",
+  "title": "0592C164512CE11B79329D6F01BBE399",
+  "pubDate": "2025-04-24",
+  "model": "groq",
+  "analysis": {
+    "market_regime": "BEAR",
+    "market_regime_reason": "台股出現空方缺口，短期趨勢往下",
+    "global_macro": [
+      "美債殖利率可能會出現一波拋售潮",
+      "美債價格可能會出現一波新的下跌"
+    ],
+    "index_0050_observation": "台股持續延續跌勢，跌破了本周一的大量低點",
+    "volume_signal": "賣壓",
+    "mentioned_stocks": [
+      {
+        "code": "0592",
+        "name": "嘉楠科技",
+        "signal": "SELL",
+        "reason": "大跌逾13%"
+      },
+      {
+        "code": "2887",
+        "name": "微策略",
+        "signal": "SELL",
+        "reason": "高達12%跌幅"
+      },
+      {
+        "code": "COIN",
+        "name": "加密貨幣交易所",
+        "signal": "SELL",
+        "reason": "下跌6%"
+      }
+    ],
+    "sector_special_reports": [
+      {
+        "sector": "半導體",
+        "content": "費城半導體指數反彈過程一直沒有辦法封閉前面的空方缺口"
+      }
+    ],
+    "entry_conditions_mentioned": [
+      "守住五日跟十日均線",
+      "守住季均線"
+    ],
+    "exit_conditions_mentioned": [
+      "跌破五日跟十日均線",
+      "跌破季均線"
+    ],
+    "strategy_insights": "持股水位控制在三成，避免萬一台北股市又往下出現一波跌勢的風險"
+  }
+}

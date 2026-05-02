@@ -1,0 +1,51 @@
+{
+  "id": "C9D85516031C5167AA38A77B6C76B85B",
+  "title": "C9D85516031C5167AA38A77B6C76B85B",
+  "pubDate": "2025-04-24",
+  "model": "groq",
+  "analysis": {
+    "market_regime": "BULL",
+    "market_regime_reason": "台股大漲挑戰10月前高壓力！",
+    "global_macro": [
+      "美國聯準會降息",
+      "中美貿易戰"
+    ],
+    "index_0050_observation": "守住三條短期均線",
+    "volume_signal": "成交量增加",
+    "mentioned_stocks": [
+      {
+        "code": "00633",
+        "name": "富邦上證正2",
+        "signal": "BUY",
+        "reason": "站上五日跟十日均線"
+      },
+      {
+        "code": "2618",
+        "name": "長榮航",
+        "signal": "BUY",
+        "reason": "突破前高壓力"
+      },
+      {
+        "code": "2615",
+        "name": "華航",
+        "signal": "BUY",
+        "reason": "守住十日均線"
+      }
+    ],
+    "sector_special_reports": [
+      {
+        "sector": "航空業",
+        "content": "航空雙雄能夠持續創高"
+      }
+    ],
+    "entry_conditions_mentioned": [
+      "站上五日跟十日均線",
+      "突破前高壓力"
+    ],
+    "exit_conditions_mentioned": [
+      "跌破五日均線",
+      "跌破十日均線"
+    ],
+    "strategy_insights": "維持五成持股水位"
+  }
+}

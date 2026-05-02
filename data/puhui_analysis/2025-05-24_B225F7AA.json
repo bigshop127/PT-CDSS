@@ -1,0 +1,54 @@
+{
+  "id": "B225F7AA62B031203BBC0A7113EB0DE0",
+  "title": "B225F7AA62B031203BBC0A7113EB0DE0",
+  "pubDate": "2025-05-24",
+  "model": "qwen2.5:7b",
+  "analysis": {
+    "market_regime": "BULL",
+    "market_regime_reason": "台股大漲再創新高，矽光子高低基期輪動輪漲，記憶體反彈有戲。",
+    "global_macro": [
+      "美中和談持續上漲",
+      "沙烏地阿拉伯投資美國6000億美元"
+    ],
+    "index_0050_observation": "台北股市大漲再創新高",
+    "volume_signal": "爆量低點支撐強勢",
+    "mentioned_stocks": [
+      {
+        "code": "3481",
+        "name": "華星光",
+        "signal": "BUY",
+        "reason": "低基期，跌深反彈型態"
+      },
+      {
+        "code": "3260",
+        "name": "立碁",
+        "signal": "BUY",
+        "reason": "低基期，短線多方型態"
+      },
+      {
+        "code": "2409",
+        "name": "南亞科",
+        "signal": "WATCH",
+        "reason": "關鍵短線翻多"
+      }
+    ],
+    "sector_special_reports": [
+      {
+        "sector": "矽光子",
+        "content": "高低基期輪動輪漲，低基期個股表現亮眼"
+      },
+      {
+        "sector": "記憶體",
+        "content": "反彈大漲，前高壓力需突破"
+      }
+    ],
+    "entry_conditions_mentioned": [
+      "跌深反彈型態",
+      "短線多方型態"
+    ],
+    "exit_conditions_mentioned": [
+      "爆大量缺口被封閉"
+    ],
+    "strategy_insights": "技術分析講在前頭，順勢而為，不預設立場"
+  }
+}

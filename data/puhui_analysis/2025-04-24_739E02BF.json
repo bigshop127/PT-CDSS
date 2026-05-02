@@ -1,0 +1,49 @@
+{
+  "id": "739E02BFF7665B75283681BFDE085679",
+  "title": "739E02BFF7665B75283681BFDE085679",
+  "pubDate": "2025-04-24",
+  "model": "qwen2.5:7b",
+  "analysis": {
+    "market_regime": "BEAR",
+    "market_regime_reason": "台股連二天開高走低，碰到均線壓力；櫃買市場同樣開高走低，且有空方缺口壓力。",
+    "global_macro": [
+      "美國通膨數據好轉，預期聯準會降息次數與幅度增加"
+    ],
+    "index_0050_observation": "台股指數開高走低，下跌破百點；櫃買市場下跌逾0.2%",
+    "volume_signal": "華邦電只要持續維持單日超過20萬張的大量，就能繼續推動股價大漲創高",
+    "mentioned_stocks": [
+      {
+        "code": "2454",
+        "name": "華邦電子",
+        "signal": "BUY",
+        "reason": "站上季均線且成交量大"
+      },
+      {
+        "code": "2337",
+        "name": "南亞科",
+        "signal": "BUY",
+        "reason": "站上月均線且有突破前高點的可能"
+      },
+      {
+        "code": "8999",
+        "name": "旺宏電子",
+        "signal": "WATCH",
+        "reason": "表現較弱，成交量量縮"
+      }
+    ],
+    "sector_special_reports": [
+      {
+        "sector": "記憶體產業",
+        "content": "右下角跌深型態反彈大漲，看好華邦電、南亞科、旺宏電子"
+      }
+    ],
+    "entry_conditions_mentioned": [
+      "站上季均線或月均線"
+    ],
+    "exit_conditions_mentioned": [
+      "跌破季均线或月均线",
+      "成交量大幅萎缩"
+    ],
+    "strategy_insights": "維持三成或以下持股水位，多看少做；注意缺口和均线压力"
+  }
+}

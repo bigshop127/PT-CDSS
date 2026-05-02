@@ -1,0 +1,50 @@
+{
+  "id": "F0191AC02763CEDAD67AA5209597F696",
+  "title": "F0191AC02763CEDAD67AA5209597F696",
+  "pubDate": "2025-05-24",
+  "model": "qwen2.5:7b",
+  "analysis": {
+    "market_regime": "BULL",
+    "market_regime_reason": "台幣升值帶動內需產業表現，傳產股受惠於匯率有利，但電子股短期受到壓制。",
+    "global_macro": [
+      "美元兌新台幣匯價大幅升值7%",
+      "美國貿易政策不確定性"
+    ],
+    "index_0050_observation": "大盤指數多了一些下影線守住多方中繼缺口",
+    "volume_signal": "資金流向內需產業和土地資產概念股，電子股短期受壓",
+    "mentioned_stocks": [
+      {
+        "code": "2317",
+        "name": "南紡",
+        "signal": "BUY",
+        "reason": "台幣升值帶動土地資產概念股"
+      },
+      {
+        "code": "0006",
+        "name": "上曜",
+        "signal": "BUY",
+        "reason": "台幣升值帶來獲利提升"
+      },
+      {
+        "code": "0005",
+        "name": "大同",
+        "signal": "BUY",
+        "reason": "台幣升值帶來獲利提升"
+      }
+    ],
+    "sector_special_reports": [
+      {
+        "sector": "傳產股",
+        "content": "台幣升值使得進口成本降低，內銷產業受惠"
+      }
+    ],
+    "entry_conditions_mentioned": [
+      "觀察今日爆出大量的低點能不能守住",
+      "封閉中繼缺口並不是這波反彈結束"
+    ],
+    "exit_conditions_mentioned": [
+      "出現快速量縮的情況"
+    ],
+    "strategy_insights": "短期選股布局請先暫時避開電子族群；靜待觀察傳產與資產類股開始轉弱，才能重新回來尋找電子股買進布局"
+  }
+}

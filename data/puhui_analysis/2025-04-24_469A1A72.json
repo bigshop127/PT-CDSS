@@ -1,0 +1,49 @@
+{
+  "id": "469A1A722CFCC730F38E3DF090D83478",
+  "title": "469A1A722CFCC730F38E3DF090D83478",
+  "pubDate": "2025-04-24",
+  "model": "qwen2.5:7b",
+  "analysis": {
+    "market_regime": "BEAR",
+    "market_regime_reason": "美股及台股出现明显下跌趋势，道琼斯指数连续多日收黑，S&P500与纳斯达克指数也大幅下挫。台股方面，跌破长期支撑位，存在熊市风险。",
+    "global_macro": [
+      "经济衰退担忧",
+      "美国消费支出疲软",
+      "AI泡沫破灭",
+      "贸易冲突升级"
+    ],
+    "index_0050_observation": "台股市值加权指数（如台证50）表现弱于大盘，但未明显跌破关键支撑位。",
+    "volume_signal": "市场成交量在部分强势股中有所放大，但整体萎缩，显示市场情绪低迷。",
+    "mentioned_stocks": [
+      {
+        "code": "2337",
+        "name": "欣銓科技",
+        "signal": "WATCH",
+        "reason": "表现抗跌，但仍需关注后续走势"
+      },
+      {
+        "code": "6188",
+        "name": "茂綸電子",
+        "signal": "BUY",
+        "reason": "爆量创新高，有持续上涨潜力"
+      }
+    ],
+    "sector_special_reports": [
+      {
+        "sector": "IC通路",
+        "content": "茂綸电子表现出色，成交量放大且股价创新高。"
+      },
+      {
+        "sector": "半导体",
+        "content": "台积电等芯片股表现疲软，但部分个股如安馳仍保持强势。"
+      }
+    ],
+    "entry_conditions_mentioned": [
+      "等待大盘指数突破五日与十日均线"
+    ],
+    "exit_conditions_mentioned": [
+      "跌破年线或十年线"
+    ],
+    "strategy_insights": "建议维持三成以下持股水位，关注强势股量价配合情况，避免盲目抢反弹。"
+  }
+}

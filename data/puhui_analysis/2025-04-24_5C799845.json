@@ -1,0 +1,48 @@
+{
+  "id": "5C7998452EE78329A7F5B2E6F4E5A39D",
+  "title": "5C7998452EE78329A7F5B2E6F4E5A39D",
+  "pubDate": "2025-04-24",
+  "model": "qwen2.5:7b",
+  "analysis": {
+    "market_regime": "BEAR",
+    "market_regime_reason": "台股出現多個空方缺口未被封閉，且美股因貿易戰擔憂而大幅下跌。",
+    "global_macro": [
+      "中美貿易摩擦加劇",
+      "美國對中國商品徵收新關稅"
+    ],
+    "index_0050_observation": "台積電和鴻海等權值股昨日打開跌停板，成交量爆量但未能止跌；空方缺口未被封閉。",
+    "volume_signal": "有大量出現，但未能有效止跌",
+    "mentioned_stocks": [
+      {
+        "code": "2330",
+        "name": "台積電",
+        "signal": "WATCH",
+        "reason": "守住爆大量低點，但股價僅小跌"
+      },
+      {
+        "code": "2454",
+        "name": "鴻海",
+        "signal": "SELL",
+        "reason": "跌破爆大量低點，股價繼續大跌"
+      }
+    ],
+    "sector_special_reports": [
+      {
+        "sector": "半導體",
+        "content": "台積電表現相對強勢，但鴻海等大型權值股仍受貿易戰影響"
+      },
+      {
+        "sector": "汽車",
+        "content": "加拿大與歐盟反擊美國關稅，可能引發更多貿易摩擦"
+      }
+    ],
+    "entry_conditions_mentioned": [
+      "爆大量低點能否守住",
+      "美股能否扭轉跌勢"
+    ],
+    "exit_conditions_mentioned": [
+      "空方缺口是否被封閉"
+    ],
+    "strategy_insights": "需密切關注台股成交量與美股動向，短期內不宜輕易抄底；長期可等待市場止跌反彈。"
+  }
+}

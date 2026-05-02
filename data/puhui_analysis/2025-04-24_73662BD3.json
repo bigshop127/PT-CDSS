@@ -1,0 +1,31 @@
+{
+  "id": "73662BD3F4884CD79D33299C9CFB702E",
+  "title": "73662BD3F4884CD79D33299C9CFB702E",
+  "pubDate": "2025-04-24",
+  "model": "qwen2.5:7b",
+  "analysis": {
+    "market_regime": "BEAR",
+    "market_regime_reason": "美股受到通膨與關稅雙重利空夾擊而全面崩跌，引發市場恐慌情緒急速升溫。川普宣布對所有非美製汽車課徵25%關稅，並考慮擴大至其他產品，增加市場不確定性。",
+    "global_macro": [
+      "通脹數據再度升溫",
+      "消費動能壓縮",
+      "經濟數據全面惡化"
+    ],
+    "index_0050_observation": "台指期貨上週五夜盤受到美股重挫影響，收盤仍然大跌458點之多！",
+    "volume_signal": "市場恐慌情緒急速升溫，資金轉向流進避險資產。",
+    "mentioned_stocks": [],
+    "sector_special_reports": [
+      {
+        "sector": "汽車類股",
+        "content": "Stellantis跌幅超過4%，Ford則是下跌2%、GM跌1.1%，日系車廠Toyota、VW與Honda的ADR也全數走弱。"
+      },
+      {
+        "sector": "科技類股",
+        "content": "Alphabet大跌4.9%，Meta與Amazon各跌約4.3%，拖累那斯達克指數慘跌2.7%！"
+      }
+    ],
+    "entry_conditions_mentioned": [],
+    "exit_conditions_mentioned": [],
+    "strategy_insights": "本週除了川普的對等關稅貿易將左右美股行情，另外還有需要注意的就是美國就業數據！市場預期非農新增就業為13.5萬人，失業率將持平4.1%，要是公布結果不如預期，就會進一步加深市場對於經濟放緩的擔憂。"
+  }
+}

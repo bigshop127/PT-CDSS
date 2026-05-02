@@ -1,0 +1,48 @@
+{
+  "id": "5950C6E65FCBCEC7385BAFF8B38D0009",
+  "title": "5950C6E65FCBCEC7385BAFF8B38D0009",
+  "pubDate": "2025-05-24",
+  "model": "qwen2.5:7b",
+  "analysis": {
+    "market_regime": "BULL",
+    "market_regime_reason": "美股与台股均呈现三阳开泰的多方形态，且全球主要指数表现积极。",
+    "global_macro": [
+      "中美贸易谈判无实质进展",
+      "美国经济硬着陆风险上升"
+    ],
+    "index_0050_observation": "台积电和鸿海等权重股股价维持在短期均线上方，显示市场对这些股票的信心较强。",
+    "volume_signal": "部分强势股出现爆量低点，表明市场情绪积极。",
+    "mentioned_stocks": [
+      {
+        "code": "2330",
+        "name": "台积电",
+        "signal": "BUY",
+        "reason": "股价连续三天在月均线之上，外资连续买超"
+      },
+      {
+        "code": "2317",
+        "name": "鸿海",
+        "signal": "BUY",
+        "reason": "散户持股比例下降，筹码面转佳"
+      }
+    ],
+    "sector_special_reports": [
+      {
+        "sector": "半导体",
+        "content": "广达股价反弹至季均线，外资买多于卖"
+      },
+      {
+        "sector": "电子组装",
+        "content": "台美股市防守月均线即可，土地资产快速量缩"
+      }
+    ],
+    "entry_conditions_mentioned": [
+      "爆大量低点",
+      "五日与十日均线未跌破"
+    ],
+    "exit_conditions_mentioned": [
+      "五日或十日均线跌破"
+    ],
+    "strategy_insights": "操作强者恒强的飆股时，应关注爆大量的低点和均线是否被突破。"
+  }
+}

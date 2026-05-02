@@ -1,0 +1,58 @@
+{
+  "id": "04A3A6A65FEDD8B4AAEF4A91328276F8",
+  "title": "04A3A6A65FEDD8B4AAEF4A91328276F8",
+  "pubDate": "2025-05-24",
+  "model": "qwen2.5:7b",
+  "analysis": {
+    "market_regime": "BULL",
+    "market_regime_reason": "Nvidia財報優於預期，且美國科技製造業國產化趨勢持續，台股整體表現仍維持多方。",
+    "global_macro": [
+      "美國科技業財報佳"
+    ],
+    "index_0050_observation": "台股指數未見顯著異動，但個股表現分化",
+    "volume_signal": "多數個股成交量腰斬，顯示市場整體信心有所轉弱",
+    "mentioned_stocks": [
+      {
+        "code": "6289",
+        "name": "精成科",
+        "signal": "SELL",
+        "reason": "公司四月合併營收雖然年增率高，但獲利表現不如預期；現金增資將稀釋EPS"
+      },
+      {
+        "code": "2603",
+        "name": "萬海運輸",
+        "signal": "SELL",
+        "reason": "成交量腰斬且跌破爆大量低點，顯示短期趨勢轉弱"
+      },
+      {
+        "code": "1303",
+        "name": "長榮航運",
+        "signal": "SELL",
+        "reason": "成交量腰斬且跌破爆大量低點，顯示短期趨勢轉弱"
+      },
+      {
+        "code": "2609",
+        "name": "陽明海運",
+        "signal": "SELL",
+        "reason": "成交量腰斬且跌破爆大量低點，顯示短期趨勢轉弱"
+      }
+    ],
+    "sector_special_reports": [
+      {
+        "sector": "貨櫃航運",
+        "content": "歐洲線集運期貨走勢下修，影響貨櫃三雄表現；未來需密切關注歐洲線集運期貨動向"
+      },
+      {
+        "sector": "半導體",
+        "content": "Nvidia財報優於預期，顯示美國科技製造業國產化趨勢正在逐步實現"
+      }
+    ],
+    "entry_conditions_mentioned": [
+      "未提及具體進場條件"
+    ],
+    "exit_conditions_mentioned": [
+      "跌破五日與十日均線才考慮止損"
+    ],
+    "strategy_insights": "短期市場信心轉弱，個股表現分化；建議密切關注成交量變化及均線支撐"
+  }
+}

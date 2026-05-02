@@ -1,0 +1,48 @@
+{
+  "id": "EFD122434BDC5138FE488A485D7667DA",
+  "title": "2026/04/13 國巨大漲飆新高，被動元件全面反彈印證！南亞科跟華邦電還能反 - PressPlay",
+  "pubDate": "2026-04-17",
+  "model": "qwen2.5:7b",
+  "analysis": {
+    "market_regime": "BULL",
+    "market_regime_reason": "台股受到國巨等被動元件族群反彈帶動，且台積電法說會預期正面。",
+    "global_macro": [
+      "美伊談判破裂，油價上漲"
+    ],
+    "index_0050_observation": "台指期貨早盤下跌但很快收斂跌幅並轉漲",
+    "volume_signal": "櫃買市場爆天量，短期需關注五日均線支撐",
+    "mentioned_stocks": [
+      {
+        "code": "2327",
+        "name": "國巨",
+        "signal": "BUY",
+        "reason": "站上所有短中長期均線，反彈上來"
+      },
+      {
+        "code": "8036",
+        "name": "南亞科",
+        "signal": "WATCH",
+        "reason": "需關注五日跟十日均线"
+      },
+      {
+        "code": "8035",
+        "name": "華邦電",
+        "signal": "WATCH",
+        "reason": "需关注五日跟十日均线"
+      }
+    ],
+    "sector_special_reports": [
+      {
+        "sector": "被動元件",
+        "content": "被動元件族群全面反彈，看好後續表現"
+      }
+    ],
+    "entry_conditions_mentioned": [
+      "站上所有短中长期均线"
+    ],
+    "exit_conditions_mentioned": [
+      "跌破五日及十日均线"
+    ],
+    "strategy_insights": "短期資金維持五成持股水位，關注油價動向對美股反彈的影響"
+  }
+}

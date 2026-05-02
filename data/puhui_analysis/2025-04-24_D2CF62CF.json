@@ -1,0 +1,56 @@
+{
+  "id": "D2CF62CF549813687590B72E7DF648EC",
+  "title": "D2CF62CF549813687590B72E7DF648EC",
+  "pubDate": "2025-04-24",
+  "model": "groq",
+  "analysis": {
+    "market_regime": "BULL",
+    "market_regime_reason": "市場對於川普落選的期待導致比特幣價格下跌，美股可能會出現大漲",
+    "global_macro": [
+      "美國總統大選",
+      "聯準會利率決策會議",
+      "美元、美債殖利率的變化"
+    ],
+    "index_0050_observation": "大盤指數延續強勢反彈，但上方短期均線都沒有辦法突破",
+    "volume_signal": "市場交易量增加，表明市場參與度提高",
+    "mentioned_stocks": [
+      {
+        "code": "2330",
+        "name": "台積電",
+        "signal": "BUY",
+        "reason": "公司的半導體業務表現良好"
+      },
+      {
+        "code": "2454",
+        "name": "長榮航",
+        "signal": "SELL",
+        "reason": "公司的前高壓力沒有辦法突破"
+      },
+      {
+        "code": "3008",
+        "name": "技嘉",
+        "signal": "BUY",
+        "reason": "公司的業務表現良好，季均線防守數周之後終於拉出一根長紅"
+      }
+    ],
+    "sector_special_reports": [
+      {
+        "sector": "半導體",
+        "content": "半導體業務表現良好，公司股價有升值空間"
+      },
+      {
+        "sector": "航空",
+        "content": "航空業績表現不佳，公司股價有下跌風險"
+      }
+    ],
+    "entry_conditions_mentioned": [
+      "守住季均線與長紅低點",
+      "買進布局設定月季均線跌破停損"
+    ],
+    "exit_conditions_mentioned": [
+      "跌破長紅低點",
+      "跌破季均線"
+    ],
+    "strategy_insights": "市場對於川普落選的期待導致比特幣價格下跌，美股可能會出現大漲，投資者應該買進台積電和技嘉，賣出長榮航"
+  }
+}

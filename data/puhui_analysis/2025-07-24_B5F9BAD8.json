@@ -1,0 +1,67 @@
+{
+  "id": "B5F9BAD81007867494206363629E1494",
+  "title": "2025/07/11 GB300強強滾，為什麼代工五雄都不漲？千張大戶持股比例才 - PressPlay",
+  "pubDate": "2025-07-24",
+  "model": "qwen2.5:7b",
+  "analysis": {
+    "market_regime": "BULL",
+    "market_regime_reason": "美股及台股表现强劲，Nvidia股价创新高；S&P500和那斯达克指数创历史新高。",
+    "global_macro": [
+      "貿易冲突迹象被市场忽略",
+      "美国政府对联准会主席鲍尔的政治攻击"
+    ],
+    "index_0050_observation": "台股表现相对弱势，代工五雄股价未见明显上涨。",
+    "volume_signal": "千张以上大户持股比例下降，显示存在其他卖压。",
+    "mentioned_stocks": [
+      {
+        "code": "2382",
+        "name": "廣達電子",
+        "signal": "WATCH",
+        "reason": "外資持续买超但千张大户持股比例下降"
+      },
+      {
+        "code": "2317",
+        "name": "鴻海精密",
+        "signal": "WATCH",
+        "reason": "月均线附近盘整，需关注外资动向"
+      },
+      {
+        "code": "8047",
+        "name": "聯發科技",
+        "signal": "WATCH",
+        "reason": "六月营收表现良好但股价未见明显上涨"
+      },
+      {
+        "code": "3035",
+        "name": "神達電子",
+        "signal": "WATCH",
+        "reason": "月均线附近盘整，需关注外资动向"
+      },
+      {
+        "code": "8049",
+        "name": "緯創資通",
+        "signal": "WATCH",
+        "reason": "千张大户持股比例下降，存在套牢压力"
+      }
+    ],
+    "sector_special_reports": [
+      {
+        "sector": "電子元件",
+        "content": "代工五雄六月营收表现较五月逊色，股价未见明显上涨。"
+      },
+      {
+        "sector": "半導體",
+        "content": "Nvidia股价创新高，市场对高效能晶片需求强劲。"
+      }
+    ],
+    "entry_conditions_mentioned": [
+      "守住月均线",
+      "突破大量套牢压力"
+    ],
+    "exit_conditions_mentioned": [
+      "跌破月均线",
+      "千张大户持股比例下降"
+    ],
+    "strategy_insights": "从筹码面观察，广达电子的外资持续买超但股价未见明显上涨，需关注千张以上大户的动向。"
+  }
+}

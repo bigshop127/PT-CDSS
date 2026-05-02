@@ -1,0 +1,48 @@
+{
+  "id": "7F520D886CDA4D3D3EECD23755EE10FA",
+  "title": "2025/07/28 今夏最重要一週！歐盟軟了跟進和談15%關稅！台股靜待爆大量 - PressPlay",
+  "pubDate": "2025-07-24",
+  "model": "qwen2.5:7b",
+  "analysis": {
+    "market_regime": "BULL",
+    "market_regime_reason": "美股S&P500与纳斯达克指数连续多日创新高，且市场预期美国与欧盟可能达成贸易协议。",
+    "global_macro": [
+      "美股持续创新高",
+      "美欧即将达成贸易协议"
+    ],
+    "index_0050_observation": "台股等待川普关税最终宣布，能否突破爆大量高点压力",
+    "volume_signal": "静待爆大量高低点表態",
+    "mentioned_stocks": [
+      {
+        "code": "2330",
+        "name": "台積電",
+        "signal": "WATCH",
+        "reason": "等待川普关税最终宣布"
+      },
+      {
+        "code": "2409",
+        "name": "鴻海",
+        "signal": "SELL",
+        "reason": "散戶狂卖，创新高后回调压力大"
+      }
+    ],
+    "sector_special_reports": [
+      {
+        "sector": "科技",
+        "content": "美股科技巨头财报将聚焦AI资本支出，市场期待这些公司延续过去几家企业的获利表现。"
+      },
+      {
+        "sector": "傳產",
+        "content": "傳產企业面临川普关税压力，但部分企业如玻纤布指標富喬突破创新高。"
+      }
+    ],
+    "entry_conditions_mentioned": [
+      "等待川普关税最终宣布",
+      "台股能否突破爆大量高点压力"
+    ],
+    "exit_conditions_mentioned": [
+      "台股若跌破爆大量低点7月22日低点，形成凶多吉少的高檔转弱表態"
+    ],
+    "strategy_insights": "市场存在FOMO情绪，但中期回档风险已快速堆叠。科技巨头财报需好上更好以支撑股价上涨。"
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "id": "8815528804E7925658005A5E0A9D79F2",
+  "title": "8815528804E7925658005A5E0A9D79F2",
+  "pubDate": "2026-02-24",
+  "model": "groq",
+  "analysis": {
+    "market_regime": "BULL",
+    "market_regime_reason": "大盤指數已經翻多，形成三陽開泰的多方型態",
+    "global_macro": [
+      "美股三大指數下跌約0.5%"
+    ],
+    "index_0050_observation": "台北股市大盤指數站在三條短期均線之上",
+    "volume_signal": "櫃買市場若站上三條短期均線，則拉高持股水位至七成",
+    "mentioned_stocks": [
+      {
+        "code": "2330",
+        "name": "台積電",
+        "signal": "BUY",
+        "reason": "台積電在封關期間上漲超過2.1%"
+      },
+      {
+        "code": "2454",
+        "name": "旺宏",
+        "signal": "BUY",
+        "reason": "旺宏在新春封關日漲停並領先創下波段新高"
+      },
+      {
+        "code": "2354",
+        "name": "華邦電",
+        "signal": "BUY",
+        "reason": "華邦電三陽開泰續漲"
+      },
+      {
+        "code": "2409",
+        "name": "南亞科",
+        "signal": "BUY",
+        "reason": "南亞科翻多了"
+      }
+    ],
+    "sector_special_reports": [
+      {
+        "sector": "記憶體",
+        "content": "記憶體三雄最強的指標股，現在已經變成旺宏"
+      }
+    ],
+    "entry_conditions_mentioned": [
+      "站上三條短期均線"
+    ],
+    "exit_conditions_mentioned": [
+      "跌破三條短期均線"
+    ],
+    "strategy_insights": "持續維持五成持股繼續做多，不變"
+  }
+}

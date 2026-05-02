@@ -235,7 +235,7 @@ async function geminiAnalyze(text, title, date, retryCount = 0) {
 
 async function groqAnalyze(text, title, date, retryCount = 0) {
   const GROQ_API_KEY = process.env.GROQ_API_KEY;
-  const prompt = `你是台股量化策略分析師。請分析以下報告並用 JSON 回應。\n文章標題：${title}\n日期：${date}\n內容：${text.substring(0, 8000)}\n\n${SCHEMA_HINT}`;
+  const prompt = `你是台股量化策略分析師。請分析以下報告並用 JSON 回應。\n文章標題：${title}\n日期：${date}\n內容：${text.substring(0, 3500)}\n\n${SCHEMA_HINT}`;
   if (retryCount === 0) console.log(`[Groq] Analyzing: ${title.substring(0, 40)}...`);
   try {
     const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
@@ -290,9 +290,43 @@ async function claudeCliAnalyze(text, title, date, retryCount = 0) {
   }
 }
 
+async function geminiCliAnalyze(text, title, date, retryCount = 0) {
+  const os = require('os');
+  const prompt = `你是台股量化策略分析師。請分析以下報告並用 JSON 回應。\n文章標題：${title}\n日期：${date}\n內容：${text.substring(0, 12000)}\n\n${SCHEMA_HINT}`;
+  const tmpFile = path.join(os.tmpdir(), 'gprompt_' + Date.now() + '.txt');
+  fs.writeFileSync(tmpFile, prompt, 'utf8');
+  const result = spawnSync('powershell', [
+    '-NoProfile', '-NonInteractive', '-Command',
+    `[Console]::OutputEncoding = [Text.UTF8Encoding]::new(); gemini -p ([System.IO.File]::ReadAllText('${tmpFile}'))`
+  ], { encoding: 'utf8', timeout: 180000 });
+  try { fs.unlinkSync(tmpFile); } catch (e) {}
+  const combined = (result.stdout || '') + (result.stderr || '');
+  if (/quota|rate.?limit|resource.?exhausted|too many requests|limit.*exceeded|exceeded.*limit/i.test(combined)) {
+    STOP_PROCESSING = true;
+    return { usage_limit: true, error: 'Gemini CLI usage limit reached' };
+  }
+  if (result.error?.code === 'ETIMEDOUT' && retryCount < 2) {
+    console.log(`⏱️ Gemini CLI timeout (attempt ${retryCount + 1}/3), retrying in 10s...`);
+    await new Promise(r => setTimeout(r, 10000));
+    return geminiCliAnalyze(text, title, date, retryCount + 1);
+  }
+  if (result.error || result.status !== 0) {
+    return { parse_error: true, error: result.error?.message || `exit ${result.status}`, stderr: combined.substring(0, 300) };
+  }
+  try {
+    const clean = (result.stdout || '').replace(/```json/g, '').replace(/```/g, '').trim();
+    const jsonMatch = clean.match(/\{[\s\S]*\}/);
+    const raw = jsonMatch ? JSON.parse(jsonMatch[0]) : null;
+    return normalizeAnalysis(raw) || { parse_error: true, raw_response: clean.substring(0, 500) };
+  } catch (e) {
+    return { parse_error: true, error: e.message };
+  }
+}
+
 async function main() {
   mkdir(RAW_DIR); mkdir(ANALYSIS_DIR);
-  const isGemini = MODEL_NAME.toLowerCase().includes('gemini');
+  const isGeminiCli = MODEL_NAME.toLowerCase() === 'gemini-cli';
+  const isGemini = !isGeminiCli && MODEL_NAME.toLowerCase().includes('gemini');
   const isClaude = MODEL_NAME.toLowerCase() === 'claude';
   const isGroq = MODEL_NAME.toLowerCase() === 'groq';
   let sessionCount = 0;
@@ -320,14 +354,16 @@ async function main() {
 
       const analysis = isClaude
         ? await claudeCliAnalyze(text, pageTitle, dateLabel)
-        : isGemini
-          ? await geminiAnalyze(text, pageTitle, dateLabel)
-          : isGroq
-            ? await groqAnalyze(text, pageTitle, dateLabel)
-            : await ollamaAnalyze(text, pageTitle, dateLabel);
+        : isGeminiCli
+          ? await geminiCliAnalyze(text, pageTitle, dateLabel)
+          : isGemini
+            ? await geminiAnalyze(text, pageTitle, dateLabel)
+            : isGroq
+              ? await groqAnalyze(text, pageTitle, dateLabel)
+              : await ollamaAnalyze(text, pageTitle, dateLabel);
 
       if (analysis.usage_limit) {
-        console.log(`\n🛑 Claude usage limit hit at article ${i+1}/${ARTICLES.length}.`);
+        console.log(`\n🛑 Usage limit hit at article ${i+1}/${ARTICLES.length}.`);
         console.log(`✅ This session processed ${sessionCount} articles. All JSONs saved to ${ANALYSIS_DIR}`);
         break;
       }
@@ -339,7 +375,7 @@ async function main() {
       console.log(`[${i+1}/${ARTICLES.length}] ${status} Analyzed: ${pageTitle} (${dateLabel})`);
 
       if (i < ARTICLES.length - 1) {
-        await new Promise(r => setTimeout(r, isClaude ? 3000 : isGroq ? 10000 : 10000));
+        await new Promise(r => setTimeout(r, (isClaude || isGeminiCli) ? 3000 : isGroq ? 10000 : 10000));
       }
     } catch (err) {
       console.error(`[${i+1}/${ARTICLES.length}] ❌ Error processing ${art.id}: ${err.message}`);

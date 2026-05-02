@@ -1,0 +1,62 @@
+{
+  "id": "0BD077CF1640AAF8927866AC6273B4A8",
+  "title": "2026/03/31 美光再崩10%！大摩降評矽光子怎麼看？二線塑化漲多回檔結束 - PressPlay",
+  "pubDate": "2026-04-03",
+  "model": "qwen2.5:7b",
+  "analysis": {
+    "market_regime": "BEAR",
+    "market_regime_reason": "美股及台股受到美伊戰爭、聯準會升息預期等因素影響，市場情緒轉為避險。",
+    "global_macro": [
+      "通膨壓力上升",
+      "能源價格上漲",
+      "地緣政治風險增加"
+    ],
+    "index_0050_observation": "台指期近期表現疲弱，顯示市場對未來經濟成長的擔憂。",
+    "volume_signal": "塑化族群成交量放大，但需注意回檔賣壓。",
+    "mentioned_stocks": [
+      {
+        "code": "2346",
+        "name": "南亞科",
+        "signal": "SELL",
+        "reason": "跌破所有均线，技术面转弱"
+      },
+      {
+        "code": "8035",
+        "name": "聯亞科技",
+        "signal": "WATCH",
+        "reason": "已涨多，需观察月均线支撑"
+      },
+      {
+        "code": "6700",
+        "name": "穩懋-semi",
+        "signal": "BUY",
+        "reason": "投信连续买超，但需突破前高压力"
+      },
+      {
+        "code": "3125",
+        "name": "光環電網",
+        "signal": "SELL",
+        "reason": "价格战威胁利润"
+      }
+    ],
+    "sector_special_reports": [
+      {
+        "sector": "塑化",
+        "content": "近期逆勢上漲，但涨多回檔需关注成交量变化"
+      },
+      {
+        "sector": "矽光子",
+        "content": "大摩降评部分厂商，整体前景虽好但估值过高"
+      }
+    ],
+    "entry_conditions_mentioned": [
+      "突破短期均线",
+      "站稳月均线"
+    ],
+    "exit_conditions_mentioned": [
+      "跌破十日均线",
+      "大量低点被破"
+    ],
+    "strategy_insights": "建议投资者在市场恐慌时寻找长期投资机会，而非短线下仓。"
+  }
+}

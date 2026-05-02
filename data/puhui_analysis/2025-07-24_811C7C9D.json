@@ -1,0 +1,61 @@
+{
+  "id": "811C7C9D672B7BAFAFE08E00B7D59510",
+  "title": "2025/07/22 台股創高後急殺怎麼辦？櫃買跌破月均線轉弱，三角收斂下緣成最 - PressPlay",
+  "pubDate": "2025-07-24",
+  "model": "qwen2.5:7b",
+  "analysis": {
+    "market_regime": "BULL",
+    "market_regime_reason": "台積電等大型權值股表現強勁，道瓊指數站回三條短期均線，美股S&P500與那斯達克指數創歷史新高。",
+    "global_macro": [
+      "美債殖利率上升但暫未突破警戒水準",
+      "比特幣投資大舉加碼"
+    ],
+    "index_0050_observation": "台股表現強勁，台積電等權值股創新高，櫃買市場則因無法突破前波高點而轉弱。",
+    "volume_signal": "台積電等大型權值股成交量保持穩定，但櫃買市場成交量有所下降。",
+    "mentioned_stocks": [
+      {
+        "code": "2330",
+        "name": "台積電",
+        "signal": "BUY",
+        "reason": "站穩月均線，突破前高"
+      },
+      {
+        "code": "6178",
+        "name": "大量",
+        "signal": "SELL",
+        "reason": "未能有效突破前波高點"
+      },
+      {
+        "code": "4956",
+        "name": "精成科",
+        "signal": "BUY",
+        "reason": "成功突破前高压力"
+      },
+      {
+        "code": "3021",
+        "name": "偉訓",
+        "signal": "BUY",
+        "reason": "突破前高压力，站稳十日均线"
+      }
+    ],
+    "sector_special_reports": [
+      {
+        "sector": "科技股",
+        "content": "台積電等大型科技股表現強勁，帶動指數上漲"
+      },
+      {
+        "sector": "中小型股",
+        "content": "櫃買市場因無法突破前波高點而轉弱"
+      }
+    ],
+    "entry_conditions_mentioned": [
+      "站穩月均线",
+      "突破前高压力"
+    ],
+    "exit_conditions_mentioned": [
+      "跌破月均线",
+      "跌破前高压力"
+    ],
+    "strategy_insights": "投資者應關注大型權值股的月均线和十日均线，中小型股則需注意前波高点的压力。"
+  }
+}

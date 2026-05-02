@@ -1,0 +1,67 @@
+{
+  "id": "2D31C25D3E50B5BA24D236D7DDD996B1",
+  "title": "2D31C25D3E50B5BA24D236D7DDD996B1",
+  "pubDate": "2025-06-24",
+  "model": "qwen2.5:7b",
+  "analysis": {
+    "market_regime": "BULL",
+    "market_regime_reason": "美股和台股因川普宣布中东停火协议而出现反弹，柜买市场也力守季均线大漲。",
+    "global_macro": [
+      "地緣政治衝突快速降溫",
+      "風險資產全面轉強"
+    ],
+    "index_0050_observation": "台積電整理結束了嗎？",
+    "volume_signal": "櫃買市場成功在季均線附近收了一支長腳，今天伴隨美股跟台股大漲反彈。",
+    "mentioned_stocks": [
+      {
+        "code": "2334",
+        "name": "華邦電",
+        "signal": "BUY",
+        "reason": "站穩月均線之上，並出現多方缺口"
+      },
+      {
+        "code": "2356",
+        "name": "安國",
+        "signal": "BUY",
+        "reason": "站穩月均線之上，並出現多方缺口"
+      },
+      {
+        "code": "2317",
+        "name": "鴻海",
+        "signal": "WATCH",
+        "reason": "季均线支撑有效，但需观察外资买超动作"
+      },
+      {
+        "code": "2409",
+        "name": "廣達",
+        "signal": "BUY",
+        "reason": "站稳月均线之上，并出现多方缺口"
+      },
+      {
+        "code": "3008",
+        "name": "緯創",
+        "signal": "WATCH",
+        "reason": "月均线支撑有效，但需观察突破压力情况"
+      }
+    ],
+    "sector_special_reports": [
+      {
+        "sector": "電子零組件",
+        "content": "台積電、華邦電等股價站穩月均線之上，并出现多方缺口"
+      },
+      {
+        "sector": "半導體",
+        "content": "台積電整理结束的迹象，需观察后续表现"
+      }
+    ],
+    "entry_conditions_mentioned": [
+      "站稳月均线之上",
+      "出现多方缺口"
+    ],
+    "exit_conditions_mentioned": [
+      "跌破短期均线",
+      "筹码面结构变化"
+    ],
+    "strategy_insights": "短线上建议关注具有月均线支撑并出现多方缺口的个股，同时需观察外资动向和筹码面稳定性。"
+  }
+}

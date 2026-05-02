@@ -1,0 +1,47 @@
+{
+  "id": "672E6693C63614830EB3A310807D1207",
+  "title": "672E6693C63614830EB3A310807D1207",
+  "pubDate": "2025-06-24",
+  "model": "qwen2.5:7b",
+  "analysis": {
+    "market_regime": "BEAR",
+    "market_regime_reason": "地緣政治緊張和通膨預期升溫導致市場情緒轉弱，美股三巫日結算爆大量顯示短期修正壓力。",
+    "global_macro": [
+      "地緣政治風險",
+      "通膨預期"
+    ],
+    "index_0050_observation": "台北股市跌破月均線，短線走勢偏弱",
+    "volume_signal": "三巫日結算爆大量，顯示市場情緒和資金流動性強烈。",
+    "mentioned_stocks": [
+      {
+        "code": "2330",
+        "name": "台積電",
+        "signal": "WATCH",
+        "reason": "半導體晶片股受美國政策影響較大，需密切關注"
+      },
+      {
+        "code": "6588",
+        "name": "聯發科",
+        "signal": "SELL",
+        "reason": "同屬半導體產業，受地緣政治風險影響"
+      }
+    ],
+    "sector_special_reports": [
+      {
+        "sector": "半導體",
+        "content": "美國有意取消特定廠商對於中國出口的晶片豁免，導致台積電等公司股價下跌。"
+      },
+      {
+        "sector": "加密貨幣",
+        "content": "Circle和Coinbase因穩定幣法案通過而上漲，但比特幣受地緣政治影響短線波動大。"
+      }
+    ],
+    "entry_conditions_mentioned": [
+      "跌破短期均線後未快速反彈"
+    ],
+    "exit_conditions_mentioned": [
+      "三巫日結算爆大量低點被突破"
+    ],
+    "strategy_insights": "建議保持五成持股水位，密切關注伊朗封鎖荷莫茲海峽的可能性及其對油價和通膨的影響。"
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "id": "437FCA1A3915927CA1D557D2F6C1C342",
+  "title": "2026/04/17 櫃買爆量三千億！台積電法說後掛了？玻纖布再次全面噴出！金居 - PressPlay",
+  "pubDate": "2026-04-17",
+  "model": "qwen2.5:7b",
+  "analysis": {
+    "market_regime": "BULL",
+    "market_regime_reason": "美股S&P500和那斯達克连续刷新历史高点，市场情绪乐观期待美伊停战。",
+    "global_macro": [
+      "美股S&P500和那斯达克同步刷新历史新高",
+      "川普宣布以色列与黎巴嫩达成10天停火协议"
+    ],
+    "index_0050_observation": "台股今日下跌200点，但未跌破连五日均线，仍维持多头行情。",
+    "volume_signal": "櫃買市场再度大涨，成交量持续滚量放大，显示市场人气旺盛。",
+    "mentioned_stocks": [
+      {
+        "code": "2330",
+        "name": "台積電",
+        "signal": "BUY",
+        "reason": "法說會公布財報亮眼，外資掀起目标价上修竞赛"
+      },
+      {
+        "code": "1435",
+        "name": "聯亞",
+        "signal": "BUY",
+        "reason": "重新站回三條短期均线，短線轉強"
+      },
+      {
+        "code": "2608",
+        "name": "華星光",
+        "signal": "BUY",
+        "reason": "解除分盘交易后爆大量低点守住，持续上涨"
+      },
+      {
+        "code": "3147",
+        "name": "金居",
+        "signal": "BUY",
+        "reason": "成功突破长期高点压力，继续维持多方趋势"
+      }
+    ],
+    "sector_special_reports": [
+      {
+        "sector": "半導體",
+        "content": "台積電法說會公布財報亮眼，外資掀起目标价上修竞赛"
+      },
+      {
+        "sector": "玻纖布",
+        "content": "德宏持续大漲创高，带动同族群个股上涨"
+      }
+    ],
+    "entry_conditions_mentioned": [
+      "站上三條短期均线",
+      "所有短中长期均线翻多"
+    ],
+    "exit_conditions_mentioned": [
+      "跌破十日均线"
+    ],
+    "strategy_insights": "当前市场处于极端看多的狂热期间，建议把握机会，但需注意美股大盘指数由极少数大型科技市值股拉抬，整体市场广度背离。"
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "id": "C861913B43D2723D501C9CDFD187C586",
+  "title": "C861913B43D2723D501C9CDFD187C586",
+  "pubDate": "2025-05-24",
+  "model": "qwen2.5:7b",
+  "analysis": {
+    "market_regime": "BEAR",
+    "market_regime_reason": "台股跌破短期均線，顯示短線轉弱；全球債券市場情緒不穩，特別是日本公債殖利率飆升。",
+    "global_macro": [
+      "美而大減稅法案對低收入戶幫助有限，傾向富人大減稅"
+    ],
+    "index_0050_observation": "台股指數跌破五日與十日均線，顯示短線轉弱；需注意月均線及季均線的支撐。",
+    "volume_signal": "高檔爆大量個股出現賣訊，特別是士紙和萬海等熱門人氣股。",
+    "mentioned_stocks": [
+      {
+        "code": "2317",
+        "name": "士林科技",
+        "signal": "SELL",
+        "reason": "高檔爆大量後快速跌破低點"
+      },
+      {
+        "code": "2609",
+        "name": "萬海運輸",
+        "signal": "WATCH",
+        "reason": "波段大量後低點被破，需密切注意"
+      }
+    ],
+    "sector_special_reports": [
+      {
+        "sector": "半導體",
+        "content": "無專門報告"
+      },
+      {
+        "sector": "航運",
+        "content": "萬海運輸爆大量後低點被破，需密切注意"
+      }
+    ],
+    "entry_conditions_mentioned": [
+      "未提及具體進場條件"
+    ],
+    "exit_conditions_mentioned": [
+      "未提及具體出場條件"
+    ],
+    "strategy_insights": "短期應維持三成持股水位，以高檔震盪為主；若要新一波漲勢需突破爆大量高點。"
+  }
+}

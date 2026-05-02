@@ -1,0 +1,31 @@
+{
+  "id": "C2D792313F41C7FC00FC6C69BE461ECF",
+  "title": "2026/03/23 警訊來了？櫃買市場跌破超級大量低點！台股跌破月均線再次轉弱 - PressPlay",
+  "pubDate": "2026-03-24",
+  "model": "qwen2.5:7b",
+  "analysis": {
+    "market_regime": "BEAR",
+    "market_regime_reason": "台股及櫃買市場均跌破近期大量低點，顯示短期內市場承壓，且美股也出現連續下跌趨勢。",
+    "global_macro": [
+      "地緣政治衝突",
+      "能源危機",
+      "通膨擔憂",
+      "美伊戰爭"
+    ],
+    "index_0050_observation": "大盤指數跌破三條短期均線，形成空方型態；櫃買市場也跌破近期大量低點。",
+    "volume_signal": "台股及櫃買市場出現超級大量，但今日被跌破，顯示短線套牢壓力再度增加。",
+    "mentioned_stocks": [],
+    "sector_special_reports": [
+      {
+        "sector": "記憶體",
+        "content": "大摩將DRAM雙雄南亞科與華邦電降評至中立，認為DDR4價格強勢定價能力即將弱化；旺宏則被視為唯一能填補MLC與TLC NAND供給短缺的關鍵供應商。"
+      }
+    ],
+    "entry_conditions_mentioned": [
+      "櫃買市場可以收復爆大量低點",
+      "大盤指數重新站回三條均線"
+    ],
+    "exit_conditions_mentioned": [],
+    "strategy_insights": "老王建議會員降低持股水位至三成，以應對未來可能的進一步下跌修正。"
+  }
+}

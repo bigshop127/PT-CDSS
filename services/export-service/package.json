@@ -1,0 +1,13 @@
+{
+  "name": "pt-export-service",
+  "version": "1.0.0",
+  "description": "Image export service for PT-CDSS",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.18.2",
+    "puppeteer": "^21.0.0",
+    "p-limit": "^3.1.0",
+    "handlebars": "^4.7.7",
+    "firebase-admin": "^11.10.1"
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "id": "3D110E9BF31282035FC39B5374664A59",
+  "title": "3D110E9BF31282035FC39B5374664A59",
+  "pubDate": "2025-05-24",
+  "model": "qwen2.5:7b",
+  "analysis": {
+    "market_regime": "BULL",
+    "market_regime_reason": "台股和那斯達克均出現反彈，道瓊指數雖有波動但最終收漲，顯示市場情緒有所改善。",
+    "global_macro": [
+      "美國GDP意外轉負，但通膨高企，聯準會面臨降息壓力"
+    ],
+    "index_0050_observation": "台股持續反彈創新高，顯示市場對未來經濟前景持樂觀態度",
+    "volume_signal": "成交量未見大幅放大，但仍維持在較高水平，顯示資金流動性良好",
+    "mentioned_stocks": [
+      {
+        "code": "2385",
+        "name": "台光電",
+        "signal": "BUY",
+        "reason": "毛利率季增高達30.4%，股價突破季均線漲停"
+      },
+      {
+        "code": "1301",
+        "name": "正德",
+        "signal": "BUY",
+        "reason": "散裝航運重建題材，股價大漲逾8%並創波段新高"
+      }
+    ],
+    "sector_special_reports": [
+      {
+        "sector": "散裝航運",
+        "content": "俄烏雙方停火協議可能促進戰後重建題材，散裝航運有望反彈"
+      }
+    ],
+    "entry_conditions_mentioned": [
+      "突破月均線形成三陽開泰的個股"
+    ],
+    "exit_conditions_mentioned": [
+      "大漲來到季均線壓力位置獲利減碼一半持股"
+    ],
+    "strategy_insights": "建議持續維持五成持股水位，抓住反彈機會，注意短期技術指標如均線支撐"
+  }
+}

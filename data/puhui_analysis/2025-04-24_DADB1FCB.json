@@ -1,0 +1,53 @@
+{
+  "id": "DADB1FCB29E181E26656B780914A669F",
+  "title": "DADB1FCB29E181E26656B780914A669F",
+  "pubDate": "2025-04-24",
+  "model": "qwen2.5:7b",
+  "analysis": {
+    "market_regime": "BULL",
+    "market_regime_reason": "川普宣布暂停并调降关税，全球股市出现报复性反弹。",
+    "global_macro": [
+      "贸易政策转向",
+      "市场情绪回暖"
+    ],
+    "index_0050_observation": "台指期貨夜盤垂直急拉锁住漲停",
+    "volume_signal": "大盤指數连续两天爆大量，昨天更是已经来到5783亿的波段最大量。",
+    "mentioned_stocks": [
+      {
+        "code": "2330",
+        "name": "台積電",
+        "signal": "BUY",
+        "reason": "ADR同步飆漲逾12%"
+      },
+      {
+        "code": "2313",
+        "name": "聯發科",
+        "signal": "WATCH",
+        "reason": "科技龍頭股之一，需观察"
+      },
+      {
+        "code": "2409",
+        "name": "華碩",
+        "signal": "SELL",
+        "reason": "受貿易政策影響较大"
+      }
+    ],
+    "sector_special_reports": [
+      {
+        "sector": "科技",
+        "content": "特斯拉、Nvidia等科技龙头股单日涨幅显著"
+      },
+      {
+        "sector": "消費",
+        "content": "Apple、Walmart等消费龙头股表现强劲"
+      }
+    ],
+    "entry_conditions_mentioned": [
+      "昨天台股爆出這波下殺最大量的低點"
+    ],
+    "exit_conditions_mentioned": [
+      "跌破昨天爆大量低點"
+    ],
+    "strategy_insights": "建议投资者控制资金水位在三成以内，选择爆大量打開跌停的个股或有投信逆勢买超的个股进行抢反弹操作。"
+  }
+}

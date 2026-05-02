@@ -1,0 +1,55 @@
+{
+  "id": "0A89DE84917717F17970A8FA5C4B2560",
+  "title": "0A89DE84917717F17970A8FA5C4B2560",
+  "pubDate": "2026-02-24",
+  "model": "groq",
+  "analysis": {
+    "market_regime": "BULL",
+    "market_regime_reason": "非農出乎意料，美國1月非農就業新增公布高達13萬人，失業率降至4.3%，勞動參與率上升。",
+    "global_macro": [
+      "美國股市保證金債務達到1.3兆美元",
+      "美國股市總市值高達數兆美元",
+      "美國股市保證金債務佔總市值比例僅1.8%"
+    ],
+    "index_0050_observation": "台股期貨夜盤上漲將近300點",
+    "volume_signal": "買進",
+    "mentioned_stocks": [
+      {
+        "code": "2330",
+        "name": "台積電",
+        "signal": "BUY",
+        "reason": "台積電ADR突破一月中旬的前高壓力，昨晚再漲逾3.3%"
+      },
+      {
+        "code": "2454",
+        "name": "格羅方德",
+        "signal": "BUY",
+        "reason": "晶圓代工成熟製程的格羅方德獲得多家外資調高目標價與評等"
+      },
+      {
+        "code": "2881",
+        "name": "美光",
+        "signal": "BUY",
+        "reason": "美光反彈大漲近一成，重新站回包括十日均線在內的三條短期均線"
+      }
+    ],
+    "sector_special_reports": [
+      {
+        "sector": "記憶體",
+        "content": "費城半導體指數大漲超過2.2%"
+      },
+      {
+        "sector": "晶圓代工",
+        "content": "晶圓代工成熟製程的格羅方德獲得多家外資調高目標價與評等"
+      }
+    ],
+    "entry_conditions_mentioned": [
+      "台積電ADR突破一月中旬的前高壓力",
+      "晶圓代工成熟製程的格羅方德獲得多家外資調高目標價與評等"
+    ],
+    "exit_conditions_mentioned": [
+      "收盤跌破停損"
+    ],
+    "strategy_insights": "建議買進持股，停損以收盤跌破作認定"
+  }
+}

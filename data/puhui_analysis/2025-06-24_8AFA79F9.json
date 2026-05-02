@@ -1,0 +1,52 @@
+{
+  "id": "8AFA79F9350EDFFC620BFD5F57121FDD",
+  "title": "8AFA79F9350EDFFC620BFD5F57121FDD",
+  "pubDate": "2025-06-24",
+  "model": "qwen2.5:7b",
+  "analysis": {
+    "market_regime": "BULL",
+    "market_regime_reason": "台股大漲突破波段新高，櫃買市場也長線翻多，顯示市場整體趨勢向上。",
+    "global_macro": [
+      "中美對抗降溫預期"
+    ],
+    "index_0050_observation": "大盤指數強漲超過400點，已順利突破先前五月中旬的前波高點",
+    "volume_signal": "外資在期貨市場的淨空單變化及0050正二的外資買賣超情況顯示多頭勢能強勁",
+    "mentioned_stocks": [
+      {
+        "code": "2330",
+        "name": "台積電",
+        "signal": "BUY",
+        "reason": "外資連續四天買超，股價有望持續創高"
+      },
+      {
+        "code": "6108",
+        "name": "台燿",
+        "signal": "BUY",
+        "reason": "強者恆強型態，股價穩守五日均線"
+      },
+      {
+        "code": "3452",
+        "name": "金像電",
+        "signal": "BUY",
+        "reason": "沿著五日及十日均線往上走，保持強勢"
+      }
+    ],
+    "sector_special_reports": [
+      {
+        "sector": "半導體",
+        "content": "台積電、達興材料等半導體族群股價穩守五日及十日均線，顯示強者恆強型態"
+      },
+      {
+        "sector": "銅箔基板",
+        "content": "台燿、台光電等銅箔基板族群股價表現強勁，沿著短期均線往上走"
+      }
+    ],
+    "entry_conditions_mentioned": [
+      "五日均線守穩"
+    ],
+    "exit_conditions_mentioned": [
+      "五日及十日均線跌破"
+    ],
+    "strategy_insights": "建議會員提高持股水位至五成，操作上可鎖定強者恆強的個股進行佈局"
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "id": "C0C6FC5E4A70DC550044CC62F32BACFE",
+  "title": "C0C6FC5E4A70DC550044CC62F32BACFE",
+  "pubDate": "2025-05-24",
+  "model": "qwen2.5:7b",
+  "analysis": {
+    "market_regime": "BULL",
+    "market_regime_reason": "台股跟隨美股反彈突破月均線，強勢族群表現優異。",
+    "global_macro": [
+      "中美貿易和談進展不確定性降低",
+      "美國科技股回穩"
+    ],
+    "index_0050_observation": "台指期突破月均線，顯示市場信心增強。",
+    "volume_signal": "成交量維持穩定，有助於反彈趨勢持續。",
+    "mentioned_stocks": [
+      {
+        "code": "2337",
+        "name": "智原科技",
+        "signal": "WATCH",
+        "reason": "毛利率下滑導致股價利空下跌，但低位爆量顯示底部可能已現。"
+      },
+      {
+        "code": "6108",
+        "name": "元晶-semi",
+        "signal": "SELL",
+        "reason": "成交量快速縮減，顯示市場熱情消退。"
+      }
+    ],
+    "sector_special_reports": [
+      {
+        "sector": "軟體資訊與安全監控",
+        "content": "表現強勁，成為盤面上的超強主流。"
+      },
+      {
+        "sector": "電子零組件通路商",
+        "content": "多檔個股表現亮眼，漲停板現象頻出。"
+      }
+    ],
+    "entry_conditions_mentioned": [
+      "突破月均線",
+      "成交量維持穩定"
+    ],
+    "exit_conditions_mentioned": [
+      "多方缺口封閉",
+      "快速量縮"
+    ],
+    "strategy_insights": "強勢族群和個股表現優異，但需注意市場政策風險及成交量變化。"
+  }
+}

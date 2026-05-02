@@ -1,0 +1,50 @@
+{
+  "id": "6500BADE03036DFC61E1ACD0E740E1B8",
+  "title": "2025/03/19 大盤突破十日均線還得再等等！加百裕漲停後又長黑，為什麼順達 - PressPlay",
+  "pubDate": "2025-04-24",
+  "model": "qwen2.5:7b",
+  "analysis": {
+    "market_regime": "NEUTRAL",
+    "market_regime_reason": "大盤尚未突破十日均线，且個股表現分化，需耐心等待。",
+    "global_macro": [
+      "Nvidia推出Blackwell Ultra晶片家族，預期帶動市場需求"
+    ],
+    "index_0050_observation": "大盤未突破十日均线，維持三成或以下持股水位",
+    "volume_signal": "成交量是個股表現的重要參考，需觀察爆量黑K是否有人承接",
+    "mentioned_stocks": [
+      {
+        "code": "6289",
+        "name": "順達",
+        "signal": "WATCH",
+        "reason": "外資反向對作，短期內需守住均線"
+      },
+      {
+        "code": "3045",
+        "name": "加百裕",
+        "signal": "BUY",
+        "reason": "漲停後仍需觀察是否能突破前高壓力"
+      },
+      {
+        "code": "2386",
+        "name": "千附精密",
+        "signal": "WATCH",
+        "reason": "短期強勢上攻，需關注成交量"
+      }
+    ],
+    "sector_special_reports": [
+      {
+        "sector": "航太零組件",
+        "content": "軍工航太族群表現亮眼，如千附精密、漢翔等"
+      }
+    ],
+    "entry_conditions_mentioned": [
+      "突破前高壓力",
+      "站回三條短期均線"
+    ],
+    "exit_conditions_mentioned": [
+      "跌破五日或十日均线",
+      "近期最大量低点被跌破"
+    ],
+    "strategy_insights": "多頭志士需耐心等待，維持三成持股水位，注意個股成交量和均线支撑"
+  }
+}

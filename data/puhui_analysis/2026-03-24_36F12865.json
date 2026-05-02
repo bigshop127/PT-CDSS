@@ -1,0 +1,54 @@
+{
+  "id": "36F128654620662242E9333ACE8CC875",
+  "title": "2026/03/18 戰爭果然短空長多，櫃買成功突破創20年新高！ABF三雄還能 - PressPlay",
+  "pubDate": "2026-03-24",
+  "model": "qwen2.5:7b",
+  "analysis": {
+    "market_regime": "BULL",
+    "market_regime_reason": "櫃買市場成功突破創20年新高，顯示長期趨勢向上。",
+    "global_macro": [
+      "地緣政治衝突短期影響有限，長期看好股市表現"
+    ],
+    "index_0050_observation": "美股仍處於空方結構中，未見明顯轉多跡象",
+    "volume_signal": "ABF三雄、記憶體模組個股等爆量突破前高，顯示強勢",
+    "mentioned_stocks": [
+      {
+        "code": "2371",
+        "name": "欣興電子",
+        "signal": "BUY",
+        "reason": "守住大量低點，短線多方格局"
+      },
+      {
+        "code": "8035",
+        "name": "南亞科",
+        "signal": "WATCH",
+        "reason": "解除分盤處置交易，需觀察五日均線"
+      },
+      {
+        "code": "2408",
+        "name": "華新科技",
+        "signal": "BUY",
+        "reason": "扭轉四海遊龍趨勢，站上短中長期均線"
+      }
+    ],
+    "sector_special_reports": [
+      {
+        "sector": "被動元件",
+        "content": "村田製作所宣布漲價，國巨、華新科跟隨突破漲停"
+      },
+      {
+        "sector": "記憶體產業",
+        "content": "美光公布財報前表現強勁，帶動相關模組族群"
+      }
+    ],
+    "entry_conditions_mentioned": [
+      "守住大量低點",
+      "站上短中長期均線"
+    ],
+    "exit_conditions_mentioned": [
+      "跌破大量低點",
+      "收盤跌破五日均線"
+    ],
+    "strategy_insights": "面對地緣政治衝突，建議維持五成持股水位，等待美股指數轉多再拉高持股"
+  }
+}

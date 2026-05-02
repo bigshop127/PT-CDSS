@@ -1,0 +1,55 @@
+{
+  "id": "A9A1029DD47D6530163ED9AC3944C714",
+  "title": "2026/04/15 為什麼美光大漲都沒連動？友達再創波段新高！榮科帶著金居成功 - PressPlay",
+  "pubDate": "2026-04-17",
+  "model": "qwen2.5:7b",
+  "analysis": {
+    "market_regime": "BULL",
+    "market_regime_reason": "美股持续强劲反弹，道琼斯指数和S&P500指数接近历史高点，那斯达克指数连续10天上涨，费城半导体指数创新高。",
+    "global_macro": [
+      "美伊谈判态度转为乐观预期停战，PPI数据低于预期缓解通胀担忧",
+      "油价大幅下跌反映市场对战争降温的押注"
+    ],
+    "index_0050_observation": "台北股市突破历史高点压力位后继续上涨，成交量持续创新高。",
+    "volume_signal": "成交量每天都在创下历史新高，表明市场情绪积极。",
+    "mentioned_stocks": [
+      {
+        "code": "2410",
+        "name": "友達",
+        "signal": "BUY",
+        "reason": "再创波段新高"
+      },
+      {
+        "code": "6135",
+        "name": "榮科",
+        "signal": "BUY",
+        "reason": "成功突破前高压力，连续两天涨停"
+      },
+      {
+        "code": "8037",
+        "name": "金居",
+        "signal": "BUY",
+        "reason": "跟随荣科突破前高"
+      }
+    ],
+    "sector_special_reports": [
+      {
+        "sector": "記憶體",
+        "content": "美光大涨但台湾记忆体股未跟涨，主要是产品线不同导致"
+      },
+      {
+        "sector": "面板",
+        "content": "友達再创波段新高，群創表现相对较弱"
+      }
+    ],
+    "entry_conditions_mentioned": [
+      "突破前高压力",
+      "跟随全球龙头股"
+    ],
+    "exit_conditions_mentioned": [
+      "跌破五日均线",
+      "爆大量低点被跌破"
+    ],
+    "strategy_insights": "建议投资者关注最强的个股，并且在台股中寻找与国际股市龙头连动的机会。"
+  }
+}

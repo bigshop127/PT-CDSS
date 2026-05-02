@@ -1,0 +1,54 @@
+{
+  "id": "F335B79CE76FB5959408DF0F557E4DC6",
+  "title": "F335B79CE76FB5959408DF0F557E4DC6",
+  "pubDate": "2025-06-24",
+  "model": "qwen2.5:7b",
+  "analysis": {
+    "market_regime": "BULL",
+    "market_regime_reason": "台北股市仍属于一个短线非常强势的攻击之中，且柜买市场表现出色。",
+    "global_macro": [
+      "美中贸易谈判进展模糊",
+      "美国财政部长释放关税可能延长信号",
+      "原油价格反弹"
+    ],
+    "index_0050_observation": "大盤指數出現漲多回檔，但修正空间不大，五日均线仍有距离。",
+    "volume_signal": "由空翻多的个股需关注成交量能否持续滚量放大。",
+    "mentioned_stocks": [
+      {
+        "code": "2418",
+        "name": "奇鋐電子",
+        "signal": "BUY",
+        "reason": "沿著五日均线上攻，强势股"
+      },
+      {
+        "code": "3056",
+        "name": "雙鴻電工",
+        "signal": "BUY",
+        "reason": "直接亮灯涨停板，超級强势股"
+      },
+      {
+        "code": "2419",
+        "name": "建準電子",
+        "signal": "WATCH",
+        "reason": "短期均线重新翻多"
+      }
+    ],
+    "sector_special_reports": [
+      {
+        "sector": "散熱族群",
+        "content": "奇鋐、雙鴻帶頭衝，其他個股如建準也有機會跟上"
+      },
+      {
+        "sector": "砷化鎵概念股",
+        "content": "聯亞、全新等由空翻多的个股需关注成交量"
+      }
+    ],
+    "entry_conditions_mentioned": [
+      "守住五日均线"
+    ],
+    "exit_conditions_mentioned": [
+      "跌破所有均线"
+    ],
+    "strategy_insights": "投資應獨立判斷、審慎評估並自負投資風險。"
+  }
+}

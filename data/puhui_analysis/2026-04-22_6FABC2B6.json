@@ -1,0 +1,54 @@
+{
+  "id": "6FABC2B6775AD6AEE6937F253ACEEF81",
+  "title": "2026/04/22 聯發科連續漲停，鴻海突破季均線都是因為它？櫃買市場天量一直 - PressPlay",
+  "pubDate": "2026-04-22",
+  "model": "qwen2.5:7b",
+  "analysis": {
+    "market_regime": "BULL",
+    "market_regime_reason": "櫃買市場天量爆漲，多頭氛圍濃厚；聯發科、鴻海等權重股表現強勁。",
+    "global_macro": [
+      "全球經濟復甦"
+    ],
+    "index_0050_observation": "無相關觀察",
+    "volume_signal": "天量成交顯示市場熱度高，多頭勢能足。",
+    "mentioned_stocks": [
+      {
+        "code": "2454",
+        "name": "聯發科",
+        "signal": "BUY",
+        "reason": "連續漲停，技術上突破重要支撐"
+      },
+      {
+        "code": "2317",
+        "name": "鴻海",
+        "signal": "WATCH",
+        "reason": "突破季均線，但需注意散戶持股比例變化"
+      },
+      {
+        "code": "0069",
+        "name": "聯電",
+        "signal": "BUY",
+        "reason": "反彈強勁，站上短期均線"
+      }
+    ],
+    "sector_special_reports": [
+      {
+        "sector": "記憶體族群",
+        "content": "大摩看淡傳統記憶體，看好MLC NAND和NOR Flash；力積電、德宏表現強勁"
+      },
+      {
+        "sector": "玻纖布族群",
+        "content": "富喬突破失敗，台玻持續新高；建榮爆量突破前高但短線修正"
+      }
+    ],
+    "entry_conditions_mentioned": [
+      "站上短期均線翻多",
+      "散戶持股比例下降"
+    ],
+    "exit_conditions_mentioned": [
+      "五日均線跌破",
+      "天量低點被破"
+    ],
+    "strategy_insights": "技術分析為主，注重均線突破與成交量變化；個股選擇需符合技術指標背書"
+  }
+}

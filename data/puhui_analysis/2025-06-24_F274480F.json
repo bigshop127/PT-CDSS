@@ -1,0 +1,43 @@
+{
+  "id": "F274480FE87844FCEA7E72A17A64E4B6",
+  "title": "F274480FE87844FCEA7E72A17A64E4B6",
+  "pubDate": "2025-06-24",
+  "model": "qwen2.5:7b",
+  "analysis": {
+    "market_regime": "BEAR",
+    "market_regime_reason": "台股空方突破缺口出現，櫃買市場破線四面楚歌，端午變盤風險加大",
+    "global_macro": [
+      "川普關稅政策逆轉",
+      "中美貿易協議陷入停滯"
+    ],
+    "index_0050_observation": "台指期空方突破缺口，顯示短期賣壓增加",
+    "volume_signal": "櫃買市場出現集體共識的賣盤，成交量放大",
+    "mentioned_stocks": [
+      {
+        "code": "3008",
+        "name": "佳能",
+        "signal": "SELL",
+        "reason": "跌破所有均線形成四面楚歌型態"
+      },
+      {
+        "code": "2454",
+        "name": "美律",
+        "signal": "WATCH",
+        "reason": "守在月均線之上，表現強勢"
+      }
+    ],
+    "sector_special_reports": [
+      {
+        "sector": "半導體",
+        "content": "受到美國封殺影響，半導體族群首當其衝，費城半導體指數重挫超過2%"
+      }
+    ],
+    "entry_conditions_mentioned": [
+      "降低持股水位至三成"
+    ],
+    "exit_conditions_mentioned": [
+      "停損出場，跌破重要均線如月均線"
+    ],
+    "strategy_insights": "汰弱留強策略，維持三成或以下持股水位，等待止跌轉折點"
+  }
+}

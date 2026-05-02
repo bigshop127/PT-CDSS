@@ -1,0 +1,47 @@
+{
+  "id": "2D1D14AE687C8E9CE0455D684A4082F3",
+  "title": "2025/03/18 OECD再砍全球經濟成長，美國衰退躲不過？GDP成長低迷比 - PressPlay",
+  "pubDate": "2025-04-24",
+  "model": "qwen2.5:7b",
+  "analysis": {
+    "market_regime": "BEAR",
+    "market_regime_reason": "全球經濟成長預測下修，美國衰退風險增加；美股指數表現疲弱，投資者情緒低落。",
+    "global_macro": [
+      "全球經濟成長率下修",
+      "美國經濟衰退風險高"
+    ],
+    "index_0050_observation": "台股大盤指數重新站回五日均線，但仍在挑戰十日均線壓力",
+    "volume_signal": "市場成交量未見大幅放大，顯示投資者仍持謹慎態度",
+    "mentioned_stocks": [
+      {
+        "code": "2314",
+        "name": "台積電",
+        "signal": "WATCH",
+        "reason": "大盤指數反彈但台積電表現未見起色，需密切關注"
+      },
+      {
+        "code": "2028",
+        "name": "聯發科技",
+        "signal": "SELL",
+        "reason": "受到全球經濟成長預測下修影響，股價表現疲弱"
+      }
+    ],
+    "sector_special_reports": [
+      {
+        "sector": "半導體",
+        "content": "費城半導體指數短期止跌反彈，但關鍵在於是否能守住前波低點連線支撐"
+      },
+      {
+        "sector": "汽車",
+        "content": "Tesla股價下跌，受到中國市場數據隱私法規影響，自動駕駛技術發展受阻"
+      }
+    ],
+    "entry_conditions_mentioned": [
+      "五日均線能否持續守住"
+    ],
+    "exit_conditions_mentioned": [
+      "跌破五日均線"
+    ],
+    "strategy_insights": "建議多看少做，避免短線操作；若市場出現反彈機會，需密切關注五日均線支撐"
+  }
+}

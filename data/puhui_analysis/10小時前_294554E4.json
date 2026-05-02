@@ -1,0 +1,69 @@
+{
+  "id": "294554E45B3052C1A8CDFC12B7109378",
+  "title": "No Title",
+  "pubDate": "10小時前",
+  "analysis": {
+    "market_regime": "BULL",
+    "market_regime_reason": "大盤指數與櫃買市場順利守住昨日天量低點，短線資金維持七成持股水位。",
+    "global_macro": [
+      {
+        "name": "美股三大指數",
+        "observation": "道瓊下跌0.36%、S&P500下跌0.41%、那斯達克下跌0.89%，費城半導體逆勢上漲1.7%"
+      },
+      {
+        "name": "國際情勢",
+        "observation": "伊朗與美國談判破局，雙方可能進入海上對峙狀態，推升油價反彈"
+      }
+    ],
+    "index_0050_observation": "台積電大漲創高，金管會宣布主動型ETF跟台股基金的單一持股上限放寬至25%。",
+    "volume_signal": "大盤指數與櫃買市場順利守住昨日天量低點",
+    "mentioned_stocks": [
+      {
+        "code": "2330.TW",
+        "name": "台積電",
+        "signal": "BUY",
+        "reason": "金管會放寬持股上限，外資持續買超"
+      },
+      {
+        "code": "2412.TW",
+        "name": "華通",
+        "signal": "SELL",
+        "reason": "跌破月均線，形成空方型態"
+      },
+      {
+        "code": "3005.TW",
+        "name": "友達",
+        "signal": "SELL",
+        "reason": "外資連續賣超，股價連六黑"
+      }
+    ],
+    "sector_special_reports": [
+      {
+        "sector": "半導體",
+        "content": "台積電大漲，金管會放寬持股上限；Intel盤後表現強勁，營收與EPS超出預期"
+      },
+      {
+        "sector": "軟體",
+        "content": "那斯達克跌幅較大，ServiceNow、IBM等重災區；IGV軟體ETF暴跌約6%"
+      }
+    ],
+    "entry_conditions_mentioned": [
+      "跌破均線該賣就是要賣",
+      "守住爆大量的低點"
+    ],
+    "exit_conditions_mentioned": [
+      "重新站回三條短期均線，形成四海遊龍的多方型態才能買進",
+      "重新把五日跟十日均線重新站上"
+    ],
+    "sector_themes": [
+      "半導體",
+      "軟體",
+      "AI"
+    ],
+    "risk_warnings": [
+      "單一公司風險集中度提升，可能影響主動型基金績效",
+      "外資與投信賣超可能導致個股弱勢"
+    ],
+    "strategy_insights": "建議維持七成持股水位，短線資金操作依舊正常；注意個股籌碼面變化，避免盲目跟隨散戶操作。"
+  }
+}

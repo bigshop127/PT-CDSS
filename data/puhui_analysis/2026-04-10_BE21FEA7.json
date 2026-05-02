@@ -1,0 +1,56 @@
+{
+  "id": "BE21FEA7D8851F75BC2747FA3D18BFE3",
+  "title": "2026/04/08 川普再一次TACO！台股千點大漲多方表態！玻纖布全面噴出！ - PressPlay",
+  "pubDate": "2026-04-10",
+  "model": "qwen2.5:7b",
+  "analysis": {
+    "market_regime": "BULL",
+    "market_regime_reason": "台股大漲千點，多方表態，玻纖布族群表現亮眼，指數站上所有均線。",
+    "global_macro": [
+      "美伊局勢影響市場情緒",
+      "美股尾盤反彈"
+    ],
+    "index_0050_observation": "台股大漲接近1500點，突破所有短中長期均線，形成四海遊龍的長多型態",
+    "volume_signal": "櫃買市場站上五日跟十日短期均線，突破三月份前波高點，大量成功換手",
+    "mentioned_stocks": [
+      {
+        "code": "2354",
+        "name": "旺宏",
+        "signal": "BUY",
+        "reason": "站上三條短期均線，漲停板"
+      },
+      {
+        "code": "0007",
+        "name": "台玻",
+        "signal": "BUY",
+        "reason": "突破月均線，轉強並漲停"
+      },
+      {
+        "code": "1308",
+        "name": "建榮",
+        "signal": "BUY",
+        "reason": "突破月均線，轉強並漲停"
+      },
+      {
+        "code": "2456",
+        "name": "富喬",
+        "signal": "BUY",
+        "reason": "站上所有短中長期均線，漲停"
+      }
+    ],
+    "sector_special_reports": [
+      {
+        "sector": "玻纖布",
+        "content": "玻纖布族群表現亮眼，台玻、建榮、富喬等個股漲停板"
+      }
+    ],
+    "entry_conditions_mentioned": [
+      "站上所有短期均线后拉高持股水位到五成",
+      "寻找刚刚翻多且未大涨的股票"
+    ],
+    "exit_conditions_mentioned": [
+      "跌破下方均线支撑"
+    ],
+    "strategy_insights": "长期持有市值型或指数型ETF，短期关注玻纖布族群等突破重要支撐的个股"
+  }
+}

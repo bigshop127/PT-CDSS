@@ -1,0 +1,45 @@
+{
+  "id": "5A503265B08A9A778C8C4F8A1B710258",
+  "title": "2025/07/23 台股強彈能再創高嗎？櫃買市場重新翻多了？強勢股震盪過後再攻 - PressPlay",
+  "pubDate": "2025-07-24",
+  "model": "qwen2.5:7b",
+  "analysis": {
+    "market_regime": "BULL",
+    "market_regime_reason": "台股大盤指數持續維持在十日均線之上，且櫃買市場也重新翻多，顯示市場人氣仍在。",
+    "global_macro": [
+      "美股S&P500指數小漲再創歷史新高",
+      "川普與菲律賓達成貿易協議但加徵19%關稅",
+      "美國對多國貿易談判進度不順"
+    ],
+    "index_0050_observation": "大盤指數在 japans 股市帶動下反彈，但仍需維持出量人氣以確保短線創高趨勢。",
+    "volume_signal": "昨天爆大量低點位置就在十日均線附近，需特別注意是否跌破此位置。",
+    "mentioned_stocks": [
+      {
+        "code": "2385",
+        "name": "偉訓",
+        "signal": "BUY",
+        "reason": "守住多條均線支撐，且今日漲停"
+      },
+      {
+        "code": "6108",
+        "name": "神達",
+        "signal": "WATCH",
+        "reason": "爆大量低點重要，需注意量縮情況"
+      }
+    ],
+    "sector_special_reports": [
+      {
+        "sector": "IC載板",
+        "content": "欣興股價回檔修正，需關注外資買賣超動向及能否守住十日均線"
+      }
+    ],
+    "entry_conditions_mentioned": [
+      "維持成交量持續放大",
+      "爆大量低點不能跌破"
+    ],
+    "exit_conditions_mentioned": [
+      "五日跟十日均線被跌破"
+    ],
+    "strategy_insights": "強勢股震盪過後再攻，需密切關注成交量及均線支撐情況。"
+  }
+}
