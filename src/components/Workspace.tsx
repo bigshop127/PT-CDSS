@@ -207,6 +207,4 @@ export const Workspace = (props: { projectId: string; userId: string }) => (
   </ReactFlowProvider>
 );
 
-er>
-);
 
