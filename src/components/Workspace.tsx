@@ -6,7 +6,7 @@ import ReactFlow, {
   ReactFlowProvider 
 } from 'reactflow';
 import 'reactflow/dist/style.css';
-import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels';
+import { Panel, Group, Separator } from 'react-resizable-panels';
 
 import { useFlowStore } from '@/store/useFlowStore';
 import { useProjectSync } from '@/hooks/useProjectSync';
@@ -125,7 +125,7 @@ const WorkspaceContent = ({ projectId, userId }: { projectId: string; userId: st
             </div>
           </div>
 
-          <PanelGroup direction="horizontal" className="flex-1">
+          <Group direction="horizontal" className="flex-1">
             <Panel defaultSize={25} minSize={15}>
               <div className="relative h-full w-full bg-blue-50/30 border-r border-blue-100">
                 <ReactFlow
@@ -192,7 +192,7 @@ const WorkspaceContent = ({ projectId, userId }: { projectId: string; userId: st
             <Panel defaultSize={25} minSize={20}>
               <ChatArea chatInput={chatInput} setChatInput={setChatInput} onSendMessage={handleSendMessage} isLoading={isAiLoading} semanticHistory={semanticHistory} />
             </Panel>
-          </PanelGroup>
+          </ResizableGroup>
         </div>
       </TooltipProvider>
 
@@ -205,6 +205,14 @@ export const Workspace = (props: { projectId: string; userId: string }) => (
   <ReactFlowProvider>
     <WorkspaceContent {...props} />
   </ReactFlowProvider>
+);
+
+
+rovider>
+);
+
+
+er>
 );
 
 
