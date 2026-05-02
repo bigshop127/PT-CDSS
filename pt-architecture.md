@@ -6,6 +6,7 @@
 ## 2. 技術棧 (Tech Stack)
 * **前端:** React, React Flow, Zustand (狀態管理), Tailwind CSS, shadcn/ui.
 * **後端與資料庫:** Firebase Firestore, Firebase Callable Functions (2nd Gen), App Check.
+* **版本控制與同步:** GitHub (`https://github.com/bigshop127/PT-CDSS.git`)。所有更動需定期提交並推送到 GitHub 確保雲端與本地同步。
 * **微服務 (影像導出):** Google Cloud Run (Docker), Node.js, Puppeteer, Handlebars.
 * **AI 引擎:** Gemini 1.5 Flash (意圖路由), Gemini 3.1 Pro (臨床推演與畫布驅動).
 

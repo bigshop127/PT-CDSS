@@ -119,7 +119,7 @@ export const AppSidebar = () => {
 
       {/* 5. Footer */}
       <div className="p-4 border-t border-slate-800">
-        <SidebarItem icon={<Settings className="w-5 h-5" />} label="Settings" />
+        <SidebarItem icon={<Settings className="w-6 h-6" />} label="Settings" />
       </div>
     </div>
   );
@@ -167,4 +167,5 @@ const SidebarItem = ({
     {hasChildren && <ChevronRight className="w-4 h-4 text-slate-600 group-hover:text-slate-400" />}
   </div>
 );
+
 
