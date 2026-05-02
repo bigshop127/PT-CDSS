@@ -155,7 +155,7 @@ const WorkspaceContent = ({ projectId, userId }: { projectId: string; userId: st
               </div>
             </Panel>
 
-            <PanelResizeHandle className="w-1 bg-blue-100 hover:bg-blue-400 transition-colors cursor-col-resize z-20" />
+            <Separator className="w-1 bg-blue-100 hover:bg-blue-400 transition-colors cursor-col-resize z-20" />
 
             <Panel defaultSize={25} minSize={15}>
               <div className="h-full bg-slate-50 border-r border-slate-200 flex flex-col">
@@ -181,18 +181,18 @@ const WorkspaceContent = ({ projectId, userId }: { projectId: string; userId: st
               </div>
             </Panel>
 
-            <PanelResizeHandle className="w-1 bg-slate-200 hover:bg-slate-400 transition-colors cursor-col-resize z-20" />
+            <Separator className="w-1 bg-slate-200 hover:bg-slate-400 transition-colors cursor-col-resize z-20" />
 
             <Panel defaultSize={25} minSize={15}>
               <InsightPane />
             </Panel>
 
-            <PanelResizeHandle className="w-1 bg-slate-900 hover:bg-indigo-500 transition-colors cursor-col-resize z-20" />
+            <Separator className="w-1 bg-slate-900 hover:bg-indigo-500 transition-colors cursor-col-resize z-20" />
 
             <Panel defaultSize={25} minSize={20}>
               <ChatArea chatInput={chatInput} setChatInput={setChatInput} onSendMessage={handleSendMessage} isLoading={isAiLoading} semanticHistory={semanticHistory} />
             </Panel>
-          </Group>
+          </PanelGroup>
         </div>
       </TooltipProvider>
 
@@ -205,5 +205,8 @@ export const Workspace = (props: { projectId: string; userId: string }) => (
   <ReactFlowProvider>
     <WorkspaceContent {...props} />
   </ReactFlowProvider>
+);
+
+er>
 );
 
