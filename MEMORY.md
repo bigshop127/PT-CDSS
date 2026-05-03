@@ -1,0 +1,9 @@
+# Task Memory Log
+
+## [2026-05-03]
+### DIRECTIVE B4 & B6: Security & Backend Proxy
+- **B6**: Implemented Firebase Functions proxy (`geminiProxy`) to handle Gemini API requests. Removed `@google/generative-ai` from frontend.
+- **B4**: Shortened export signed URL expiration to 7 days and added `expiresAt` to response.
+- **Status**: Completed, Verified, and Pushed to GitHub.
+- **Commit**: `de0d9880673b682e3da2c0ad96987ba0b9aa5e69`
+- **Obsidian**: Updated `PT_Clinical_Decision_Support_System.md`.
