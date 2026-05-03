@@ -12,6 +12,12 @@ export interface GhostNodeProposal {
   parentId?: string;
 }
 
+export interface Citation {
+  book: string;
+  page: number;
+  excerpt: string;
+}
+
 interface AIRequestData {
   userInput: string;
   semanticHistory: string;
@@ -23,6 +29,7 @@ interface AIResponseData {
   intent: "CANVAS_EDIT" | "KNOWLEDGE_QUERY" | "CHIT_CHAT";
   proposals?: GhostNodeProposal[];
   message?: string;
+  citations?: Citation[];
 }
 
 export class AIOrchestrator {

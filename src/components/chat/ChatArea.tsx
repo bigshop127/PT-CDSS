@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import type { ChatMessage } from '@/components/Workspace';
 import { useFlowStore } from '@/store/useFlowStore';
+import { useDocumentStore } from '@/store/useDocumentStore';
 
 interface ChatAreaProps {
   messages: ChatMessage[];
@@ -28,6 +29,7 @@ export const ChatArea: React.FC<ChatAreaProps> = ({
   const nodes = useFlowStore((s) => s.nodes);
   const acceptAllGhostNodes = useFlowStore((s) => s.acceptAllGhostNodes);
   const ghostCount = nodes.filter((n) => n.data?.isGhost).length;
+  const { setPendingInsert } = useDocumentStore();
 
   const handleSend = () => {
     if (!chatInput.trim() || isLoading) return;
@@ -77,6 +79,35 @@ export const ChatArea: React.FC<ChatAreaProps> = ({
                   }`}
                 >
                   <p className="whitespace-pre-wrap leading-relaxed">{msg.content}</p>
+                  
+                  {msg.citations && msg.citations.length > 0 && (
+                    <div className="mt-2.5 space-y-1.5 border-t border-slate-100 pt-2">
+                      <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">參考來源</p>
+                      {msg.citations.map((c, i) => (
+                        <div
+                          key={i}
+                          className="rounded-lg bg-orange-50 border border-orange-100 px-3 py-2"
+                        >
+                          <p className="text-[10px] font-bold text-orange-700 truncate">
+                            {c.book.replace('.pdf', '')} — 第 {c.page} 頁
+                          </p>
+                          <p className="text-[10px] text-slate-500 mt-0.5 line-clamp-2 leading-relaxed">
+                            {c.excerpt}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {msg.intent === 'CANVAS_EDIT' && (
+                    <button
+                      onClick={() => setPendingInsert(msg.content)}
+                      className="mt-2 w-full py-1.5 px-3 rounded-lg bg-indigo-50 border border-indigo-200 text-indigo-700 text-[10px] font-bold hover:bg-indigo-100 transition-colors text-left"
+                    >
+                      ＋ 插入至 Plan 區塊
+                    </button>
+                  )}
+
                   <p className={`text-[10px] mt-1 ${msg.role === 'user' ? 'text-orange-100' : 'text-slate-400'}`}>
                     {msg.timestamp.toLocaleTimeString('zh-TW', { hour: '2-digit', minute: '2-digit' })}
                   </p>

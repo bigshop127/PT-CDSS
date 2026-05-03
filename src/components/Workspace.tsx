@@ -27,6 +27,8 @@ export interface ChatMessage {
   role: 'user' | 'assistant';
   content: string;
   timestamp: Date;
+  citations?: import('@/services/ai/AIOrchestrator').Citation[];
+  intent?: 'CANVAS_EDIT' | 'KNOWLEDGE_QUERY' | 'CHIT_CHAT';
 }
 
 const DRIVE_URL = "https://drive.google.com/drive/folders/1OslCCU-8tY3y9p084hWJeO78o7HKIYug";
@@ -67,12 +69,22 @@ const WorkspaceContent = ({ projectId, userId }: { projectId: string; userId: st
     setMessages(prev => [...prev, userMsg]);
     setIsAiLoading(true);
     try {
-      await orchestrator.processRequest(text, semanticHistory);
+      const response = await orchestrator.processRequest(text, semanticHistory);
+      let content: string;
+      if (response.intent === 'CANVAS_EDIT') {
+        content = '已根據建議更新流程圖，請確認虛線節點。';
+      } else if (response.intent === 'KNOWLEDGE_QUERY') {
+        content = response.message ?? '已查詢知識庫。';
+      } else {
+        content = response.message ?? '已處理完成。';
+      }
       const assistantMsg: ChatMessage = {
         id: crypto.randomUUID(),
         role: 'assistant',
-        content: '已處理完成。',
+        content,
         timestamp: new Date(),
+        citations: response.citations,
+        intent: response.intent,
       };
       setMessages(prev => [...prev, assistantMsg]);
     } catch (e) {
@@ -181,7 +193,7 @@ const WorkspaceContent = ({ projectId, userId }: { projectId: string; userId: st
           <Group orientation="horizontal" className="flex-1">
             {/* Column 2: Document Editor */}
             <Panel defaultSize={40} minSize={20}>
-              <DocumentEditor />
+              <DocumentEditor projectId={projectId} />
             </Panel>
 
             {showAiChat && (
