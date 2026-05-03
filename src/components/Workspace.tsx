@@ -22,6 +22,13 @@ import { InsightPane } from './layout/InsightPane';
 import { ChatArea } from './chat/ChatArea';
 import { DocumentEditor } from './document/DocumentEditor';
 
+export interface ChatMessage {
+  id: string;
+  role: 'user' | 'assistant';
+  content: string;
+  timestamp: Date;
+}
+
 const DRIVE_URL = "https://drive.google.com/drive/folders/1OslCCU-8tY3y9p084hWJeO78o7HKIYug";
 
 const LIBRARY_FOLDERS = [
@@ -43,17 +50,42 @@ const WorkspaceContent = ({ projectId, userId }: { projectId: string; userId: st
   const [chatInput, setChatInput] = useState("");
   const [semanticHistory, setSemanticHistory] = useState("");
   const [isAiLoading, setIsAiLoading] = useState(false);
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
   
   // Panel Visibility States
   const [showAiChat, setShowAiChat] = useState(true);
   const [showInsight, setShowInsight] = useState(true);
 
-  const handleSendMessage = async () => {
-    if (!chatInput.trim()) return;
+  const handleSendMessage = async (text: string) => {
+    if (!text.trim()) return;
+    const userMsg: ChatMessage = {
+      id: crypto.randomUUID(),
+      role: 'user',
+      content: text,
+      timestamp: new Date(),
+    };
+    setMessages(prev => [...prev, userMsg]);
     setIsAiLoading(true);
-    await orchestrator.processRequest(chatInput, semanticHistory);
-    setChatInput("");
-    setIsAiLoading(false);
+    try {
+      await orchestrator.processRequest(text, semanticHistory);
+      const assistantMsg: ChatMessage = {
+        id: crypto.randomUUID(),
+        role: 'assistant',
+        content: '已處理完成。',
+        timestamp: new Date(),
+      };
+      setMessages(prev => [...prev, assistantMsg]);
+    } catch (e) {
+      const errorMsg: ChatMessage = {
+        id: crypto.randomUUID(),
+        role: 'assistant',
+        content: '處理請求時發生錯誤，請重試。',
+        timestamp: new Date(),
+      };
+      setMessages(prev => [...prev, errorMsg]);
+    } finally {
+      setIsAiLoading(false);
+    }
   };
 
   return (
@@ -157,6 +189,7 @@ const WorkspaceContent = ({ projectId, userId }: { projectId: string; userId: st
                 <Separator className="w-px bg-slate-200 hover:bg-orange-400 transition-colors cursor-col-resize" />
                 <Panel defaultSize={30} minSize={20}>
                   <ChatArea 
+                    messages={messages}
                     chatInput={chatInput} 
                     setChatInput={setChatInput} 
                     onSendMessage={handleSendMessage} 

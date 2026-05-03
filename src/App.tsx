@@ -11,10 +11,18 @@ function App() {
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    // Auto-login test user for emulator testing
+    // Auto-login test user for emulator testing (Dev mode only)
     const login = async () => {
-      const email = 'test@example.com';
-      const password = 'password123';
+      if (!import.meta.env.DEV) return;
+
+      const email = import.meta.env.VITE_DEV_EMAIL || '';
+      const password = import.meta.env.VITE_DEV_PASSWORD || '';
+      
+      if (!email || !password) {
+        console.warn("Dev credentials missing in .env.local");
+        return;
+      }
+
       try {
         await signInWithEmailAndPassword(auth, email, password);
         console.log("Logged into Emulator Auth");
@@ -35,7 +43,11 @@ function App() {
 
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) setIsReady(true);
-      else login();
+      else if (import.meta.env.DEV) login();
+      else {
+        // In production, you would redirect to a real login page here
+        console.log("No user session found in Production.");
+      }
     });
 
     return () => unsubscribe();

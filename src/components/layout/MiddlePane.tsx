@@ -2,11 +2,13 @@ import React from 'react';
 import { Panel, Group, Separator } from 'react-resizable-panels';
 import { SourcePanel } from '../document/SourcePanel';
 import { ChatArea } from '../chat/ChatArea';
+import { ChatMessage } from '../Workspace';
 
 interface MiddlePaneProps {
+  messages: ChatMessage[];
   chatInput: string;
   setChatInput: (val: string) => void;
-  onSendMessage: () => void;
+  onSendMessage: (text: string) => void;
   isLoading: boolean;
   semanticHistory: string;
 }

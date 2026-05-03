@@ -5,22 +5,31 @@ import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
+import type { ChatMessage } from '@/components/Workspace';
 
 interface ChatAreaProps {
+  messages: ChatMessage[];
   chatInput: string;
   setChatInput: (val: string) => void;
-  onSendMessage: () => void;
+  onSendMessage: (text: string) => void;
   isLoading: boolean;
   semanticHistory: string;
 }
 
 export const ChatArea: React.FC<ChatAreaProps> = ({
+  messages,
   chatInput,
   setChatInput,
   onSendMessage,
   isLoading,
   semanticHistory
 }) => {
+  const handleSend = () => {
+    if (!chatInput.trim() || isLoading) return;
+    onSendMessage(chatInput);
+    setChatInput("");
+  };
+
   return (
     <div className="flex flex-col h-full bg-white w-full relative">
       {/* 1. Chat Header (Orange Theme) */}
@@ -42,27 +51,42 @@ export const ChatArea: React.FC<ChatAreaProps> = ({
       </div>
 
       {/* 2. Messages Area */}
-      <ScrollArea className="flex-1 p-6 bg-gradient-to-b from-orange-50/20 to-transparent">
-        <div className="max-w-xl mx-auto space-y-8 py-4">
-          <ChatMessage 
-            role="assistant" 
-            content="Hello! I am your Gemini Clinical Assistant. I've indexed your cloud folders and the current flowchart state. How can I help you today?" 
-          />
-          
-          <div className="flex items-center gap-4 py-4">
-            <div className="h-px flex-1 bg-slate-100" />
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Context Synchronized</span>
-            <div className="h-px flex-1 bg-slate-100" />
-          </div>
-
-          {isLoading && (
-            <div className="flex gap-4 items-start animate-pulse">
-              <div className="w-9 h-9 rounded-xl bg-orange-100 flex-shrink-0 flex items-center justify-center">
-                <Bot className="w-5 h-5 text-orange-400" />
+      <ScrollArea className="flex-1 p-0 bg-gradient-to-b from-orange-50/10 to-transparent">
+        <div className="flex-1 overflow-y-auto p-4 space-y-3">
+          {messages.length === 0 ? (
+            <div className="flex flex-col items-center justify-center h-full text-center opacity-60 pt-20">
+              <p className="text-sm font-medium text-slate-500">PT-CDSS AI 助手</p>
+              <p className="text-xs text-slate-400 mt-1">輸入問題開始諮詢</p>
+            </div>
+          ) : (
+            messages.map((msg) => (
+              <div
+                key={msg.id}
+                className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
+              >
+                <div
+                  className={`max-w-[80%] rounded-2xl px-4 py-2.5 text-sm ${
+                    msg.role === 'user'
+                      ? 'bg-orange-500 text-white rounded-tr-sm'
+                      : 'bg-white text-slate-700 border border-slate-200 rounded-tl-sm shadow-sm'
+                  }`}
+                >
+                  <p className="whitespace-pre-wrap leading-relaxed">{msg.content}</p>
+                  <p className={`text-[10px] mt-1 ${msg.role === 'user' ? 'text-orange-100' : 'text-slate-400'}`}>
+                    {msg.timestamp.toLocaleTimeString('zh-TW', { hour: '2-digit', minute: '2-digit' })}
+                  </p>
+                </div>
               </div>
-              <div className="space-y-3 flex-1 pt-1">
-                <div className="h-3 bg-slate-100 rounded-full w-3/4" />
-                <div className="h-3 bg-slate-100 rounded-full w-1/2" />
+            ))
+          )}
+          {isLoading && (
+            <div className="flex justify-start">
+              <div className="bg-white border border-slate-200 rounded-2xl rounded-tl-sm px-4 py-3 shadow-sm">
+                <div className="flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-slate-400 animate-bounce [animation-delay:0ms]" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-slate-400 animate-bounce [animation-delay:150ms]" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-slate-400 animate-bounce [animation-delay:300ms]" />
+                </div>
               </div>
             </div>
           )}
@@ -78,12 +102,12 @@ export const ChatArea: React.FC<ChatAreaProps> = ({
               placeholder="Ask Gemini anything..." 
               value={chatInput}
               onChange={(e) => setChatInput(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && onSendMessage()}
+              onKeyDown={(e) => e.key === 'Enter' && handleSend()}
               className="flex-1 border-none focus-visible:ring-0 shadow-none text-[15px] h-11 bg-transparent"
             />
             <Button 
               size="icon" 
-              onClick={onSendMessage} 
+              onClick={handleSend} 
               disabled={isLoading || !chatInput.trim()}
               className="h-10 w-10 bg-orange-600 hover:bg-orange-700 text-white rounded-xl shadow-lg shadow-orange-500/20 transition-all active:scale-95"
             >
@@ -105,38 +129,3 @@ export const ChatArea: React.FC<ChatAreaProps> = ({
     </div>
   );
 };
-
-const ChatMessage = ({ role, content }: { role: 'user' | 'assistant'; content: string }) => (
-  <div className={cn(
-    "flex w-full mb-6 animate-in fade-in slide-in-from-bottom-2 duration-500",
-    role === 'user' ? "justify-end" : "justify-start"
-  )}>
-    <div className={cn(
-      "flex max-w-[85%] gap-3 items-start",
-      role === 'user' ? "flex-row-reverse" : "flex-row"
-    )}>
-      <div className={cn(
-        "w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 shadow-sm transition-transform hover:scale-105",
-        role === 'assistant' ? "bg-orange-500 text-white" : "bg-slate-200 text-slate-600"
-      )}>
-        {role === 'assistant' ? <Bot className="w-5 h-5" /> : <User className="w-5 h-5" />}
-      </div>
-      <div className={cn(
-        "flex flex-col space-y-1",
-        role === 'user' ? "items-end" : "items-start"
-      )}>
-        <div className="text-[10px] font-bold text-slate-400 px-1">
-          {role === 'assistant' ? 'Gemini AI' : 'You'}
-        </div>
-        <div className={cn(
-          "px-4 py-2.5 rounded-2xl text-[14px] leading-relaxed shadow-sm",
-          role === 'assistant' 
-            ? "bg-white border border-slate-100 text-slate-800 rounded-tl-none" 
-            : "bg-[#95ec69] text-slate-900 rounded-tr-none"
-        )}>
-          {content}
-        </div>
-      </div>
-    </div>
-  </div>
-);
