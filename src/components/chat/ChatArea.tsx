@@ -6,6 +6,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import type { ChatMessage } from '@/components/Workspace';
+import { useFlowStore } from '@/store/useFlowStore';
 
 interface ChatAreaProps {
   messages: ChatMessage[];
@@ -24,6 +25,10 @@ export const ChatArea: React.FC<ChatAreaProps> = ({
   isLoading,
   semanticHistory
 }) => {
+  const nodes = useFlowStore((s) => s.nodes);
+  const acceptAllGhostNodes = useFlowStore((s) => s.acceptAllGhostNodes);
+  const ghostCount = nodes.filter((n) => n.data?.isGhost).length;
+
   const handleSend = () => {
     if (!chatInput.trim() || isLoading) return;
     onSendMessage(chatInput);
@@ -92,6 +97,18 @@ export const ChatArea: React.FC<ChatAreaProps> = ({
           )}
         </div>
       </ScrollArea>
+
+      {/* Accept All Ghost Nodes Button */}
+      {ghostCount > 0 && (
+        <div className="px-5 pb-2">
+          <button
+            onClick={acceptAllGhostNodes}
+            className="w-full py-2 px-4 rounded-xl bg-indigo-50 border border-indigo-200 text-indigo-700 text-xs font-bold hover:bg-indigo-100 transition-colors"
+          >
+            接受所有建議節點（{ghostCount}）
+          </button>
+        </div>
+      )}
 
       {/* 3. Input Area (Orange Accents) */}
       <div className="p-5 border-t bg-white shadow-[0_-4px_12px_rgba(0,0,0,0.03)]">

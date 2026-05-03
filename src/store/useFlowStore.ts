@@ -44,6 +44,7 @@ interface FlowState {
   requestFinalize: () => void;
   confirmFinalize: (reasons: Record<string, string>) => Promise<void>;
   cancelFinalize: () => void;
+  acceptAllGhostNodes: () => void;
 }
 
 export const useFlowStore = create<FlowState>((set, get) => ({
@@ -145,5 +146,13 @@ export const useFlowStore = create<FlowState>((set, get) => ({
 
   cancelFinalize: () => {
     set({ isFinalizing: false, pendingRedFlags: [] });
-  }
+  },
+
+  acceptAllGhostNodes: () => set((state) => ({
+    nodes: state.nodes.map((node) =>
+      node.data?.isGhost
+        ? { ...node, data: { ...node.data, isGhost: false }, style: { ...node.style, opacity: 1 } }
+        : node
+    ),
+  })),
 }));
