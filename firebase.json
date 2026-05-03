@@ -8,7 +8,17 @@
   "functions": [
     {
       "source": "Firebase/functions",
-      "codebase": "default",
+      "codebase": "export-bridge",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firestore-debug.log"
+      ]
+    },
+    {
+      "source": "functions",
+      "codebase": "gemini-proxy",
       "ignore": [
         "node_modules",
         ".git",
