@@ -1,122 +1,88 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { 
   Plus, 
-  Book, 
+  MessageSquare, 
+  Brain, 
+  Cpu, 
   Folder, 
-  Cloud, 
   Settings, 
-  ChevronRight, 
-  MessageSquare,
+  ChevronRight,
   Search,
-  CheckCircle2,
-  Clock,
-  AlertCircle,
-  ExternalLink,
-  Trash2,
-  FileText,
-  History
+  History,
+  LayoutGrid,
+  Library,
+  BookOpen
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { cn } from '@/lib/utils';
-import { Badge } from '@/components/ui/badge';
-
-interface Chapter {
-  id: string;
-  name: string;
-  status: string;
-}
 
 export const AppSidebar = () => {
   const [isHovered, setIsHovered] = useState(false);
-  const [chapters, setChapters] = useState<Chapter[]>([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const statusRes = await fetch('/api/status');
-        const statusData = await statusRes.json();
-        setChapters(statusData.chapters || []);
-      } catch (error) {
-        console.error("Failed to fetch sidebar data:", error);
-      }
-    };
-    fetchData();
-  }, []);
 
   return (
     <div 
       className={cn(
-        "flex flex-col h-full bg-slate-900 text-slate-400 transition-all duration-300 ease-in-out border-r border-slate-800 z-50",
+        "flex flex-col h-full bg-[#131314] text-[#e3e3e3] transition-all duration-300 ease-in-out border-r border-[#2d2d2d] z-50",
         isHovered ? "w-72 shadow-2xl" : "w-16"
       )}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* 1. Header (PT Logo) */}
-      <div className="p-3 mb-2">
-        <div className="flex items-center gap-4">
-          <div className="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center shrink-0 shadow-lg shadow-indigo-500/20">
-            <span className="text-white font-bold text-base">PT</span>
-          </div>
-          {isHovered && (
-            <div className="flex flex-col">
-              <span className="font-bold text-white tracking-tight text-base leading-none">PT-CDSS</span>
-              <span className="text-[10px] text-indigo-400 font-bold uppercase mt-1">Voyager v2</span>
-            </div>
+      {/* 1. New Chat Button */}
+      <div className="p-3">
+        <Button 
+          className={cn(
+            "bg-[#1a1a1c] hover:bg-[#2d2d2d] text-slate-300 border border-[#444746] rounded-full h-10 transition-all flex items-center shadow-sm",
+            isHovered ? "w-full px-4 justify-start gap-3" : "w-10 px-0 justify-center"
           )}
-        </div>
+        >
+          <Plus className="w-5 h-5 text-indigo-400" />
+          {isHovered && <span className="text-sm font-medium">新的對話</span>}
+        </Button>
       </div>
 
       <ScrollArea className="flex-1">
-        <div className="px-3 space-y-6">
-          {/* 2. Active Projects */}
-          <Section label="Active Projects" isExpanded={isHovered}>
-            <SidebarItem 
-              icon={<Folder className="w-5 h-5 text-amber-400" />} 
-              label="Cervical Path Project" 
-              sublabel="In progress (50%)"
-              isExpanded={isHovered}
-              active
-            />
+        <div className="px-3 space-y-6 pt-2">
+          {/* 2. Notebooks */}
+          <Section label="筆記本" isExpanded={isHovered}>
+            <SidebarItem icon={<Brain className="w-5 h-5 text-rose-400" />} label="大腦袋" isExpanded={isHovered} />
+            <SidebarItem icon={<BookOpen className="w-5 h-5 text-orange-400" />} label="Claude 基本功" isExpanded={isHovered} />
+            {isHovered && (
+              <Button variant="ghost" size="sm" className="w-full justify-start text-[11px] text-slate-500 hover:text-white h-8 pl-9">
+                <Plus className="w-3 h-3 mr-2" /> 新增筆記本
+              </Button>
+            )}
           </Section>
 
-          {/* 3. NotebookLM Links */}
-          <Section label="Knowledge Base" isExpanded={isHovered}>
-            <SidebarItem 
-              icon={<ExternalLink className="w-5 h-5 text-sky-400" />} 
-              label="NotebookLM Hub" 
-              sublabel="https://notebooklm.google.com/..."
-              isExpanded={isHovered}
-              onClick={() => window.open('https://notebooklm.google.com/notebook/5382032a-771d-47f5-a3b9-2254ff629e57', '_blank')}
-            />
+          {/* 3. Gems */}
+          <Section label="Gem" isExpanded={isHovered}>
+            <SidebarItem icon={<Cpu className="w-5 h-5 text-indigo-400" />} label="問題處理大師" isExpanded={isHovered} />
+            <SidebarItem icon={<Library className="w-5 h-5 text-emerald-400" />} label="LTA 整理大師" isExpanded={isHovered} />
           </Section>
 
-          {/* 4. Past Conversations */}
-          <Section label="Memory" isExpanded={isHovered}>
-            <SidebarItem 
-              icon={<History className="w-5 h-5 text-emerald-400" />} 
-              label="Past Discussions" 
-              isExpanded={isHovered}
-            />
+          {/* 4. Folders */}
+          <Section label="資料夾" isExpanded={isHovered}>
+            <div className={cn("px-3 py-4 text-center", !isHovered && "hidden")}>
+              <Folder className="w-8 h-8 text-[#444746] mx-auto mb-2" />
+              <p className="text-[11px] text-[#444746] font-medium">暫無資料夾</p>
+            </div>
           </Section>
 
-          {/* 5. Trash */}
-          <Section label="System" isExpanded={isHovered}>
-            <SidebarItem 
-              icon={<Trash2 className="w-5 h-5 text-slate-500 hover:text-rose-400 transition-colors" />} 
-              label="Trash" 
-              isExpanded={isHovered}
-            />
+          {/* 5. Recent Conversations */}
+          <Section label="對話" isExpanded={isHovered}>
+            <SidebarItem icon={<MessageSquare className="w-5 h-5 text-sky-400" />} label="平台架構 V1" isExpanded={isHovered} active />
+            <SidebarItem icon={<MessageSquare className="w-5 h-5 text-slate-500" />} label="Claude CLI 連線問題" isExpanded={isHovered} />
+            <SidebarItem icon={<MessageSquare className="w-5 h-5 text-slate-500" />} label="平台架構 V2" isExpanded={isHovered} />
           </Section>
         </div>
       </ScrollArea>
 
       {/* Footer Settings */}
-      <div className="p-3 border-t border-slate-800 bg-slate-900/50">
+      <div className="p-3 border-t border-[#2d2d2d]">
         <SidebarItem 
           icon={<Settings className="w-5 h-5" />} 
-          label="Preferences" 
+          label="設定與說明" 
           isExpanded={isHovered}
         />
       </div>
@@ -127,11 +93,12 @@ export const AppSidebar = () => {
 const Section = ({ label, children, isExpanded }: { label: string, children: React.ReactNode, isExpanded: boolean }) => (
   <div className="space-y-1">
     {isExpanded && (
-      <div className="px-3 mb-2">
-        <span className="text-[10px] font-bold uppercase tracking-widest text-slate-600">{label}</span>
+      <div className="px-3 mb-2 flex items-center justify-between group">
+        <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">{label}</span>
+        <Plus className="w-3 h-3 text-slate-600 opacity-0 group-hover:opacity-100 cursor-pointer" />
       </div>
     )}
-    <div className="space-y-1">
+    <div className="space-y-0.5">
       {children}
     </div>
   </div>
@@ -140,27 +107,22 @@ const Section = ({ label, children, isExpanded }: { label: string, children: Rea
 const SidebarItem = ({ 
   icon, 
   label, 
-  sublabel,
   active = false, 
   isExpanded,
-  onClick,
-  className
+  onClick
 }: { 
   icon: React.ReactNode; 
   label: string; 
-  sublabel?: string;
   active?: boolean;
   isExpanded: boolean;
   onClick?: () => void;
-  className?: string;
 }) => (
   <div 
     onClick={onClick}
     className={cn(
-      "flex items-center gap-4 px-3 py-2.5 rounded-xl transition-all cursor-pointer group relative",
-      active ? "bg-indigo-600/10 text-white" : "hover:bg-slate-800 text-slate-500 hover:text-slate-200",
-      isExpanded ? "w-full" : "w-10 justify-center",
-      className
+      "flex items-center gap-3 px-3 py-2 rounded-lg transition-all cursor-pointer group relative",
+      active ? "bg-[#2d2e2f] text-white" : "hover:bg-[#2d2d2d] text-[#c4c7c5] hover:text-white",
+      isExpanded ? "w-full" : "w-10 justify-center"
     )}
   >
     <div className={cn("shrink-0", active && "text-indigo-400")}>
@@ -168,16 +130,11 @@ const SidebarItem = ({
     </div>
     
     {isExpanded && (
-      <div className="flex flex-col overflow-hidden">
-        <span className="text-sm font-semibold truncate leading-tight">{label}</span>
-        {sublabel && <span className="text-[10px] text-slate-500 truncate mt-0.5">{sublabel}</span>}
-      </div>
+      <span className="text-[13px] font-medium truncate flex-1">{label}</span>
     )}
 
     {active && !isExpanded && (
-      <div className="absolute right-0 w-1 h-6 bg-indigo-500 rounded-l-full shadow-[0_0_8px_rgba(99,102,241,0.5)]" />
+      <div className="absolute right-0 w-1 h-5 bg-indigo-500 rounded-l-full" />
     )}
   </div>
 );
-
-

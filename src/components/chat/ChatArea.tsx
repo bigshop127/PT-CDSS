@@ -107,25 +107,35 @@ export const ChatArea: React.FC<ChatAreaProps> = ({
 };
 
 const ChatMessage = ({ role, content }: { role: 'user' | 'assistant'; content: string }) => (
-  <div className="flex gap-4 items-start group animate-in fade-in slide-in-from-bottom-2 duration-500">
+  <div className={cn(
+    "flex w-full mb-6 animate-in fade-in slide-in-from-bottom-2 duration-500",
+    role === 'user' ? "justify-end" : "justify-start"
+  )}>
     <div className={cn(
-      "w-10 h-10 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-sm transition-transform group-hover:scale-105",
-      role === 'assistant' ? "bg-gradient-to-br from-orange-500 to-amber-600 text-white" : "bg-slate-100 text-slate-600"
+      "flex max-w-[85%] gap-3 items-start",
+      role === 'user' ? "flex-row-reverse" : "flex-row"
     )}>
-      {role === 'assistant' ? <Bot className="w-5 h-5" /> : <User className="w-5 h-5" />}
-    </div>
-    <div className="flex-1 space-y-1.5 pt-1">
       <div className={cn(
-        "text-[10px] font-bold uppercase tracking-wider",
-        role === 'assistant' ? "text-orange-600" : "text-slate-500"
+        "w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 shadow-sm transition-transform hover:scale-105",
+        role === 'assistant' ? "bg-orange-500 text-white" : "bg-slate-200 text-slate-600"
       )}>
-        {role === 'assistant' ? 'Gemini AI' : 'You'}
+        {role === 'assistant' ? <Bot className="w-5 h-5" /> : <User className="w-5 h-5" />}
       </div>
       <div className={cn(
-        "leading-relaxed text-[15px] font-medium p-4 rounded-2xl",
-        role === 'assistant' ? "bg-white border border-slate-100 shadow-sm text-slate-800" : "bg-slate-100 text-slate-700"
+        "flex flex-col space-y-1",
+        role === 'user' ? "items-end" : "items-start"
       )}>
-        {content}
+        <div className="text-[10px] font-bold text-slate-400 px-1">
+          {role === 'assistant' ? 'Gemini AI' : 'You'}
+        </div>
+        <div className={cn(
+          "px-4 py-2.5 rounded-2xl text-[14px] leading-relaxed shadow-sm",
+          role === 'assistant' 
+            ? "bg-white border border-slate-100 text-slate-800 rounded-tl-none" 
+            : "bg-[#95ec69] text-slate-900 rounded-tr-none"
+        )}>
+          {content}
+        </div>
       </div>
     </div>
   </div>
