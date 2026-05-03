@@ -52,7 +52,7 @@ app.post('/export', async (req, res) => {
     const treeData = buildTree(nodes, edges);
 
     // 3. Queue for Rendering (p-limit)
-    const imageUrl = await limit(async () => {
+    const { imageUrl, expirationTime } = await limit(async () => {
       const browser = await puppeteer.launch({
         args: [
           '--no-sandbox',
@@ -86,14 +86,18 @@ app.post('/export', async (req, res) => {
       await file.save(buffer, { contentType: 'image/png' });
       
       // Generate Signed URL or Public URL
-      const [url] = await file.getSignedUrl({
+      const expirationTime = Date.now() + 7 * 24 * 60 * 60 * 1000;
+      const [imageUrl] = await file.getSignedUrl({
         action: 'read',
-        expires: '03-01-2500'
+        expires: expirationTime
       });
-      return url;
+      return { imageUrl, expirationTime };
     });
 
-    res.status(200).json({ url: imageUrl });
+    res.status(200).json({ 
+      url: imageUrl, 
+      expiresAt: new Date(expirationTime).toISOString() 
+    });
   } catch (error) {
     console.error('Export Error:', error);
     res.status(500).send('Internal Server Error');
