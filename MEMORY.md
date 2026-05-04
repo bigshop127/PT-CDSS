@@ -10,4 +10,13 @@
 - **Status**: Completed, Verified, and Pushed to GitHub.
 - **Cleanup**: Updated `firebase.json` to include both function codebases and removed `@google/generative-ai` from root `package.json`.
 - **Commit**: `f20f87c` (Log), `de0d988` (Implementation)
-- **Obsidian**: Updated `PT_Clinical_Decision_Support_System.md`.
+### DIRECTIVE B7: DocumentEditor Implementation
+- **B7a**: Implemented `useDocumentStore` (Zustand) and `useDocumentSave` (Firestore debounced sync).
+- **B7b**: Initial implementation of Tiptap `DocumentEditor` with SOAP template and "Insert to Plan" logic.
+- **B7c**: Completed verification and optimization of Tiptap v3 integration.
+    - Successfully integrated `<BubbleMenu />` from `@tiptap/react/menus`, replacing redundant manual plugin registration.
+    - Enabled Markdown export using `editor.storage.markdown.getMarkdown()`.
+    - Fixed backend `geminiProxy` to support general clinical assistance (polishing) via Gemini, which was previously static.
+- **Status**: Completed, Verified, and Pushed to GitHub.
+- **Commit**: `0b9ad68`
+
