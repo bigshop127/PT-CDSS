@@ -6,7 +6,6 @@ import { Panel, Group, Separator } from 'react-resizable-panels';
 import { useFlowStore } from '@/store/useFlowStore';
 import { useProjectSync } from '@/hooks/useProjectSync';
 import { AIOrchestrator } from '@/services/ai/AIOrchestrator';
-import { SemanticCompressor } from '@/utils/SemanticCompressor';
 
 import { FinalizeDialog } from './flow/FinalizeDialog';
 import { Button } from '@/components/ui/button';
@@ -47,7 +46,6 @@ const LIBRARY_FOLDERS = [
 const WorkspaceContent = ({ projectId, userId }: { projectId: string; userId: string }) => {
   const { syncToRemote } = useProjectSync(projectId, userId);
   const orchestrator = useMemo(() => new AIOrchestrator(import.meta.env.VITE_GEMINI_API_KEY || ""), []);
-  const compressor = useMemo(() => new SemanticCompressor(), []);
 
   const [chatInput, setChatInput] = useState("");
   const [semanticHistory, setSemanticHistory] = useState("");
@@ -87,6 +85,11 @@ const WorkspaceContent = ({ projectId, userId }: { projectId: string; userId: st
         intent: response.intent,
       };
       setMessages(prev => [...prev, assistantMsg]);
+      setSemanticHistory(prev => {
+        const entry = `[User]: ${text}\n[Assistant]: ${content}`;
+        const updated = prev ? `${prev}\n${entry}` : entry;
+        return updated.length > 2000 ? updated.slice(-2000) : updated;
+      });
     } catch (e) {
       const errorMsg: ChatMessage = {
         id: crypto.randomUUID(),

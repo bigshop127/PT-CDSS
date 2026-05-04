@@ -44,7 +44,7 @@ Claude 審查 diff / 行為 → 通過或退回
 | B7-FIX | DocumentEditor 載入修復（loadDocument missing）| P1 | 低 | ✅ 完成 (2026-05-04) |
 | B5B6-FIX | Cloud Function JSON.parse 安全防護 | P1 | 中 | ✅ 完成 (2026-05-04) |
 | B1-SEC | 生產環境 loading 卡住 + console.log 清理 | P2 | 低 | 待執行 |
-| B2-SEC | semanticHistory 永遠空值 / SemanticCompressor 未使用 | P2 | 低 | 待執行 |
+| B2-SEC | semanticHistory 永遠空值 / SemanticCompressor 未使用 | P2 | 低 | Directive 已起草 |
 | B3-SEC | Ghost node accept 後 borderStyle 未清除 | P3 | 低 | 待執行 |
 | B8 | InsightPane Mindmap 真實化 | P4 | 高 | 待執行 |
 
@@ -1027,6 +1027,86 @@ Claude 審查 diff / 行為 → 通過或退回
 **安全規則**：
 - Secret Manager 金鑰存取順序不可改動
 - `isGhost: true` 的 ghost node flag 在 proposals 結構中不可移除
+
+---
+
+## DIRECTIVE B2-SEC: semanticHistory 接入 handleSendMessage
+
+**目標**：修正 `Workspace.tsx` 中 `semanticHistory` 永遠為空字串的問題，使每輪對話後將 `[User]/[Assistant]` 條目累積到 state，讓後續 `orchestrator.processRequest` 呼叫能帶入真實的語意上下文；同時移除從未使用的 `SemanticCompressor` import 與 useMemo。
+
+**涉及檔案**：
+- `src/components/Workspace.tsx`（唯一修改目標）
+
+**禁止範圍**：
+- `src/utils/SemanticCompressor.ts` — **不可修改**（此檔案服務 canvas drag debouncing，邏輯正確）
+- `orchestrator.processRequest(text, semanticHistory)` — 呼叫簽名不可變動
+- `handleSendMessage` 的 `catch` / `finally` 區塊不可改動
+- `semanticHistory` 的 `useState("")` 初始值不可改動
+- 所有安全核心邏輯（isGhost、confirmFinalize、onSnapshot）不可觸碰
+
+**步驟**：
+
+1. 刪除 `SemanticCompressor` 的 import（約第 9 行）：
+   ```typescript
+   // 刪除此行：
+   import { SemanticCompressor } from '@/utils/SemanticCompressor';
+   ```
+
+2. 刪除 `compressor` useMemo（約第 50 行）：
+   ```typescript
+   // 刪除此行：
+   const compressor = useMemo(() => new SemanticCompressor(), []);
+   ```
+
+3. 在 `handleSendMessage` 的 `try` 區塊中，於 `setMessages(prev => [...prev, assistantMsg]);` **之後**插入：
+   ```typescript
+   setSemanticHistory(prev => {
+     const entry = `[User]: ${text}\n[Assistant]: ${content}`;
+     const updated = prev ? `${prev}\n${entry}` : entry;
+     return updated.length > 2000 ? updated.slice(-2000) : updated;
+   });
+   ```
+
+   修改後完整的 try 區塊如下：
+   ```typescript
+   try {
+     const response = await orchestrator.processRequest(text, semanticHistory);
+     let content: string;
+     if (response.intent === 'CANVAS_EDIT') {
+       content = '已根據建議更新流程圖，請確認虛線節點。';
+     } else if (response.intent === 'KNOWLEDGE_QUERY') {
+       content = response.message ?? '已查詢知識庫。';
+     } else {
+       content = response.message ?? '已處理完成。';
+     }
+     const assistantMsg: ChatMessage = {
+       id: crypto.randomUUID(), role: 'assistant', content,
+       timestamp: new Date(), citations: response.citations, intent: response.intent,
+     };
+     setMessages(prev => [...prev, assistantMsg]);
+     setSemanticHistory(prev => {
+       const entry = `[User]: ${text}\n[Assistant]: ${content}`;
+       const updated = prev ? `${prev}\n${entry}` : entry;
+       return updated.length > 2000 ? updated.slice(-2000) : updated;
+     });
+   } catch (e) {
+     const errorMsg: ChatMessage = { id: crypto.randomUUID(), role: 'assistant', content: '處理請求時發生錯誤，請重試。', timestamp: new Date() };
+     setMessages(prev => [...prev, errorMsg]);
+   } finally {
+     setIsAiLoading(false);
+   }
+   ```
+
+**驗收條件**：
+- [ ] AC1: `grep "SemanticCompressor" src/components/Workspace.tsx` 無結果
+- [ ] AC2: `grep "compressor" src/components/Workspace.tsx` 無結果
+- [ ] AC3: `setSemanticHistory` 出現在 `handleSendMessage` 的 try 區塊內
+- [ ] AC4: `orchestrator.processRequest(text, semanticHistory)` 呼叫簽名未被更動
+- [ ] AC5: `npx tsc --noEmit` 無新增 TypeScript 錯誤
+
+**安全規則**：
+- `SemanticCompressor.ts` 本身不可修改
+- `isGhost` / `confirmFinalize` 不得觸碰
 
 ---
 
