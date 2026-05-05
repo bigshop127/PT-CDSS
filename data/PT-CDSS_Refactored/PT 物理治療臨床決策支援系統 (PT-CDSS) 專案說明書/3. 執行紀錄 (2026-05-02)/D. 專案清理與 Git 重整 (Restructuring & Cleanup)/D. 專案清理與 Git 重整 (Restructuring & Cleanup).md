@@ -1,0 +1,11 @@
+- [x] **Project Restructuring**: 
+    - 建立 `C:\gemini CLI\Puhui-CCB`，移出財務、Python 等舊專案
+    - 清理 `PT-CDSS` 目錄，移出不相關的資料夾 (如 notebooklm, Supabase 舊程式)
+    - 更新 `C:\CC AI Agent` 目錄，設定 Claude CLI 專屬工作區
+- [x] **Git Repository Purge**: 
+    - 從 Git 紀錄中移除 800+ 個不相關檔案 (Puhui 資料、JS/Python 腳本)
+    - 更新 `.gitignore` 以防止後續誤傳，確保 React 專案純淨
+- [x] **UI Layout API Fix**: 
+    - 修復 `react-resizable-panels` API 變更導致的問題 (改為 aliasing `ResizableGroup`)
+    - 移除檔案夾中舊的元件，確保 JSX 語法正確 [PARSE_ERROR]
+    - 重新清除 `.vite` 緩存，確保編譯時沒有舊的依賴報錯

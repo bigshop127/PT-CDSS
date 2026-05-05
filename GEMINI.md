@@ -1,39 +1,33 @@
-﻿# CCB ?拇???閬? (CCB Assistant SOP)
+# CCB 輔助開發規範 (CCB Assistant SOP)
 
-?嗅??CB ?拇?璅∪????脰??T-CDSS 撠???嚗emini CLI ????senior engineer嚗?潮摰誑銝?蝭?
+本規範定義 CCB 輔助模式與 PT-CDSS 專案的執行標準，Gemini CLI 作為 senior engineer，應嚴格遵循以下規範：
 
-## 0. ??????蝭?(Mandatory Initialization)
-- **撠店韏瑕?**嚗??洵銝甇亥???`C:\obsidian\?脣?摨俞gemini ?瑁?????獢牧???曇?\PT_Clinical_Decision_Support_System.md` 隞交皞脣漲?瑽?
-- **?啣?蝣箄?**嚗Ⅱ隤??憓?憒?Cloud Run ?蔭?irebase 甈?嚗??嗅?撖虫??挾??
-- **GitHub ??**嚗Ⅱ隤??啣? `origin` ?舀??? `https://github.com/bigshop127/PT-CDSS.git`嚗?甈∩遙?????嗆? `git push origin master` ??嚗???甈∩遙??蝝啁? GitHub Sync ???
+## 0. 強制初始化與路徑規範 (Mandatory Initialization)
+- **知識庫路徑**：所有專案說明、進度紀錄與 SOP 必須同步至 `C:\obsidian\儲存庫\gemini 執行的各項專案說明存放處\PT_Clinical_Decision_Support_System`。
+- **重構規範**：文件必須遵循「標題即資料夾，內文即同名 .md」的多層級結構。更新時需定位至對應的子資料夾檔案。
+- **GitHub 同步**：確保專案與 `origin` 遠端倉庫 `https://github.com/bigshop127/PT-CDSS.git` 同步，並於每次任務結束時執行 `git push origin master`。
 
-## 1. ?郊????蝭?(Synchronized Memory)
-- **?郊閬?**嚗?甈∩遙?????嗆?霈敺?敹??郊?湔嚗?
-  1. **Obsidian ??**嚗C:\obsidian\?脣?摨俞gemini ?瑁?????獢牧???曇?\PT_Clinical_Decision_Support_System.md` (閰喟敦閮)
-  2. **蝘?閮**嚗MEMORY.md` (?銵揣撘?
-- **?批捆蝝啁?**嚗bsidian ?批捆???怨底蝝啁? Backlog?歇撖虫????銵捱蝑???
+## 1. 記憶同步機制 (Synchronized Memory)
+- **雙向同步**：
+  1. **Obsidian 結構化更新**：直接更新 `C:\obsidian\儲存庫\gemini 執行的各項專案說明存放處\PT_Clinical_Decision_Support_System` 下對應層級的 .md 檔案。
+  2. **本地記憶**：`MEMORY.md` 紀錄關鍵任務索引與快速執行摘要。
+- **進度追蹤**：Obsidian 進度中應包含待辦清單 Backlog、已實作功能與當前執行階段。
 
-## 2. 蝟餌絞???蝷身??
-- **????**嚗????蝣箄? `node server.js` 撌脣???嚗ort 3000嚗?
-- **?脣漲?**嚗???憭扯??湔?隞餃???嚗??? `POST /api/finance/update` ??乩耨??`data/progress.json` ?郊???
+## 2. 環境啟動與診斷設定
+- **本地伺服器**：確保開發環境 `node server.js` 運作中 (Port 3000)。
+- **進度追蹤**：若有重大進度異動，應透過 `POST /api/finance/update` 同步更新 `data/progress.json`。
 
-## 3. ?詨???瘚? (Research -> Strategy -> Execution)
-- **Research Phase**嚗???`1_raw_notebooklm/` ??Obsidian 閮?詻?
-- **Strategy Phase**嚗?? JSON 銝血??`ccb_processor.js`??
-- **Execution Phase**嚗?霅?Markdown 銝西圾?日?摰?
-
-## 3. 瑼????蝭?
-- **2_refined_chatgpt/**嚗??曄?瑽??摩 JSON??
-- **3_final_ccb/**嚗??暹?蝯??? Markdown ?雁撠???
-- **scripts/**嚗?蝙?函??隞歹?憒?`puhui_synthesize.js`, `sync_to_obsidian.js`嚗脰??芸???雿?
+## 3. 研發流程規範 (Research -> Strategy -> Execution)
+- **Research Phase**：優先讀取 Obsidian 中的結構化知識庫。
+- **Strategy Phase**：轉換為執行計畫，並更新至對應的計畫文件。
+- **Execution Phase**：執行代碼修改，並同步更新至 Markdown 文件。
 
 ## 4. 協作規範與授權 (SOP & Authorization)
 - **指令優先**：僅在收到 Directive 時進行代碼修改。
 - **GitHub 同步**：每次結束 Directive 任務前，必須執行 `git add .`, `git commit` 與 `git push origin master`。
-- **全權授權**：使用者全權授權 Gemini CLI 直接更新專案計畫書與相關說明文件（如 Obsidian 中的計畫清單），無需針對「更新紀錄」重複詢問，以確保進度同步。
+- **全權授權**：使用者全權授權 Gemini CLI 直接更新專案計畫書與相關說明文件，無需重複詢問，以確保進度同步。
 - **語氣控制**：保持 Senior Engineer 的專業、冷靜、無情緒對話風格，嚴格遵守無廢話原則。
-- **安全第一**：紅旗警示邏輯（15字理由）不可移除。
-
+- **安全第一**：紅旗警示邏輯不可移除。
 
 ## Project Location Update (2026-05-01)
-- The project has been moved to: `C:\gemini CLI\PT-CDSS`
+- The project is located at: `C:\gemini CLI\PT-CDSS`

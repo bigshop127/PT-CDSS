@@ -1,0 +1,6 @@
+- [x] **Project Relocation**: 專案遷移至 `C:\gemini CLI\PT-CDSS`
+- [x] **GitHub Integration**: 
+    - 建立遠端儲存庫 `https://github.com/bigshop127/PT-CDSS.git`
+    - 設定 `git push origin master` 作為標準同步流程
+- [x] **Emulator Automation**: 啟動 Firebase Emulator (Auth/Firestore/Storage) 並撰寫自動測試資料 (Seeding)
+- [x] **Environment Cleanup**: 修復 stale build 造成的部署問題，強制清除 `dist` 目錄

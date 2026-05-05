@@ -1,0 +1,5 @@
+- [x] **Strict Tone Enforcement**: 
+    - 移除所有 filler words 與無意義語氣詞
+    - 更新 `PRO_SYSTEM_PROMPT` 作為系統預設指令
+    - 修改啟動對話為：『System initialized. Clinical guidelines analyzed. State your required flowchart modifications.』
+- [x] **Semantic Compressor**: 實作語意壓縮器以節省 Token

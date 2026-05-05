@@ -1,0 +1,5 @@
+- [ ] **B7: DocumentEditor 實作 (Tiptap)**: 實作 SOAP 模板、Firestore 自動儲存、AI 插入至 Plan 區塊及選取潤色功能。
+- [x] **B7a: 基礎架構**: 完成 useDocumentStore (Zustand) 與 useDocumentSave (Firestore Debounced Sync)。
+- [x] **B7b: 編輯器原型**: 完成 DocumentEditor 元件基礎結構與 SOAP 預設模板。
+- [ ] **B7c: 功能驗證**: 待解決 Tiptap v3 BubbleMenu 匯入問題與 Markdown 匯出功能驗證。
+- [x] **Commit**: 00e45f4

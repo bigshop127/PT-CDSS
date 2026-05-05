@@ -1,0 +1,2 @@
+- [x] **B1-SEC**: Fixed App.tsx production loading hang and cleaned up console.log statements.
+- [x] **B3-SEC**: Ghost node borderStyle cleanup (style: { opacity: 1, border: undefined }).

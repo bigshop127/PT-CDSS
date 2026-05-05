@@ -1,0 +1,10 @@
+- [x] **Panel Reorganization**: 
+    - 調整為「左：導覽列 | 中：心智圖畫布 | 右：AI 對話區」的三欄配置
+    - 左側導覽列最小化 (min 5%)，畫布可展開至 85%
+    - AI 對話區預設展開至 25%，可折疊隱藏
+- [x] **Visual Identity**: 
+    - 主題 Header 設為 **Indigo-700** 漸層，增加立體感
+    - 搜尋框 (Search Bar) 採用微透明背景，並加入懸停動態效果
+    - 左側導覽列圖示大小調整至 `w-6`，並加入文字標籤提示
+- [x] **Dynamic Sidebar**: 
+    - 左側導覽列改為動態，每 5 秒自動打 API `/api/status` (PT 狀態) 及 `/api/finance/status` (財務狀態)

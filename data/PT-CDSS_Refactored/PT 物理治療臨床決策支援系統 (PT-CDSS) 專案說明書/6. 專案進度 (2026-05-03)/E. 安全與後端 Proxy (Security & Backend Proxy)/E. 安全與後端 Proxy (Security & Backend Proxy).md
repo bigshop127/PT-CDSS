@@ -1,0 +1,4 @@
+- [x] **B6: Gemini API Key 後端化**: 實作 Firebase Functions Proxy，將 API Key 從前端移除。
+- [x] **B4: Export 簽名 URL 修復**: 修正簽名 URL 產出時間為 7 天，並修復 expiresAt 格式。
+- [x] **GitHub 同步**: 完成 B4/B6 修復並推送至遠端 (Commit: de0d988)。
+- [x] **移除不必要依賴**: 更新 firebase.json 部署目標，並從 package.json 移除 @google/generative-ai (Commit: dc29fa3)。

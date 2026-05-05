@@ -1,5 +1,11 @@
 # Task Memory Log
 
+## [2026-05-05]
+### DIRECTIVE B8: InsightPane Mermaid 流程圖匯出
+- **B8**: Implemented Mermaid flowchart export functionality (`nodesToMermaid`) in `src/lib/mermaidExport.ts` mapping Zustand store `nodes`/`edges` to a formatted `.mmd` string strictly adhering to export styling rules. Updated `InsightPane.tsx` with a live visualizer (stats mapping) and an export button to trigger browser download of `PT-CDSS.mmd`.
+- **Status**: Completed, Verified (via `tsc --noEmit`), and Pushed to GitHub.
+- **Commit**: `23432cb`
+
 ## [2026-05-03]
 ### DIRECTIVE B5: Knowledge Query (RAG)
 - **B5a**: Created isolated ingestion pipeline in `scripts/` using PDF-to-Vector (768-dim) logic.
