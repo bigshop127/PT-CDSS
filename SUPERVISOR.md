@@ -45,7 +45,7 @@ Claude 審查 diff / 行為 → 通過或退回
 | B5B6-FIX | Cloud Function JSON.parse 安全防護 | P1 | 中 | ✅ 完成 (2026-05-04) |
 | B1-SEC | 生產環境 loading 卡住 + console.log 清理 | P2 | 低 | ✅ 完成 (a35e1bd) |
 | B2-SEC | semanticHistory 永遠空值 / SemanticCompressor 未使用 | P2 | 低 | ✅ 完成 (e7195fd) |
-| B3-SEC | Ghost node accept 後 borderStyle 未清除 | P3 | 低 | 待執行 |
+| B3-SEC | Ghost node accept 後 borderStyle 未清除 | P3 | 低 | ✅ 完成 (6807b8b) |
 | B8 | InsightPane Mindmap 真實化 | P4 | 高 | 待執行 |
 
 ---
@@ -1260,4 +1260,5 @@ Gemini 執行 Directive 後，Claude 逐項確認：
 | B5B6-FIX  | 2026-05-04 | ✅ Pass | JSON.parse try-catch x2；classification 適配正確；AC1–5 全過 |
 | B2-SEC    | 2026-05-05 | ✅ Pass | SemanticCompressor 移除；setSemanticHistory 累加邏輯正確；AC1–5 全過 |
 | B1-SEC    | 2026-05-05 | ✅ Pass | prod else branch setIsReady(true) 補上；loading 文字 DEV/prod 分流；console.log x8 全清（4 檔）|
+| B3-SEC    | 2026-05-05 | ✅ Pass | style spread 改為 `{ opacity: 1, border: undefined }`；dashed border 正確清除；tsc 通過 |
 | B8        | -       | -          | -    |
