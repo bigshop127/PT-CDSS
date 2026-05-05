@@ -149,7 +149,7 @@ export const useFlowStore = create<FlowState>((set, get) => ({
   acceptAllGhostNodes: () => set((state) => ({
     nodes: state.nodes.map((node) =>
       node.data?.isGhost
-        ? { ...node, data: { ...node.data, isGhost: false }, style: { ...node.style, opacity: 1 } }
+        ? { ...node, data: { ...node.data, isGhost: false }, style: { opacity: 1, border: undefined } }
         : node
     ),
   })),

@@ -43,7 +43,7 @@ Claude 審查 diff / 行為 → 通過或退回
 | B7 | DocumentEditor 實作（Tiptap）| P4 | 中 | ✅ 完成 (f8cba55) |
 | B7-FIX | DocumentEditor 載入修復（loadDocument missing）| P1 | 低 | ✅ 完成 (2026-05-04) |
 | B5B6-FIX | Cloud Function JSON.parse 安全防護 | P1 | 中 | ✅ 完成 (2026-05-04) |
-| B1-SEC | 生產環境 loading 卡住 + console.log 清理 | P2 | 低 | 待執行 |
+| B1-SEC | 生產環境 loading 卡住 + console.log 清理 | P2 | 低 | ✅ 完成 (a35e1bd) |
 | B2-SEC | semanticHistory 永遠空值 / SemanticCompressor 未使用 | P2 | 低 | ✅ 完成 (e7195fd) |
 | B3-SEC | Ghost node accept 後 borderStyle 未清除 | P3 | 低 | 待執行 |
 | B8 | InsightPane Mindmap 真實化 | P4 | 高 | 待執行 |
@@ -1110,6 +1110,77 @@ Claude 審查 diff / 行為 → 通過或退回
 
 ---
 
+## DIRECTIVE B3-SEC — Ghost Node 邊框未清除修正
+
+**日期**：2026-05-05
+**優先級**：P3
+**目標檔案**：`src/store/useFlowStore.ts`
+**預計影響行數**：1 行
+
+---
+
+### 問題描述
+
+`acceptAllGhostNodes` action 在接受 ghost node 時，僅將 `opacity` 重設為 `1`，但保留了原有的 `style` 物件（包含 `border: "2px dashed #6366f1"`）。導致節點被接受後視覺上仍顯示虛線邊框。
+
+**根本原因（`useFlowStore.ts` 約第 149–155 行）**：
+
+```typescript
+// 現有（有 bug）
+acceptAllGhostNodes: () => set((state) => ({
+  nodes: state.nodes.map((node) =>
+    node.data?.isGhost
+      ? { ...node, data: { ...node.data, isGhost: false }, style: { ...node.style, opacity: 1 } }
+      : node
+  ),
+})),
+```
+
+`{ ...node.style, opacity: 1 }` 展開了含有 `border: "2px dashed #6366f1"` 的 ghost style，只覆蓋 opacity，dashed border 仍殘留。
+
+---
+
+### 修改內容
+
+**僅修改 `src/store/useFlowStore.ts`，找到 `acceptAllGhostNodes` action，將 style 重設行從：**
+
+```typescript
+{ ...node, data: { ...node.data, isGhost: false }, style: { ...node.style, opacity: 1 } }
+```
+
+**改為：**
+
+```typescript
+{ ...node, data: { ...node.data, isGhost: false }, style: { opacity: 1, border: undefined } }
+```
+
+**改動說明**：
+- 移除 `...node.style` spread，不繼承任何 ghost 樣式
+- 明確設定 `border: undefined` 以清除虛線邊框
+- `opacity: 1` 恢復正常不透明度
+- 其他 store 邏輯、其他 action 一律不得觸碰
+
+---
+
+### 驗收條件
+
+- [ ] AC1：`acceptAllGhostNodes` 中 `style` 賦值不含 `...node.style` spread
+- [ ] AC2：`style` 賦值包含 `border: undefined`（或等效清除）
+- [ ] AC3：`style` 賦值包含 `opacity: 1`
+- [ ] AC4：`npx tsc --noEmit` 無新增 TypeScript 錯誤
+- [ ] AC5：`isGhost` flag 在 `data` 中正確設為 `false`（此行為不得被拆散）
+
+---
+
+### 安全規則
+
+- `confirmFinalize` 15 字驗證邏輯不得觸碰
+- `isGhost` flag 識別機制不得移除，僅修改 style 清除邏輯
+- Firebase onSnapshot、`approveControlTransfer` 不得觸碰
+- 僅修改 `acceptAllGhostNodes` action 內的 `style` 賦值，**嚴禁修改其他 action**
+
+---
+
 ## 2026-05-04 審查發現 (Audit Findings)
 
 B1–B7 完整審查（2026-05-04）發現以下次要問題，已列入 Backlog 待處理：
@@ -1188,4 +1259,5 @@ Gemini 執行 Directive 後，Claude 逐項確認：
 | B7-FIX    | 2026-05-04 | ✅ Pass | loadDocument + mount useEffect + cancelled flag；AC1–5 全過 |
 | B5B6-FIX  | 2026-05-04 | ✅ Pass | JSON.parse try-catch x2；classification 適配正確；AC1–5 全過 |
 | B2-SEC    | 2026-05-05 | ✅ Pass | SemanticCompressor 移除；setSemanticHistory 累加邏輯正確；AC1–5 全過 |
+| B1-SEC    | 2026-05-05 | ✅ Pass | prod else branch setIsReady(true) 補上；loading 文字 DEV/prod 分流；console.log x8 全清（4 檔）|
 | B8        | -       | -          | -    |

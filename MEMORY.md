@@ -10,9 +10,8 @@
 - **Status**: Completed, Verified, and Pushed to GitHub.
 - **Cleanup**: Updated `firebase.json` to include both function codebases and removed `@google/generative-ai` from root `package.json`.
 - **Commit**: `f20f87c` (Log), `de0d988` (Implementation)
-### DIRECTIVE B1-SEC: Production Loading Fix & Console Cleanup
-- **B1-SEC**: Fixed production loading hang in `App.tsx` by ensuring `isReady` state transitions even when no user session is found. Improved loading message to be environment-aware.
-- **Cleanup**: Systematically removed `console.log` statements from `src/App.tsx`, `src/hooks/useProjectSync.ts`, `src/lib/firebase.ts`, and `src/store/useFlowStore.ts` to prepare for production.
+### DIRECTIVE B3-SEC: Ghost Node Style Cleanup
+- **B3-SEC**: Updated `acceptAllGhostNodes` in `useFlowStore` to clear `borderStyle: dashed` by resetting `style` to `{ opacity: 1, border: undefined }`. Removed style spread to ensure clean state transition.
 - **Status**: Completed, Verified.
 - **Commit**: `[PENDING]`
 
