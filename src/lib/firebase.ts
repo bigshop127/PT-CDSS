@@ -22,7 +22,6 @@ const storage = getStorage(app);
 // Section: Local Emulator Setup (Option B)
 // Connects to local emulators if the environment is development
 if (import.meta.env.DEV) {
-  console.log("Connecting to Firebase Emulators...");
   connectFirestoreEmulator(db, 'localhost', 8080);
   connectFunctionsEmulator(functions, 'localhost', 5001);
   connectAuthEmulator(auth, 'http://localhost:9099');

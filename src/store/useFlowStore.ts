@@ -96,7 +96,6 @@ export const useFlowStore = create<FlowState>((set, get) => ({
       // The UI should now show a Dialog (shadcn/ui) to collect reasons.
     } else {
       // No red flags, proceed directly or show a standard confirmation
-      console.log("No Red Flags detected. Ready to export.");
       set({ isFinalizing: true, pendingRedFlags: [] });
     }
   },
@@ -132,7 +131,6 @@ export const useFlowStore = create<FlowState>((set, get) => ({
     });
 
     // In a real implementation, this would call a Firebase Function (Section 3.D)
-    console.log("Finalizing project with decision logs:", logs);
     
     set({ 
       nodes: updatedNodes,

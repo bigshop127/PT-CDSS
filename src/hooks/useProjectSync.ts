@@ -50,7 +50,6 @@ export const useProjectSync = (projectId: string, currentUserId: string) => {
           status: 'pending'
         }
       });
-      console.log("Control request sent to owner.");
     } catch (error) {
       console.error("Failed to request control:", error);
     }
@@ -78,7 +77,6 @@ export const useProjectSync = (projectId: string, currentUserId: string) => {
         'owner_id': requesterUid,
         'control_request': null // Clear the request after approval
       });
-      console.log(`Control transferred to user: ${requesterUid}`);
     } catch (error) {
       console.error("Failed to transfer control:", error);
     }
