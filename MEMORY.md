@@ -1,6 +1,13 @@
 # Task Memory Log
 
 ## [2026-05-06]
+### DIRECTIVE C1: CI/CD Deployment & Hosting
+- **C1**: 實作 Firebase Hosting 與 GitHub Actions 自動化部署流程。
+- **C1-INFRA**: 配置 `firebase.json` 與 `.firebaserc`，並在 GitHub Secrets 設定環境變數。
+- **C1-FIX**: 修復 `AppSidebar.tsx` 重複 import 導致的編譯錯誤。
+- **Status**: Completed, Verified (via `npm run deploy`), and Pushed to GitHub.
+- **URL**: [https://pt-cdss.web.app](https://pt-cdss.web.app)
+
 ### DIRECTIVE B10: Ribbon Toolbar & Header Refinement
 - **B10**: 實作 Microsoft Word 風格的 Ribbon 工具列，支援底線、對齊、螢光筆等多項功能。
 - **B10-UI**: 將 Header 的資料夾圖示放大 2 倍，並將編輯器內容清空為空白畫布。
