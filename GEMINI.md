@@ -14,7 +14,10 @@
 - **進度追蹤**：Obsidian 進度中應包含待辦清單 Backlog、已實作功能與當前執行階段。
 
 ## 2. 環境啟動與診斷設定
-- **本地伺服器**：確保開發環境 `node server.js` 運作中 (Port 3000)。
+- **本地伺服器**：確保開發環境 `npm run dev` 運作中 (Port 5173)。
+- **線上部署**：
+  - **自動部署**：推送至 `master` 分支將觸發 GitHub Action 自動部署至 Firebase Hosting。
+  - **手動部署**：執行 `npm run deploy` 進行即時更新。
 - **進度追蹤**：若有重大進度異動，應透過 `POST /api/finance/update` 同步更新 `data/progress.json`。
 
 ## 3. 研發流程規範 (Research -> Strategy -> Execution)
