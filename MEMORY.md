@@ -1,6 +1,12 @@
 # Task Memory Log
 
 ## [2026-05-06]
+### DIRECTIVE C2: User Onboarding & Google Auth
+- **C2**: 實作 Google 登入與新手引導流程，強制新用戶連結個人 API Key。
+- **C2-STORE**: 建立 `useUserStore.ts` 實現 API Key 的本地持久化儲存 (Privacy-First)。
+- **C2-UI**: 新增 `Onboarding` 組件與 `Card` UI 基礎。
+- **Status**: Completed, Verified (via `npm run build`), and Pushed to GitHub.
+
 ### DIRECTIVE C1: CI/CD Deployment & Hosting
 - **C1**: 實作 Firebase Hosting 與 GitHub Actions 自動化部署流程。
 - **C1-INFRA**: 配置 `firebase.json` 與 `.firebaserc`，並在 GitHub Secrets 設定環境變數。
