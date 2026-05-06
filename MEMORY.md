@@ -1,5 +1,11 @@
 # Task Memory Log
 
+## [2026-05-06]
+### DIRECTIVE B9: UI/UX Premium Beautification
+- **B9**: 全面升級為 Refined Hybrid 視覺風格。實作 Header 玻璃擬物化 (Glassmorphism)、深邃側邊欄 (Slate-950)、紙張感編輯器與 AI 對話區視覺強化。
+- **Status**: Completed, Verified (via `npm run build`), and Pushed to GitHub.
+- **Commit**: (Pending push)
+
 ## [2026-05-05]
 ### DIRECTIVE B8: InsightPane Mermaid 流程圖匯出
 - **B8**: Implemented Mermaid flowchart export functionality (`nodesToMermaid`) in `src/lib/mermaidExport.ts` mapping Zustand store `nodes`/`edges` to a formatted `.mmd` string strictly adhering to export styling rules. Updated `InsightPane.tsx` with a live visualizer (stats mapping) and an export button to trigger browser download of `PT-CDSS.mmd`.

@@ -109,34 +109,43 @@ const WorkspaceContent = ({ projectId, userId }: { projectId: string; userId: st
         <AppSidebar />
 
         <div className="flex-1 flex flex-col min-w-0">
-          {/* Global Header */}
-          <div className="h-14 border-b bg-white flex items-center px-4 gap-4 z-10 shadow-sm">
-            <div className="flex items-center gap-3 flex-none">
-              <span className="font-extrabold text-indigo-700 tracking-tight text-lg">PT-CDSS</span>
-              <Badge variant="outline" className="bg-indigo-50 text-indigo-700 border-indigo-200 text-[9px] px-1 font-bold">PRO</Badge>
+          {/* Global Header with Glassmorphism & Refined Branding */}
+          <div className="h-14 border-b border-indigo-100/50 bg-white/80 backdrop-blur-md flex items-center px-4 gap-4 z-20 shadow-[0_1px_10px_rgba(99,102,241,0.05)]">
+            <div className="flex items-center gap-3 flex-none group cursor-pointer">
+              <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-indigo-600 to-purple-700 flex items-center justify-center shadow-indigo-200 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                <Sparkles className="w-4 h-4 text-white fill-white/20" />
+              </div>
+              <div className="flex flex-col leading-tight">
+                <span className="font-black text-transparent bg-clip-text bg-gradient-to-r from-indigo-700 to-purple-700 tracking-tighter text-lg">PT-CDSS</span>
+                <span className="text-[8px] font-bold text-indigo-400 uppercase tracking-widest">Clinical AI</span>
+              </div>
+              <Badge variant="outline" className="bg-indigo-50 text-indigo-700 border-indigo-200 text-[9px] px-1 font-bold shadow-sm">PRO</Badge>
             </div>
             
-            {/* Search Bar */}
-            <div className="relative w-64 flex-none">
-              <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
+            {/* Search Bar - Refined Interaction */}
+            <div className="relative w-72 flex-none group">
+              <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-400 group-focus-within:text-indigo-500 transition-colors" />
               <Input 
-                placeholder="快速搜尋..." 
-                className="pl-9 bg-slate-100/80 border-none h-9 rounded-lg focus-visible:ring-2 focus-visible:ring-indigo-500 text-sm font-medium" 
+                placeholder="快速搜尋臨床指引、病歷或文獻..." 
+                className="pl-9 bg-slate-100/50 border-transparent h-9 rounded-xl focus-visible:ring-2 focus-visible:ring-indigo-500/20 focus-visible:bg-white focus-visible:border-indigo-200 text-xs font-medium transition-all duration-300 placeholder:text-slate-400" 
               />
+              <div className="absolute right-2 top-2 h-5 px-1.5 rounded border border-slate-200 bg-white text-[9px] font-bold text-slate-400 flex items-center gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity">
+                <span>⌘</span><span>K</span>
+              </div>
             </div>
 
-            {/* Book Shortcuts */}
+            {/* Book Shortcuts - Refined Visuals */}
             <div className="flex-1 flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1">
-              <div className="w-px h-6 mx-2 bg-slate-200" />
+              <div className="w-px h-6 mx-2 bg-slate-200/60" />
               {LIBRARY_FOLDERS.map((folder) => (
                 <Tooltip key={folder.id}>
                   <TooltipTrigger asChild>
                     <button 
                       onClick={() => window.open(DRIVE_URL, '_blank')}
-                      className="group flex items-center gap-2 px-2.5 py-1.5 rounded-lg hover:bg-slate-100 transition-all shrink-0 border border-transparent hover:border-slate-200"
+                      className="group flex items-center gap-2 px-3 py-1.5 rounded-xl hover:bg-white hover:shadow-sm hover:border-slate-100 border border-transparent transition-all shrink-0"
                     >
-                      <div className={`w-2 h-2 rounded-full ${folder.color} shadow-sm group-hover:scale-125 transition-transform`} />
-                      <span className="text-[11px] font-bold text-slate-600 truncate max-w-[100px]">{folder.id} {folder.name}</span>
+                      <div className={`w-2 h-2 rounded-full ${folder.color} shadow-sm group-hover:ring-4 group-hover:ring-${folder.color.split('-')[1]}-100 transition-all`} />
+                      <span className="text-[10px] font-bold text-slate-600 group-hover:text-indigo-700 transition-colors">{folder.id} {folder.name}</span>
                     </button>
                   </TooltipTrigger>
                   <TooltipContent side="bottom" className="text-[10px] font-bold bg-slate-900 text-white">
@@ -146,20 +155,22 @@ const WorkspaceContent = ({ projectId, userId }: { projectId: string; userId: st
               ))}
             </div>
 
-            {/* Panel Toggles (Floating Icons as per Planning) */}
-            <div className="flex items-center gap-2 border-l pl-4 mr-2">
+            {/* Panel Toggles - Premium feel */}
+            <div className="flex items-center gap-2.5 border-l border-slate-200/60 pl-4 mr-2">
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button 
                     variant={showAiChat ? "default" : "outline"} 
                     size="icon" 
                     className={cn(
-                      "h-9 w-9 rounded-full transition-all duration-300", 
-                      showAiChat ? "bg-orange-500 hover:bg-orange-600 shadow-orange-200 shadow-lg" : "text-orange-500 border-orange-200 hover:bg-orange-50"
+                      "h-9 w-9 rounded-xl transition-all duration-500", 
+                      showAiChat 
+                        ? "bg-gradient-to-br from-orange-400 to-orange-600 hover:from-orange-500 hover:to-orange-700 shadow-orange-200 shadow-lg border-none" 
+                        : "text-orange-500 border-orange-200 bg-orange-50/50 hover:bg-orange-50"
                     )}
                     onClick={() => setShowAiChat(!showAiChat)}
                   >
-                    <Sparkles className={cn("w-4 h-4", showAiChat && "fill-white")} />
+                    <Sparkles className={cn("w-4 h-4", showAiChat ? "text-white" : "text-orange-500")} />
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent side="bottom" className="text-[10px] font-bold">AI 助手對話框</TooltipContent>
@@ -171,12 +182,14 @@ const WorkspaceContent = ({ projectId, userId }: { projectId: string; userId: st
                     variant={showInsight ? "default" : "outline"} 
                     size="icon" 
                     className={cn(
-                      "h-9 w-9 rounded-full transition-all duration-300", 
-                      showInsight ? "bg-indigo-600 hover:bg-indigo-700 shadow-indigo-200 shadow-lg" : "text-indigo-600 border-indigo-200 hover:bg-indigo-50"
+                      "h-9 w-9 rounded-xl transition-all duration-500", 
+                      showInsight 
+                        ? "bg-gradient-to-br from-indigo-500 to-indigo-700 hover:from-indigo-600 hover:to-indigo-800 shadow-indigo-200 shadow-lg border-none" 
+                        : "text-indigo-600 border-indigo-200 bg-indigo-50/50 hover:bg-indigo-50"
                     )}
                     onClick={() => setShowInsight(!showInsight)}
                   >
-                    <Users className={cn("w-4 h-4", showInsight && "fill-white")} />
+                    <Users className={cn("w-4 h-4", showInsight ? "text-white" : "text-indigo-600")} />
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent side="bottom" className="text-[10px] font-bold">團隊協作與心智圖</TooltipContent>
@@ -184,11 +197,14 @@ const WorkspaceContent = ({ projectId, userId }: { projectId: string; userId: st
             </div>
 
             <div className="flex items-center gap-4 flex-none justify-end">
-              <div className="text-[10px] font-bold text-slate-400 flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" /> Live
+              <div className="hidden sm:flex flex-col items-end mr-1">
+                <span className="text-[10px] font-extrabold text-slate-700">Dr. Chen</span>
+                <div className="text-[8px] font-bold text-slate-400 flex items-center gap-1">
+                  <span className="w-1 h-1 rounded-full bg-emerald-500" /> Physical Therapist
+                </div>
               </div>
-              <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-indigo-600 to-purple-600 p-0.5 shadow-md">
-                <div className="w-full h-full rounded-full bg-white flex items-center justify-center text-[10px] font-bold text-indigo-600 cursor-pointer hover:bg-slate-50">P</div>
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-purple-600 p-0.5 shadow-md hover:scale-105 transition-transform cursor-pointer">
+                <div className="w-full h-full rounded-[10px] bg-white flex items-center justify-center text-xs font-black text-indigo-600">C</div>
               </div>
             </div>
           </div>
