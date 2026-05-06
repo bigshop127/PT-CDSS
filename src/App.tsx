@@ -1,66 +1,57 @@
 import React, { useEffect, useState } from 'react';
 import { Workspace } from '@/components/Workspace';
+import { Onboarding } from '@/components/auth/Onboarding';
 import { auth } from '@/lib/firebase';
-import { 
-  signInWithEmailAndPassword, 
-  createUserWithEmailAndPassword, 
-  onAuthStateChanged 
-} from 'firebase/auth';
+import { onAuthStateChanged, User } from 'firebase/auth';
+import { useUserStore } from '@/store/useUserStore';
 
 function App() {
-  const [isReady, setIsReady] = useState(false);
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [isAuthLoading, setIsAuthLoading] = useState(true);
+  const { isConfigured } = useUserStore();
+  const [showOnboarding, setShowOnboarding] = useState(false);
 
   useEffect(() => {
-    // Auto-login test user for emulator testing (Dev mode only)
-    const login = async () => {
-      if (!import.meta.env.DEV) return;
-
-      const email = import.meta.env.VITE_DEV_EMAIL || '';
-      const password = import.meta.env.VITE_DEV_PASSWORD || '';
-      
-      if (!email || !password) {
-        console.warn("Dev credentials missing in .env.local");
-        return;
-      }
-
-      try {
-        await signInWithEmailAndPassword(auth, email, password);
-      } catch (e: any) {
-        if (e.code === 'auth/user-not-found' || e.code === 'auth/invalid-credential') {
-          try {
-            await createUserWithEmailAndPassword(auth, email, password);
-          } catch (createErr) {
-            console.error("Failed to create test user:", createErr);
-          }
-        } else {
-          console.error("Auth Error:", e);
-        }
-      }
-    };
-
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setIsReady(true);
-      } else if (import.meta.env.DEV) {
-        login();
+      setCurrentUser(user);
+      setIsAuthLoading(false);
+      
+      // If user is logged in but not configured, show onboarding
+      if (user && !isConfigured()) {
+        setShowOnboarding(true);
+      } else if (!user) {
+        setShowOnboarding(true);
       } else {
-        // Production: allow proceeding to workspace even without session for prototype
-        setIsReady(true);
+        setShowOnboarding(false);
       }
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [isConfigured]);
 
-  if (!isReady) {
+  if (isAuthLoading) {
     return (
-      <div className="p-10 text-slate-500 font-medium">
-        {import.meta.env.DEV ? "Authenticating with Emulator..." : "Initializing Workspace..."}
+      <div className="fixed inset-0 bg-[#020617] flex items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+          <div className="w-8 h-8 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin" />
+          <p className="text-slate-500 font-bold text-xs uppercase tracking-widest animate-pulse">
+            Initializing Secure Workspace...
+          </p>
+        </div>
       </div>
     );
   }
 
-  return <Workspace projectId="test-project" userId="user-123" />;
+  if (showOnboarding) {
+    return <Onboarding onComplete={() => setShowOnboarding(false)} />;
+  }
+
+  return (
+    <Workspace 
+      projectId="default-project" 
+      userId={currentUser?.uid || "guest"} 
+    />
+  );
 }
 
 export default App;
