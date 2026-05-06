@@ -134,21 +134,21 @@ const WorkspaceContent = ({ projectId, userId }: { projectId: string; userId: st
               </div>
             </div>
 
-            {/* Book Shortcuts - Refined Visuals */}
-            <div className="flex-1 flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1">
-              <div className="w-px h-6 mx-2 bg-slate-200/60" />
+            {/* Book Shortcuts - Enlarged 2x as requested */}
+            <div className="flex-1 flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
+              <div className="w-px h-8 mx-2 bg-slate-200/60" />
               {LIBRARY_FOLDERS.map((folder) => (
                 <Tooltip key={folder.id}>
                   <TooltipTrigger asChild>
                     <button 
                       onClick={() => window.open(DRIVE_URL, '_blank')}
-                      className="group flex items-center gap-2 px-3 py-1.5 rounded-xl hover:bg-white hover:shadow-sm hover:border-slate-100 border border-transparent transition-all shrink-0"
+                      className="group flex items-center gap-3 px-4 py-2 rounded-xl hover:bg-white hover:shadow-md hover:border-slate-100 border border-transparent transition-all shrink-0"
                     >
-                      <div className={`w-2 h-2 rounded-full ${folder.color} shadow-sm group-hover:ring-4 group-hover:ring-${folder.color.split('-')[1]}-100 transition-all`} />
-                      <span className="text-[10px] font-bold text-slate-600 group-hover:text-indigo-700 transition-colors">{folder.id} {folder.name}</span>
+                      <div className={`w-3.5 h-3.5 rounded-full ${folder.color} shadow-md ring-2 ring-white group-hover:ring-4 group-hover:ring-${folder.color.split('-')[1]}-100 transition-all`} />
+                      <span className="text-[12px] font-black text-slate-700 group-hover:text-indigo-700 transition-colors uppercase tracking-tight">{folder.id} {folder.name}</span>
                     </button>
                   </TooltipTrigger>
-                  <TooltipContent side="bottom" className="text-[10px] font-bold bg-slate-900 text-white">
+                  <TooltipContent side="bottom" className="text-[11px] font-bold bg-slate-900 text-white">
                     開啟雲端原文：{folder.name}
                   </TooltipContent>
                 </Tooltip>

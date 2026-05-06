@@ -1,50 +1,41 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useEditor, EditorContent } from '@tiptap/react';
-import { BubbleMenu } from '@tiptap/react/menus';
 import StarterKit from '@tiptap/starter-kit';
 import Placeholder from '@tiptap/extension-placeholder';
 import CharacterCount from '@tiptap/extension-character-count';
 import { Markdown } from '@tiptap/markdown';
-import { Loader2, Download, FileText, Sparkles } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { TextStyle } from '@tiptap/extension-text-style';
+import { Color } from '@tiptap/extension-color';
+import Highlight from '@tiptap/extension-highlight';
+import Underline from '@tiptap/extension-underline';
+import TextAlign from '@tiptap/extension-text-align';
 import { 
-  Tooltip, 
-  TooltipContent, 
-  TooltipProvider, 
-  TooltipTrigger 
-} from '@/components/ui/tooltip';
+  Loader2, 
+  Download, 
+  Sparkles, 
+  Bold, 
+  Italic, 
+  Underline as UnderlineIcon, 
+  Strikethrough, 
+  AlignLeft, 
+  AlignCenter, 
+  AlignRight, 
+  List, 
+  ListOrdered, 
+  Undo2, 
+  Redo2, 
+  Highlighter
+} from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import { useDocumentStore } from '@/store/useDocumentStore';
 import { useDocumentSave } from '@/hooks/useDocumentSave';
 import { AIOrchestrator } from '@/services/ai/AIOrchestrator';
 import { cn } from '@/lib/utils';
 
-const SOAP_TEMPLATE = {
+const EMPTY_TEMPLATE = {
   type: 'doc',
   content: [
-    {
-      type: 'heading',
-      attrs: { level: 2 },
-      content: [{ type: 'text', text: 'S — Subjective（主觀描述）' }],
-    },
-    { type: 'paragraph' },
-    {
-      type: 'heading',
-      attrs: { level: 2 },
-      content: [{ type: 'text', text: 'O — Objective（客觀評估）' }],
-    },
-    { type: 'paragraph' },
-    {
-      type: 'heading',
-      attrs: { level: 2 },
-      content: [{ type: 'text', text: 'A — Assessment（臨床分析）' }],
-    },
-    { type: 'paragraph' },
-    {
-      type: 'heading',
-      attrs: { level: 2 },
-      content: [{ type: 'text', text: 'P — Plan（治療計畫）' }],
-    },
-    { type: 'paragraph' },
+    { type: 'paragraph' }
   ],
 };
 
@@ -67,17 +58,23 @@ export const DocumentEditor: React.FC<DocumentEditorProps> = ({ projectId }) => 
   const editor = useEditor({
     extensions: [
       StarterKit,
-      Placeholder.configure({ placeholder: '在此輸入臨床記錄...' }),
+      Placeholder.configure({ placeholder: '在此開始編寫病歷或點擊 AI 助手生成內容...' }),
       CharacterCount,
       Markdown,
+      Underline,
+      TextStyle,
+      Color,
+      Highlight.configure({ multicolor: true }),
+      TextAlign.configure({
+        types: ['heading', 'paragraph'],
+      }),
     ],
-    content: SOAP_TEMPLATE,
+    content: EMPTY_TEMPLATE,
     onUpdate: ({ editor }) => {
       scheduleSave(editor);
     },
   });
 
-  // 載入既有文件，僅在 editor 就緒後執行一次
   useEffect(() => {
     if (!editor) return;
     let cancelled = false;
@@ -89,28 +86,9 @@ export const DocumentEditor: React.FC<DocumentEditorProps> = ({ projectId }) => 
     return () => { cancelled = true; };
   }, [editor, loadDocument]);
 
-  // pendingInsert → 插入 Plan 段落後
   useEffect(() => {
     if (!editor || !pendingInsert) return;
-    let insertPos: number | null = null;
-    editor.state.doc.descendants((node, pos) => {
-      if (
-        node.type.name === 'heading' &&
-        node.textContent.startsWith('P — Plan')
-      ) {
-        insertPos = pos + node.nodeSize;
-        return false;
-      }
-    });
-    if (insertPos !== null) {
-      editor
-        .chain()
-        .focus()
-        .insertContentAt(insertPos, [
-          { type: 'paragraph', content: [{ type: 'text', text: pendingInsert }] },
-        ])
-        .run();
-    }
+    editor.chain().focus().insertContent(pendingInsert).run();
     setPendingInsert(null);
   }, [pendingInsert, editor, setPendingInsert]);
 
@@ -134,24 +112,10 @@ export const DocumentEditor: React.FC<DocumentEditorProps> = ({ projectId }) => 
           .run();
       }
     } catch {
-      // preserve original text on error
     } finally {
       setIsPolishing(false);
     }
   }, [editor, orchestrator, isPolishing]);
-
-  const handleExportMarkdown = useCallback(() => {
-    if (!editor) return;
-    // Tiptap Markdown extension storage provides getMarkdown()
-    const md = (editor.storage.markdown as any)?.getMarkdown() || editor.getHTML();
-    const blob = new Blob([md], { type: 'text/markdown' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'soap_note.md';
-    a.click();
-    URL.revokeObjectURL(url);
-  }, [editor]);
 
   const handleExportPdf = useCallback(() => {
     window.print();
@@ -161,141 +125,205 @@ export const DocumentEditor: React.FC<DocumentEditorProps> = ({ projectId }) => 
 
   const saveLabel =
     saveStatus === 'saving'
-      ? '儲存中...'
+      ? '同步中'
       : saveStatus === 'saved'
-      ? `已儲存 ${new Date().toLocaleTimeString('zh-TW', { hour: '2-digit', minute: '2-digit' })}`
-      : '';
+      ? `已同步 ${new Date().toLocaleTimeString('zh-TW', { hour: '2-digit', minute: '2-digit' })}`
+      : '就緒';
+
+  if (!editor) return null;
 
   return (
-    <div className="flex flex-col h-full bg-slate-50/50 relative overflow-hidden">
-      {/* Toolbar - Refined Glassmorphism */}
-      <div className="h-12 border-b border-slate-200/60 flex items-center gap-1 px-4 bg-white/80 backdrop-blur-sm shrink-0 z-10 shadow-sm">
-        <div className="flex items-center gap-2 mr-3">
-          <div className="p-1.5 rounded-lg bg-indigo-50">
-            <FileText className="w-3.5 h-3.5 text-indigo-600" />
+    <div className="flex flex-col h-full bg-slate-100/30 relative overflow-hidden">
+      <div className="flex flex-col bg-white border-b border-slate-200 shadow-sm z-20">
+        <div className="flex items-center px-4 h-8 bg-slate-50 gap-4 border-b border-slate-200/50">
+          <div className="text-[10px] font-black text-indigo-700 border-b-2 border-indigo-600 h-full flex items-center px-2 cursor-pointer">檔案</div>
+          <div className="text-[10px] font-bold text-slate-500 hover:text-indigo-600 h-full flex items-center px-2 cursor-pointer transition-colors">常用</div>
+          <div className="text-[10px] font-bold text-slate-500 hover:text-indigo-600 h-full flex items-center px-2 cursor-pointer transition-colors">插入</div>
+          <div className="text-[10px] font-bold text-slate-500 hover:text-indigo-600 h-full flex items-center px-2 cursor-pointer transition-colors">佈局</div>
+          <div className="flex-1" />
+          <div className="text-[10px] font-bold text-slate-400 px-2 flex items-center gap-1.5">
+            <div className={cn("w-1.5 h-1.5 rounded-full", saveStatus === 'saving' ? "bg-orange-400 animate-pulse" : "bg-emerald-500")} />
+            {saveLabel}
           </div>
-          <span className="text-[11px] font-black text-slate-700 uppercase tracking-wider">
-            SOAP 臨床記錄
-          </span>
         </div>
-        <div className="w-px h-5 bg-slate-200 mx-1" />
-        
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button
-                variant="ghost"
-                size="sm"
-                className="h-8 w-8 p-0 text-xs font-black hover:bg-indigo-50 hover:text-indigo-700 transition-colors"
-                onClick={() => editor?.chain().focus().toggleBold().run()}
-                disabled={!editor || isPolishing}
-              >
-                B
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>粗體 (⌘B)</TooltipContent>
-          </Tooltip>
 
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button
-                variant="ghost"
-                size="sm"
-                className="h-8 w-8 p-0 text-xs font-black italic hover:bg-indigo-50 hover:text-indigo-700 transition-colors"
-                onClick={() => editor?.chain().focus().toggleItalic().run()}
-                disabled={!editor || isPolishing}
-              >
-                I
+        <div className="flex items-stretch h-20 p-1.5 gap-1 overflow-x-auto no-scrollbar">
+          <div className="flex flex-col items-center justify-between border-r border-slate-100 pr-1 mr-1 min-w-[60px]">
+            <div className="flex items-center gap-1 mt-1">
+              <Button variant="ghost" size="icon" className="h-8 w-8 hover:bg-indigo-50" onClick={() => editor.chain().focus().undo().run()}>
+                <Undo2 className="w-4 h-4 text-slate-600" />
               </Button>
-            </TooltipTrigger>
-            <TooltipContent>斜體 (⌘I)</TooltipContent>
-          </Tooltip>
-
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button
-                variant="ghost"
-                size="sm"
-                className="h-8 w-8 p-0 text-xs hover:bg-indigo-50 hover:text-indigo-700 transition-colors"
-                onClick={() => editor?.chain().focus().toggleBulletList().run()}
-                disabled={!editor || isPolishing}
-              >
-                •—
+              <Button variant="ghost" size="icon" className="h-8 w-8 hover:bg-indigo-50" onClick={() => editor.chain().focus().redo().run()}>
+                <Redo2 className="w-4 h-4 text-slate-600" />
               </Button>
-            </TooltipTrigger>
-            <TooltipContent>無序列表</TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
+            </div>
+            <span className="text-[9px] font-bold text-slate-400 uppercase tracking-tighter">歷程記錄</span>
+          </div>
 
-        <div className="flex-1" />
-        
-        <div className="flex items-center gap-2">
-          <Button
-            variant="outline"
-            size="sm"
-            className="h-8 px-3 text-[10px] font-bold gap-1.5 border-slate-200 hover:border-indigo-200 hover:bg-indigo-50/50 transition-all"
-            onClick={handleExportMarkdown}
-            disabled={!editor || isPolishing}
-          >
-            <Download className="w-3 h-3 text-slate-500" />
-            MARKDOWN
-          </Button>
-          <Button
-            variant="default"
-            size="sm"
-            className="h-8 px-3 text-[10px] font-bold gap-1.5 bg-indigo-600 hover:bg-indigo-700 shadow-indigo-100 shadow-lg border-none transition-all"
-            onClick={handleExportPdf}
-            disabled={!editor || isPolishing}
-          >
-            <Download className="w-3 h-3" />
-            PDF 匯出
-          </Button>
+          <div className="flex flex-col items-center justify-between border-r border-slate-100 px-2 mr-1">
+            <div className="flex flex-col gap-1">
+              <div className="flex items-center gap-0.5">
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className={cn("h-7 w-7 p-0 rounded-md", editor.isActive('bold') && "bg-indigo-100 text-indigo-700")} 
+                  onClick={() => editor.chain().focus().toggleBold().run()}
+                >
+                  <Bold className="w-3.5 h-3.5" />
+                </Button>
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className={cn("h-7 w-7 p-0 rounded-md", editor.isActive('italic') && "bg-indigo-100 text-indigo-700")} 
+                  onClick={() => editor.chain().focus().toggleItalic().run()}
+                >
+                  <Italic className="w-3.5 h-3.5" />
+                </Button>
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className={cn("h-7 w-7 p-0 rounded-md", editor.isActive('underline') && "bg-indigo-100 text-indigo-700")} 
+                  onClick={() => editor.chain().focus().toggleUnderline().run()}
+                >
+                  <UnderlineIcon className="w-3.5 h-3.5" />
+                </Button>
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className={cn("h-7 w-7 p-0 rounded-md", editor.isActive('strike') && "bg-indigo-100 text-indigo-700")} 
+                  onClick={() => editor.chain().focus().toggleStrike().run()}
+                >
+                  <Strikethrough className="w-3.5 h-3.5" />
+                </Button>
+                <div className="w-px h-5 bg-slate-100 mx-1" />
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className={cn("h-7 w-7 p-0 rounded-md", editor.isActive('highlight') && "bg-yellow-200 text-yellow-900")} 
+                  onClick={() => editor.chain().focus().toggleHighlight().run()}
+                >
+                  <Highlighter className="w-3.5 h-3.5" />
+                </Button>
+              </div>
+            </div>
+            <span className="text-[9px] font-bold text-slate-400 uppercase tracking-tighter">字型樣式</span>
+          </div>
+
+          <div className="flex flex-col items-center justify-between border-r border-slate-100 px-2 mr-1">
+            <div className="flex flex-col gap-1">
+              <div className="flex items-center gap-0.5">
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className={cn("h-7 w-7 p-0 rounded-md", editor.isActive({ textAlign: 'left' }) && "bg-indigo-100 text-indigo-700")} 
+                  onClick={() => editor.chain().focus().setTextAlign('left').run()}
+                >
+                  <AlignLeft className="w-3.5 h-3.5" />
+                </Button>
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className={cn("h-7 w-7 p-0 rounded-md", editor.isActive({ textAlign: 'center' }) && "bg-indigo-100 text-indigo-700")} 
+                  onClick={() => editor.chain().focus().setTextAlign('center').run()}
+                >
+                  <AlignCenter className="w-3.5 h-3.5" />
+                </Button>
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className={cn("h-7 w-7 p-0 rounded-md", editor.isActive({ textAlign: 'right' }) && "bg-indigo-100 text-indigo-700")} 
+                  onClick={() => editor.chain().focus().setTextAlign('right').run()}
+                >
+                  <AlignRight className="w-3.5 h-3.5" />
+                </Button>
+                <div className="w-px h-5 bg-slate-100 mx-1" />
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className={cn("h-7 w-7 p-0 rounded-md", editor.isActive('bulletList') && "bg-indigo-100 text-indigo-700")} 
+                  onClick={() => editor.chain().focus().toggleBulletList().run()}
+                >
+                  <List className="w-3.5 h-3.5" />
+                </Button>
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className={cn("h-7 w-7 p-0 rounded-md", editor.isActive('orderedList') && "bg-indigo-100 text-indigo-700")} 
+                  onClick={() => editor.chain().focus().toggleOrderedList().run()}
+                >
+                  <ListOrdered className="w-3.5 h-3.5" />
+                </Button>
+              </div>
+            </div>
+            <span className="text-[9px] font-bold text-slate-400 uppercase tracking-tighter">段落配置</span>
+          </div>
+
+          <div className="flex flex-col items-center justify-between border-r border-slate-100 px-2 mr-1">
+            <div className="flex items-center gap-1 mt-1">
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className={cn("h-8 px-2 text-[10px] font-black border-slate-200", editor.isActive('heading', { level: 2 }) && "bg-indigo-600 text-white border-none")}
+                onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
+              >
+                標題
+              </Button>
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className={cn("h-8 px-2 text-[10px] font-bold border-slate-200", editor.isActive('paragraph') && "bg-slate-100 text-slate-700")}
+                onClick={() => editor.chain().focus().setParagraph().run()}
+              >
+                內文
+              </Button>
+            </div>
+            <span className="text-[9px] font-bold text-slate-400 uppercase tracking-tighter">快速樣式</span>
+          </div>
+
+          <div className="flex flex-col items-center justify-between px-2">
+            <div className="flex items-center gap-1.5 mt-0.5">
+              <Button
+                variant="default"
+                size="sm"
+                className="h-9 px-3 bg-gradient-to-br from-indigo-600 to-purple-700 hover:from-indigo-700 hover:to-purple-800 text-[10px] font-black gap-2 shadow-indigo-200 shadow-md border-none"
+                onClick={handleExportPdf}
+              >
+                <Download className="w-3.5 h-3.5" />
+                匯出 PDF
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                className="h-9 px-3 text-orange-600 border-orange-200 hover:bg-orange-50 text-[10px] font-black gap-2"
+                onClick={handlePolish}
+                disabled={isPolishing}
+              >
+                {isPolishing ? <Loader2 className="w-3 h-3 animate-spin" /> : <Sparkles className="w-3 h-3 fill-orange-500" />}
+                AI 潤色
+              </Button>
+            </div>
+            <span className="text-[9px] font-bold text-slate-400 uppercase tracking-tighter">發佈與智慧功能</span>
+          </div>
         </div>
       </div>
 
-      {/* Editor Container - Paper Effect */}
-      <div className="flex-1 overflow-y-auto px-6 py-10 scroll-smooth">
-        <div className="max-w-3xl mx-auto bg-white min-h-[1000px] shadow-[0_2px_20px_rgba(0,0,0,0.04)] border border-slate-200/50 rounded-2xl p-12 mb-10 transition-all hover:shadow-[0_8px_40px_rgba(0,0,0,0.06)] relative group">
-          {/* Decorative Corner */}
-          <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-indigo-50/50 to-transparent rounded-tr-2xl pointer-events-none" />
-          
-          {editor && (
-            <BubbleMenu
-              editor={editor}
-              className="flex items-center gap-1 bg-white border border-slate-200 rounded-xl shadow-xl px-2.5 py-1.5 animate-in fade-in zoom-in duration-200"
-            >
-              <button
-                onClick={handlePolish}
-                disabled={isPolishing}
-                className="flex items-center gap-2 text-xs font-extrabold text-orange-600 hover:text-orange-700 disabled:opacity-50 px-3 py-1.5 rounded-lg hover:bg-orange-50 transition-all group/btn"
-              >
-                {isPolishing ? (
-                  <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                ) : (
-                  <Sparkles className="w-3.5 h-3.5 group-hover/btn:scale-125 transition-transform" />
-                )}
-                AI 專業潤色
-              </button>
-            </BubbleMenu>
-          )}
+      <div className="flex-1 overflow-y-auto px-6 py-10 scroll-smooth bg-slate-100/50">
+        <div className="max-w-4xl mx-auto bg-white min-h-[1100px] shadow-[0_10px_50px_rgba(0,0,0,0.08)] border border-slate-200/60 rounded-sm p-20 mb-20 relative">
+          <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/graphy.png')]" />
           
           <EditorContent
             editor={editor}
-            className="prose prose-slate max-w-none min-h-[400px]
+            className="prose prose-slate max-w-none min-h-[800px]
               [&_.ProseMirror]:outline-none
-              [&_.ProseMirror_h2]:text-lg
+              [&_.ProseMirror_h2]:text-xl
               [&_.ProseMirror_h2]:font-black
-              [&_.ProseMirror_h2]:text-indigo-800
-              [&_.ProseMirror_h2]:border-l-4
-              [&_.ProseMirror_h2]:border-indigo-500
-              [&_.ProseMirror_h2]:pl-4
-              [&_.ProseMirror_h2]:py-1
+              [&_.ProseMirror_h2]:text-slate-900
               [&_.ProseMirror_h2]:mb-6
               [&_.ProseMirror_h2]:mt-10
               [&_.ProseMirror_h2]:tracking-tight
-              [&_.ProseMirror_p]:text-[15px]
-              [&_.ProseMirror_p]:leading-relaxed
-              [&_.ProseMirror_p]:text-slate-600
+              [&_.ProseMirror_p]:text-[16px]
+              [&_.ProseMirror_p]:leading-[1.8]
+              [&_.ProseMirror_p]:text-slate-700
               [&_.ProseMirror_p.is-editor-empty:first-child::before]:content-[attr(data-placeholder)]
               [&_.ProseMirror_p.is-editor-empty:first-child::before]:text-slate-300
               [&_.ProseMirror_p.is-editor-empty:first-child::before]:font-medium
@@ -306,31 +334,16 @@ export const DocumentEditor: React.FC<DocumentEditorProps> = ({ projectId }) => 
         </div>
       </div>
 
-      {/* Footer - Refined */}
-      <div className="h-9 border-t border-slate-200/60 flex items-center justify-between px-5 bg-white shrink-0 z-10 shadow-[0_-1px_5px_rgba(0,0,0,0.02)]">
-        <div className="flex items-center gap-4">
-          <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">
-            {wordCount} WORDS
-          </span>
+      <div className="h-7 border-t border-slate-200 flex items-center justify-between px-4 bg-white shrink-0 z-10">
+        <div className="flex items-center gap-4 text-[9px] font-bold text-slate-400 uppercase tracking-widest">
+          <span>{wordCount} 字</span>
           <div className="w-1 h-1 rounded-full bg-slate-200" />
-          <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">
-            UTF-8
-          </span>
+          <span>頁面 1 / 1</span>
         </div>
-        
-        <div className="flex items-center gap-2">
-          {saveStatus === 'saving' && <Loader2 className="w-3 h-3 animate-spin text-orange-500" />}
-          <span
-            className={cn(
-              'text-[10px] font-black uppercase tracking-wider',
-              saveStatus === 'saving' ? 'text-orange-500' : 'text-emerald-600'
-            )}
-          >
-            {saveLabel}
-          </span>
+        <div className="text-[9px] font-black text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded">
+          PT-CDSS PRO ENGINE
         </div>
       </div>
     </div>
   );
 };
-

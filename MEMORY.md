@@ -1,6 +1,11 @@
 # Task Memory Log
 
 ## [2026-05-06]
+### DIRECTIVE B10: Ribbon Toolbar & Header Refinement
+- **B10**: 實作 Microsoft Word 風格的 Ribbon 工具列，支援底線、對齊、螢光筆等多項功能。
+- **B10-UI**: 將 Header 的資料夾圖示放大 2 倍，並將編輯器內容清空為空白畫布。
+- **Status**: Completed, Verified (via `npm run build`), and Pushed to GitHub.
+
 ### DIRECTIVE B9: UI/UX Premium Beautification
 - **B9**: 全面升級為 Refined Hybrid 視覺風格。實作 Header 玻璃擬物化 (Glassmorphism)、深邃側邊欄 (Slate-950)、紙張感編輯器與 AI 對話區視覺強化。
 - **Status**: Completed, Verified (via `npm run build`), and Pushed to GitHub.
