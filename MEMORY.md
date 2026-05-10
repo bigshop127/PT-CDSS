@@ -1,5 +1,13 @@
 # Task Memory Log
 
+## [2026-05-10]
+### BUGFIX: Firebase Auth Configuration Error
+- **Issue**: Live site `pt-cdss.web.app` reported `auth/configuration-not-found`.
+- **Root Cause**: `.env.local` contained dummy values (`pt-cdss-dummy`), which were baked into the production build during deployment.
+- **Fix**: Updated `.env.local` with real credentials retrieved via `firebase apps:sdkconfig`. Verified build success.
+- **Action Required**: User needs to run `npm run deploy` to update the live site and ensure GitHub Secrets match these values.
+- **Status**: Completed (Local Fix), Pending (Live Deploy).
+
 ## [2026-05-09]
 ### DIRECTIVE H1: Handover Documentation
 - **H1**: 生成完整專案交接報告書 `HANDOVER_REPORT.md`，涵蓋已完成功能、待辦事項及未來優化方向。
