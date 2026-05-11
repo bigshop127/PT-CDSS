@@ -263,13 +263,15 @@ const WorkspaceContent = ({ projectId, userId }: { projectId: string; userId: st
                 <DropdownMenuTrigger asChild>
                   <div className="flex items-center gap-4 cursor-pointer group">
                     <div className="hidden sm:flex flex-col items-end mr-1">
-                      <span className="text-[10px] font-extrabold text-slate-700 group-hover:text-indigo-600 transition-colors">{settings.name}</span>
+                      <span className="text-[10px] font-extrabold text-slate-700 group-hover:text-indigo-600 transition-colors">{settings?.name || 'User'}</span>
                       <div className="text-[8px] font-bold text-slate-400 flex items-center gap-1">
-                        <span className="w-1 h-1 rounded-full bg-emerald-500" /> {settings.role}
+                        <span className="w-1 h-1 rounded-full bg-emerald-500" /> {settings?.role || 'Guest'}
                       </div>
                     </div>
                     <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-purple-600 p-0.5 shadow-md group-hover:scale-105 transition-transform">
-                      <div className="w-full h-full rounded-[10px] bg-white flex items-center justify-center text-xs font-black text-indigo-600">{settings.name[0]}</div>
+                      <div className="w-full h-full rounded-[10px] bg-white flex items-center justify-center text-xs font-black text-indigo-600">
+                        {(settings?.name || 'U')[0]}
+                      </div>
                     </div>
                   </div>
                 </DropdownMenuTrigger>
@@ -279,7 +281,7 @@ const WorkspaceContent = ({ projectId, userId }: { projectId: string; userId: st
                   <DropdownMenuItem className="gap-3 py-2.5">
                     <Users className="w-4 h-4 text-slate-400" />
                     <div className="flex flex-col">
-                      <span className="text-[11px] font-bold text-slate-700">{settings.name}</span>
+                      <span className="text-[11px] font-bold text-slate-700">{settings?.name || 'User'}</span>
                       <span className="text-[9px] text-slate-400">個人檔案</span>
                     </div>
                   </DropdownMenuItem>
