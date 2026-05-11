@@ -24,13 +24,23 @@ import {
   ListOrdered, 
   Undo2, 
   Redo2, 
-  Highlighter
+  Highlighter,
+  MessageSquarePlus,
+  X
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useDocumentStore } from '@/store/useDocumentStore';
 import { useDocumentSave } from '@/hooks/useDocumentSave';
 import { AIOrchestrator } from '@/services/ai/AIOrchestrator';
 import { cn } from '@/lib/utils';
+
+interface Comment {
+  id: string;
+  author: string;
+  text: string;
+  timestamp: Date;
+  selectionRange: { from: number; to: number };
+}
 
 const EMPTY_TEMPLATE = {
   type: 'doc',
@@ -48,7 +58,29 @@ interface DocumentEditorProps {
 export const DocumentEditor: React.FC<DocumentEditorProps> = ({ projectId }) => {
   const [saveStatus, setSaveStatus] = useState<SaveStatus>('idle');
   const [isPolishing, setIsPolishing] = useState(false);
+  const [comments, setComments] = useState<Comment[]>([]);
+  
   const { pendingInsert, setPendingInsert } = useDocumentStore();
+
+  const addComment = () => {
+    if (!editor) return;
+    const { from, to, empty } = editor.state.selection;
+    if (empty) return;
+    
+    const text = prompt('請輸入備註內容：');
+    if (!text) return;
+    
+    const newComment: Comment = {
+      id: crypto.randomUUID(),
+      author: 'Dr. Chen',
+      text,
+      timestamp: new Date(),
+      selectionRange: { from, to }
+    };
+    
+    setComments([...comments, newComment]);
+    editor.chain().focus().setHighlight({ color: '#fef08a' }).run();
+  };
   const { scheduleSave, loadDocument } = useDocumentSave(projectId, setSaveStatus);
   const orchestrator = React.useMemo(
     () => new AIOrchestrator(),
@@ -294,12 +326,11 @@ export const DocumentEditor: React.FC<DocumentEditorProps> = ({ projectId }) => 
               <Button
                 variant="outline"
                 size="sm"
-                className="h-9 px-3 text-orange-600 border-orange-200 hover:bg-orange-50 text-[10px] font-black gap-2"
-                onClick={handlePolish}
-                disabled={isPolishing}
+                className="h-9 px-3 text-emerald-600 border-emerald-200 hover:bg-emerald-50 text-[10px] font-black gap-2"
+                onClick={addComment}
               >
-                {isPolishing ? <Loader2 className="w-3 h-3 animate-spin" /> : <Sparkles className="w-3 h-3 fill-orange-500" />}
-                AI 潤色
+                <MessageSquarePlus className="w-3.5 h-3.5" />
+                新增備註
               </Button>
             </div>
             <span className="text-[9px] font-bold text-slate-400 uppercase tracking-tighter">發佈與智慧功能</span>
@@ -307,8 +338,8 @@ export const DocumentEditor: React.FC<DocumentEditorProps> = ({ projectId }) => 
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto px-6 py-10 scroll-smooth bg-slate-100/50">
-        <div className="max-w-4xl mx-auto bg-white min-h-[1100px] shadow-[0_10px_50px_rgba(0,0,0,0.08)] border border-slate-200/60 rounded-sm p-20 mb-20 relative">
+      <div className="flex-1 overflow-y-auto px-6 py-10 scroll-smooth bg-slate-100/50 flex flex-row gap-6 justify-center">
+        <div className="w-[850px] bg-white min-h-[1100px] shadow-[0_10px_50px_rgba(0,0,0,0.08)] border border-slate-200/60 rounded-sm p-20 relative shrink-0">
           <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/graphy.png')]" />
           
           <EditorContent
@@ -331,6 +362,40 @@ export const DocumentEditor: React.FC<DocumentEditorProps> = ({ projectId }) => 
               [&_.ProseMirror_p.is-editor-empty:first-child::before]:pointer-events-none
               [&_.ProseMirror_p.is-editor-empty:first-child::before]:h-0"
           />
+        </div>
+
+        {/* Comments Sidebar */}
+        <div className="w-64 flex flex-col gap-4 py-4">
+          <div className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2 flex items-center gap-2">
+            <Highlighter className="w-3.5 h-3.5" />
+            臨床備註 ({comments.length})
+          </div>
+          {comments.map((comment) => (
+            <div key={comment.id} className="bg-white border border-slate-200 shadow-sm rounded-xl p-4 relative group animate-in slide-in-from-right-4 duration-300">
+              <button 
+                onClick={() => setComments(comments.filter(c => c.id !== comment.id))}
+                className="absolute top-2 right-2 p-1 text-slate-300 hover:text-rose-500 opacity-0 group-hover:opacity-100 transition-all"
+              >
+                <X className="w-3 h-3" />
+              </button>
+              <div className="flex items-center gap-2 mb-2">
+                <div className="w-6 h-6 rounded-lg bg-indigo-50 flex items-center justify-center text-[10px] font-black text-indigo-600">
+                  {comment.author[0]}
+                </div>
+                <div className="flex flex-col leading-none">
+                  <span className="text-[11px] font-black text-slate-700">{comment.author}</span>
+                  <span className="text-[9px] text-slate-400 font-bold">{comment.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                </div>
+              </div>
+              <p className="text-[11px] text-slate-600 font-medium leading-relaxed">{comment.text}</p>
+            </div>
+          ))}
+          {comments.length === 0 && (
+            <div className="border border-dashed border-slate-200 rounded-2xl p-8 text-center bg-white/50">
+              <MessageSquarePlus className="w-6 h-6 text-slate-200 mx-auto mb-2" />
+              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">目前暫無備註</p>
+            </div>
+          )}
         </div>
       </div>
 

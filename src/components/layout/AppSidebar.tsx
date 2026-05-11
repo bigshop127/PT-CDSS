@@ -25,6 +25,8 @@ interface SidebarSectionItem {
   icon: React.ReactNode;
   label: string;
   active?: boolean;
+  notebookLmUrl?: string;
+  color?: string;
 }
 
 export const AppSidebar = () => {
@@ -32,8 +34,8 @@ export const AppSidebar = () => {
 
   // State for dynamic items
   const [notebooks, setNotebooks] = useState<SidebarSectionItem[]>([
-    { id: '1', icon: <Brain className="w-4 h-4 text-rose-400" />, label: '大腦袋' },
-    { id: '2', icon: <BookOpen className="w-4 h-4 text-orange-400" />, label: 'Claude 基本功' },
+    { id: '1', icon: <Brain className="w-4 h-4 text-rose-400" />, label: '大腦袋', notebookLmUrl: 'https://notebooklm.google.com/notebook/1' },
+    { id: '2', icon: <BookOpen className="w-4 h-4 text-orange-400" />, label: 'Claude 基本功', notebookLmUrl: 'https://notebooklm.google.com/notebook/2' },
   ]);
 
   const [gems, setGems] = useState<SidebarSectionItem[]>([
@@ -41,7 +43,10 @@ export const AppSidebar = () => {
     { id: '2', icon: <FileText className="w-4 h-4 text-emerald-400" />, label: 'Architecture_V1.md' },
   ]);
 
-  const [folders, setFolders] = useState<SidebarSectionItem[]>([]);
+  const [folders, setFolders] = useState<SidebarSectionItem[]>([
+    { id: 'f1', icon: <Folder className="w-4 h-4" />, label: '頸椎評估資源', color: 'text-rose-400' },
+    { id: 'f2', icon: <Folder className="w-4 h-4" />, label: '腰椎運動處方', color: 'text-indigo-400' },
+  ]);
 
   const [conversations, setConversations] = useState<SidebarSectionItem[]>([
     { id: '1', icon: <MessageSquare className="w-4 h-4" />, label: '平台架構 V1', active: true },
@@ -51,14 +56,14 @@ export const AppSidebar = () => {
   const addItem = (section: string) => {
     const newItem: SidebarSectionItem = {
       id: Math.random().toString(36).substr(2, 9),
-      icon: section === 'conversations' ? <MessageSquare className="w-4 h-4 text-slate-500" /> : <Folder className="w-4 h-4 text-indigo-400" />,
-      label: '新增專案...',
+      icon: section === 'conversations' ? <MessageSquare className="w-4 h-4 text-slate-500" /> : <Folder className="w-4 h-4" />,
+      label: section === 'conversations' ? '新的對話' : '新增資料夾...',
     };
 
-    if (section === 'notebooks') setNotebooks([...notebooks, { ...newItem, icon: <Brain className="w-4 h-4 text-slate-400" /> }]);
+    if (section === 'notebooks') setNotebooks([...notebooks, { ...newItem, icon: <Brain className="w-4 h-4 text-slate-400" />, notebookLmUrl: '#' }]);
     if (section === 'gems') setGems([...gems, { ...newItem, icon: <FileCode className="w-4 h-4 text-slate-400" /> }]);
-    if (section === 'folders') setFolders([...folders, newItem]);
-    if (section === 'conversations') setConversations([{ ...newItem, label: '新的對話' }, ...conversations]);
+    if (section === 'folders') setFolders([...folders, { ...newItem, color: 'text-indigo-400' }]);
+    if (section === 'conversations') setConversations([newItem, ...conversations]);
   };
 
   const deleteItem = (id: string, section: string) => {
@@ -66,6 +71,14 @@ export const AppSidebar = () => {
     if (section === 'gems') setGems(gems.filter(i => i.id !== id));
     if (section === 'folders') setFolders(folders.filter(i => i.id !== id));
     if (section === 'conversations') setConversations(conversations.filter(i => i.id !== id));
+  };
+
+  const updateItem = (id: string, section: string, updates: Partial<SidebarSectionItem>) => {
+    const update = (items: SidebarSectionItem[]) => items.map(i => i.id === id ? { ...i, ...updates } : i);
+    if (section === 'notebooks') setNotebooks(update(notebooks));
+    if (section === 'gems') setGems(update(gems));
+    if (section === 'folders') setFolders(update(folders));
+    if (section === 'conversations') setConversations(update(conversations));
   };
 
   return (
@@ -103,6 +116,7 @@ export const AppSidebar = () => {
                 item={item} 
                 isExpanded={isHovered} 
                 onDelete={() => deleteItem(item.id, 'notebooks')} 
+                onUpdate={(updates) => updateItem(item.id, 'notebooks', updates)}
               />
             ))}
           </Section>
@@ -115,6 +129,7 @@ export const AppSidebar = () => {
                 item={item} 
                 isExpanded={isHovered} 
                 onDelete={() => deleteItem(item.id, 'gems')} 
+                onUpdate={(updates) => updateItem(item.id, 'gems', updates)}
               />
             ))}
           </Section>
@@ -133,6 +148,7 @@ export const AppSidebar = () => {
                   item={item} 
                   isExpanded={isHovered} 
                   onDelete={() => deleteItem(item.id, 'folders')} 
+                  onUpdate={(updates) => updateItem(item.id, 'folders', updates)}
                 />
               ))
             )}
@@ -146,6 +162,7 @@ export const AppSidebar = () => {
                 item={item} 
                 isExpanded={isHovered} 
                 onDelete={() => deleteItem(item.id, 'conversations')} 
+                onUpdate={(updates) => updateItem(item.id, 'conversations', updates)}
               />
             ))}
           </Section>
@@ -179,45 +196,99 @@ const Section = ({ label, children, isExpanded, onAdd }: { label: string, childr
   </div>
 );
 
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { MoreHorizontal, Palette, Share2, Type } from 'lucide-react';
+
 const SidebarItem = ({ 
   item,
   isExpanded,
-  onDelete
+  onDelete,
+  onUpdate
 }: { 
   item: SidebarSectionItem;
   isExpanded: boolean;
   onDelete?: () => void;
-}) => (
-  <div 
-    className={cn(
-      "flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-300 cursor-pointer group relative",
-      item.active 
-        ? "bg-indigo-500/15 text-indigo-100 border border-indigo-500/20 shadow-[0_0_15px_rgba(99,102,241,0.1)]" 
-        : "hover:bg-slate-800/50 text-slate-400 hover:text-white border border-transparent",
-      isExpanded ? "w-full" : "w-10 justify-center mx-auto"
-    )}
-  >
-    <div className={cn("shrink-0 transition-transform duration-300 group-hover:scale-110", item.active && "text-indigo-400")}>
-      {item.icon}
+  onUpdate?: (updates: Partial<SidebarSectionItem>) => void;
+}) => {
+  const handleClick = () => {
+    if (item.notebookLmUrl) {
+      window.open(item.notebookLmUrl, '_blank');
+    }
+  };
+
+  return (
+    <div 
+      onClick={handleClick}
+      className={cn(
+        "flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-300 cursor-pointer group relative",
+        item.active 
+          ? "bg-indigo-500/15 text-indigo-100 border border-indigo-500/20 shadow-[0_0_15px_rgba(99,102,241,0.1)]" 
+          : "hover:bg-slate-800/50 text-slate-400 hover:text-white border border-transparent",
+        isExpanded ? "w-full" : "w-10 justify-center mx-auto"
+      )}
+    >
+      <div className={cn("shrink-0 transition-transform duration-300 group-hover:scale-110", item.active && "text-indigo-400", item.color)}>
+        {item.icon}
+      </div>
+
+      {isExpanded && (
+        <>
+          <span className="text-[12px] font-bold truncate flex-1 tracking-tight">{item.label}</span>
+          <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+            {onUpdate && (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild onClick={(e) => e.stopPropagation()}>
+                  <button className="p-1 hover:bg-slate-700 rounded-md transition-all">
+                    <MoreHorizontal className="w-3 h-3" />
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent side="right" align="start" className="w-48 bg-slate-900 border-slate-800 text-slate-300">
+                  <DropdownMenuLabel className="text-[10px] uppercase tracking-widest text-slate-500">項目操作</DropdownMenuLabel>
+                  <DropdownMenuSeparator className="bg-slate-800" />
+                  <DropdownMenuItem onClick={() => {
+                    const newLabel = prompt('重新命名項目：', item.label);
+                    if (newLabel) onUpdate({ label: newLabel });
+                  }} className="gap-2 text-xs focus:bg-indigo-500/20 focus:text-indigo-100">
+                    <Type className="w-3.5 h-3.5" /> 重新命名
+                  </DropdownMenuItem>
+                  {item.id.startsWith('f') && (
+                    <DropdownMenuItem className="gap-2 text-xs focus:bg-indigo-500/20 focus:text-indigo-100">
+                      <Palette className="w-3.5 h-3.5" /> 更改顏色區分
+                    </DropdownMenuItem>
+                  )}
+                  <DropdownMenuItem className="gap-2 text-xs focus:bg-indigo-500/20 focus:text-indigo-100">
+                    <Share2 className="w-3.5 h-3.5" /> 加入對話分析
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator className="bg-slate-800" />
+                  <DropdownMenuItem onClick={onDelete} className="gap-2 text-xs text-rose-400 focus:bg-rose-500/20 focus:text-rose-400">
+                    <Trash2 className="w-3.5 h-3.5" /> 刪除項目
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )}
+            {!onUpdate && onDelete && (
+              <button 
+                onClick={(e) => { e.stopPropagation(); onDelete(); }}
+                className="p-1 hover:bg-rose-500/20 hover:text-rose-400 rounded-md transition-all"
+              >
+                <Trash2 className="w-3 h-3" />
+              </button>
+            )}
+          </div>
+        </>
+      )}
+
+      {item.active && !isExpanded && (
+        <div className="absolute -left-1 w-1.5 h-6 bg-indigo-500 rounded-r-full shadow-[0_0_10px_rgba(99,102,241,0.5)]" />
+      )}
     </div>
-
-    {isExpanded && (
-      <>
-        <span className="text-[12px] font-bold truncate flex-1 tracking-tight">{item.label}</span>
-        {onDelete && (
-          <button 
-            onClick={(e) => { e.stopPropagation(); onDelete(); }}
-            className="opacity-0 group-hover:opacity-100 p-1 hover:bg-rose-500/20 hover:text-rose-400 rounded-md transition-all"
-          >
-            <Trash2 className="w-3 h-3" />
-          </button>
-        )}
-      </>
-    )}
-
-    {item.active && !isExpanded && (
-      <div className="absolute -left-1 w-1.5 h-6 bg-indigo-500 rounded-r-full shadow-[0_0_10px_rgba(99,102,241,0.5)]" />
-    )}
-  </div>
-);
+  );
+};
 

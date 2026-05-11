@@ -10,13 +10,13 @@ import { LogIn, Key, CheckCircle2 } from 'lucide-react';
 export const Onboarding = ({ onComplete }: { onComplete: () => void }) => {
   const [step, setStep] = useState(1);
   const [keys, setKeys] = useState({ openai: '', gemini: '' });
-  const { setKeys: saveKeys, setGoogleLinked } = useUserStore();
+  const { setKeys: saveKeys, setProfile } = useUserStore();
 
   const handleGoogleLogin = async () => {
     const provider = new GoogleAuthProvider();
     try {
       await signInWithPopup(auth, provider);
-      setGoogleLinked(true);
+      setProfile({ googleLinked: true });
       setStep(2);
     } catch (error) {
       console.error("Login failed:", error);

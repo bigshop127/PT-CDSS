@@ -2,6 +2,7 @@ import { getFunctions, httpsCallable } from "firebase/functions";
 import { getApp } from "firebase/app";
 import { Node, Edge } from "reactflow";
 import { useFlowStore } from "@/store/useFlowStore";
+import { useUserStore } from "@/store/useUserStore";
 
 export interface GhostNodeProposal {
   id: string;
@@ -23,6 +24,8 @@ interface AIRequestData {
   semanticHistory: string;
   nodes: Node[];
   edges: Edge[];
+  userApiKey?: string;
+  model?: string;
 }
 
 interface AIResponseData {
@@ -33,20 +36,24 @@ interface AIResponseData {
 }
 
 export class AIOrchestrator {
-  private callGemini: ReturnType<typeof httpsCallable<AIRequestData, AIResponseData>>;
+  private callGeminiProxy: ReturnType<typeof httpsCallable<AIRequestData, AIResponseData>>;
 
-  constructor(_apiKey?: string) {
+  constructor() {
     const functions = getFunctions(getApp(), "asia-east1");
-    this.callGemini = httpsCallable<AIRequestData, AIResponseData>(functions, "geminiProxy");
+    this.callGeminiProxy = httpsCallable<AIRequestData, AIResponseData>(functions, "geminiProxy");
   }
 
   async processRequest(userInput: string, semanticHistory: string): Promise<AIResponseData> {
+    const { geminiKey, preferredModel } = useUserStore.getState().settings;
     const store = useFlowStore.getState();
-    const result = await this.callGemini({
+    
+    const result = await this.callGeminiProxy({
       userInput,
       semanticHistory,
       nodes: store.nodes,
       edges: store.edges,
+      userApiKey: geminiKey,
+      model: preferredModel
     });
 
     const data = result.data;

@@ -25,17 +25,21 @@ PT-CDSS 是一款專為物理治療師設計的臨床決策支援系統，旨在
 ### 2.2 臨床決策引擎 (Flow Engine)
 - [x] **互動式流程圖**：整合 React Flow，支援紅旗警示 (Red Flag) 與 診斷節點 (Flow Node)。
 - [x] **AI 節點建議**：初步實作 AI 推薦後續步驟 (Ghost Nodes)。
-- [x] **狀態管理**：使用 Zustand 管理全域 Flow 狀態，支援節點增刪與連結。
+- [x] **狀態管理**：使用 Zustand 管理全域 Flow 狀態。
+- [x] **即時心智圖 (Insight Map)**：實作根據決策流程即時生成的動態心智圖縮圖。
 
 ### 2.3 文件編輯系統 (Document Editor)
 - [x] **SOAP 模板**：基於 Tiptap 實作專門的 SOAP 紀錄區塊。
-- [x] **自動儲存**：實作 Debounced Sync 機制，自動同步編輯內容至 Firebase Firestore。
-- [x] **AI 內容插入**：支援將 AI 建議的治療計畫直接插入編輯器。
+- [x] **自動儲存**：實作 Debounced Sync 機制。
+- [x] **AI 內容插入與潤色**：支援 AI 優化表達方式。
+- [x] **備註系統 (Remark System)**：實作 Google Doc 風格的側邊備註功能，支援選取文字後新增臨床備註。
 
-### 2.4 安全與使用者系統
-- [x] **身份驗證**：整合 Firebase Google Auth。
-- [x] **金鑰隱私機制 (Onboarding)**：實作 BYOK (Bring Your Own Key) 模式，用戶 API Key 儲存於本地 localStorage，伺服器不留存。
-- [x] **權限控制**：實作登入攔截器 (Auth Guard)，確保資料安全性。
+### 2.4 安全與資源管理
+- [x] **進階資源庫 (Library 2.0)**：實作頂部 8 大臨床資料夾，支援無限層級嵌套選單與 Google Drive 連結。
+- [x] **Sidebar 增強**：
+    - **NotebookLM 整合**：支援筆記本連結至外部 NotebookLM。
+    - **動態資料夾管理**：支援重新命名、顏色區分、刪除與「加入對話分析」。
+- [x] **用戶系統升級**：支援多用戶設定、Profile 切換預留與個人化 API Key 注入。
 
 ---
 

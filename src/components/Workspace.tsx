@@ -9,11 +9,12 @@ import { AIOrchestrator } from '@/services/ai/AIOrchestrator';
 
 import { FinalizeDialog } from './flow/FinalizeDialog';
 import { Button } from '@/components/ui/button';
-import { Sparkles, Search, Link as LinkIcon, Cloud, Users } from 'lucide-react';
+import { Sparkles, Search, Link as LinkIcon, Cloud, Users, Plus, History as HistoryIcon } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { cn } from '@/lib/utils';
+import { useUserStore } from '@/store/useUserStore';
 
 // Layout Components
 import { AppSidebar } from './layout/AppSidebar';
@@ -39,41 +40,65 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
+  DropdownMenuSub,
+  DropdownMenuSubTrigger,
+  DropdownMenuPortal,
+  DropdownMenuSubContent,
 } from "@/components/ui/dropdown-menu";
 import { ChevronDown, FileText, Folder as FolderIcon, ExternalLink } from 'lucide-react';
 
 const DRIVE_ROOT_URL = "https://drive.google.com/drive/u/0/folders/1OslCCU-8tY3y9p084hWJeO78o7HKIYug";
 
-const LIBRARY_FOLDERS = [
-  { 
-    id: '01', 
-    name: '臨床邏輯與生存工具箱', 
-    color: 'bg-rose-500',
-    files: ['全部書單.pdf', '臨床邏輯框架.docx', '生存工具指南.pdf']
-  },
-  { 
-    id: '02', 
-    name: '動作分析與功能診斷', 
-    color: 'bg-orange-500',
-    files: ['步態分析.pdf', '功能性診斷標準.docx']
-  },
-  { 
-    id: '03', 
-    name: '臨床樞樑技術', 
-    color: 'bg-amber-500',
-    files: ['脊椎操作技術.pdf', '關節鬆動術.pdf']
-  },
-  { 
-    id: '04', 
-    name: '徒手治療系統', 
-    color: 'bg-emerald-500',
-    files: ['肌筋膜放鬆.docx', '瑞典式按摩.pdf']
-  },
-];
+import { useLibraryStore, LibraryFolder, LibraryFile } from '@/store/useLibraryStore';
+
+const NestedLibraryItem = ({ item }: { item: LibraryFolder | LibraryFile }) => {
+  const isFolder = 'children' in item;
+
+  if (isFolder) {
+    if (item.children.length === 0) {
+      return (
+        <DropdownMenuItem className="flex items-center gap-3 py-2.5 opacity-50 cursor-not-allowed">
+          <FolderIcon className="w-3.5 h-3.5 text-slate-400" />
+          <span className="text-[11px] font-bold text-slate-500 truncate">{item.name} (空)</span>
+        </DropdownMenuItem>
+      );
+    }
+
+    return (
+      <DropdownMenuSub>
+        <DropdownMenuSubTrigger className="flex items-center gap-3 py-2.5 cursor-pointer group/item">
+          <div className="p-1.5 rounded-lg bg-slate-50 group-hover/item:bg-indigo-50 transition-colors">
+            <FolderIcon className="w-3.5 h-3.5 text-slate-500 group-hover/item:text-indigo-600" />
+          </div>
+          <span className="text-[11px] font-bold text-slate-600 group-hover/item:text-indigo-700 truncate flex-1">{item.name}</span>
+        </DropdownMenuSubTrigger>
+        <DropdownMenuPortal>
+          <DropdownMenuSubContent className="w-64 p-2 rounded-2xl border-slate-200/60 shadow-2xl backdrop-blur-xl bg-white/95">
+            {item.children.map((child) => (
+              <NestedLibraryItem key={child.id} item={child} />
+            ))}
+          </DropdownMenuSubContent>
+        </DropdownMenuPortal>
+      </DropdownMenuSub>
+    );
+  }
+
+  return (
+    <DropdownMenuItem className="flex items-center gap-3 cursor-pointer group/item py-2.5" onClick={() => window.open(item.url || DRIVE_ROOT_URL, '_blank')}>
+      <div className="p-1.5 rounded-lg bg-slate-50 group-hover/item:bg-indigo-50 transition-colors">
+        {item.type === 'pdf' ? <FileText className="w-3.5 h-3.5 text-rose-500 group-hover/item:text-rose-600" /> : <ExternalLink className="w-3.5 h-3.5 text-slate-500 group-hover/item:text-indigo-600" />}
+      </div>
+      <span className="text-[11px] font-bold text-slate-600 group-hover/item:text-indigo-700 truncate flex-1">{item.name}</span>
+      <ExternalLink className="w-3 h-3 text-slate-300 opacity-0 group-hover/item:opacity-100 transition-all" />
+    </DropdownMenuItem>
+  );
+};
 
 const WorkspaceContent = ({ projectId, userId }: { projectId: string; userId: string }) => {
+  const { libraryFolders } = useLibraryStore();
+  const { settings } = useUserStore();
   const { syncToRemote } = useProjectSync(projectId, userId);
-  const orchestrator = useMemo(() => new AIOrchestrator(import.meta.env.VITE_GEMINI_API_KEY || ""), []);
+  const orchestrator = useMemo(() => new AIOrchestrator(), []);
 
   const [chatInput, setChatInput] = useState("");
   const [semanticHistory, setSemanticHistory] = useState("");
@@ -165,11 +190,11 @@ const WorkspaceContent = ({ projectId, userId }: { projectId: string; userId: st
             {/* Book Shortcuts - Dropdown "Google Bookmark" Style */}
             <div className="flex-1 flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
               <div className="w-px h-8 mx-2 bg-slate-200/60" />
-              {LIBRARY_FOLDERS.map((folder) => (
+              {libraryFolders.map((folder) => (
                 <DropdownMenu key={folder.id}>
                   <DropdownMenuTrigger asChild>
                     <button className="group flex items-center gap-3 px-4 py-2 rounded-xl hover:bg-white hover:shadow-md hover:border-slate-100 border border-transparent transition-all shrink-0 outline-none">
-                      <div className={`w-3.5 h-3.5 rounded-full ${folder.color} shadow-md ring-2 ring-white group-hover:ring-4 group-hover:ring-${folder.color.split('-')[1]}-100 transition-all`} />
+                      <div className={`w-3.5 h-3.5 rounded-full ${folder.color} shadow-md ring-2 ring-white group-hover:ring-4 group-hover:ring-${folder.color?.split('-')[1]}-100 transition-all`} />
                       <span className="text-[12px] font-black text-slate-700 group-hover:text-indigo-700 transition-colors uppercase tracking-tight">{folder.id} {folder.name}</span>
                       <ChevronDown className="w-3.5 h-3.5 text-slate-400 group-hover:text-indigo-500 transition-all" />
                     </button>
@@ -180,14 +205,8 @@ const WorkspaceContent = ({ projectId, userId }: { projectId: string; userId: st
                       臨床資料夾：{folder.id}
                     </DropdownMenuLabel>
                     <DropdownMenuSeparator />
-                    {folder.files.map((file, idx) => (
-                      <DropdownMenuItem key={idx} className="flex items-center gap-3 cursor-pointer group/item py-2.5" onClick={() => window.open(DRIVE_ROOT_URL, '_blank')}>
-                        <div className="p-1.5 rounded-lg bg-slate-50 group-hover/item:bg-indigo-50 transition-colors">
-                          <FileText className="w-3.5 h-3.5 text-slate-500 group-hover/item:text-indigo-600" />
-                        </div>
-                        <span className="text-[11px] font-bold text-slate-600 group-hover/item:text-indigo-700 truncate flex-1">{file}</span>
-                        <ExternalLink className="w-3 h-3 text-slate-300 opacity-0 group-hover/item:opacity-100 transition-all" />
-                      </DropdownMenuItem>
+                    {folder.children.map((item) => (
+                      <NestedLibraryItem key={item.id} item={item} />
                     ))}
                     <DropdownMenuSeparator />
                     <DropdownMenuItem className="flex items-center justify-center py-2 text-[10px] font-black text-indigo-600 hover:bg-indigo-50" onClick={() => window.open(DRIVE_ROOT_URL, '_blank')}>
@@ -240,15 +259,41 @@ const WorkspaceContent = ({ projectId, userId }: { projectId: string; userId: st
             </div>
 
             <div className="flex items-center gap-4 flex-none justify-end">
-              <div className="hidden sm:flex flex-col items-end mr-1">
-                <span className="text-[10px] font-extrabold text-slate-700">Dr. Chen</span>
-                <div className="text-[8px] font-bold text-slate-400 flex items-center gap-1">
-                  <span className="w-1 h-1 rounded-full bg-emerald-500" /> Physical Therapist
-                </div>
-              </div>
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-purple-600 p-0.5 shadow-md hover:scale-105 transition-transform cursor-pointer">
-                <div className="w-full h-full rounded-[10px] bg-white flex items-center justify-center text-xs font-black text-indigo-600">C</div>
-              </div>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <div className="flex items-center gap-4 cursor-pointer group">
+                    <div className="hidden sm:flex flex-col items-end mr-1">
+                      <span className="text-[10px] font-extrabold text-slate-700 group-hover:text-indigo-600 transition-colors">{settings.name}</span>
+                      <div className="text-[8px] font-bold text-slate-400 flex items-center gap-1">
+                        <span className="w-1 h-1 rounded-full bg-emerald-500" /> {settings.role}
+                      </div>
+                    </div>
+                    <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-purple-600 p-0.5 shadow-md group-hover:scale-105 transition-transform">
+                      <div className="w-full h-full rounded-[10px] bg-white flex items-center justify-center text-xs font-black text-indigo-600">{settings.name[0]}</div>
+                    </div>
+                  </div>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-56 p-2 rounded-2xl border-slate-200/60 shadow-2xl backdrop-blur-xl bg-white/95">
+                  <DropdownMenuLabel className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-3 py-2">帳戶設定</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem className="gap-3 py-2.5">
+                    <Users className="w-4 h-4 text-slate-400" />
+                    <div className="flex flex-col">
+                      <span className="text-[11px] font-bold text-slate-700">{settings.name}</span>
+                      <span className="text-[9px] text-slate-400">個人檔案</span>
+                    </div>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem className="gap-3 py-2.5">
+                    <Plus className="w-4 h-4 text-slate-400" />
+                    <span className="text-[11px] font-bold text-slate-700">加入第二個協作者</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem className="gap-3 py-2.5 text-rose-500 focus:text-rose-600">
+                    <HistoryIcon className="w-4 h-4" />
+                    <span className="text-[11px] font-bold">登出系統</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
           </div>
 
