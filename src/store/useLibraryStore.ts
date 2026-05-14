@@ -146,6 +146,7 @@ export const useLibraryStore = create<LibraryStore>()(
     }),
     {
       name: 'library-store',
+      version: 2, // Bump version to clear old storage
     }
   )
 );
