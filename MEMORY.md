@@ -1,5 +1,30 @@
 # Task Memory Log
 
+## [2026-05-14] (Session 2)
+### DIRECTIVE: Google Drive Real-time Sync Investigation
+- **Issue Diagnosis**: Confirmed Library UI shows "(空)" because `useLibraryStore.ts` uses hardcoded mock data.
+- **Sync Strategy**:
+  - Identified target folder: `1OslCCU-8tY3y9p084hWJeO78o7HKIYug`.
+  - Planned Firebase Functions (`fetchDriveContent`) + Google Drive API v3 integration.
+- **Handover Prepared**: Created `HANDOVER_DRIVE_SYNC.md` containing a comprehensive prompt for the next session to implement the API sync and dynamic UI rendering.
+- **Status**: Research Completed, Strategy Defined, Handover Ready.
+
+## [2026-05-14] (Session 1)
+### DIRECTIVE: Comprehensive Feature Enhancements & CI Fix
+- **Features Implemented**:
+  - **NotebookLM Integration**: Syncs notebook state to `useLibraryStore` and enables external linking.
+  - **Multi-User Auth**: Implemented Firestore synchronization in `useUserStore` for profiles and settings.
+  - **Advanced Folder Management**: Unified under `useLibraryStore` with color tags and conversation linking.
+  - **Editor Upgrade (Google Docs style)**: Added `BubbleMenu` for quick formatting and multi-level commenting system with resolution.
+  - **AI Personalization**: Added model selector (`gemini-2.0-flash`, `gpt-4o`, etc.) to the workspace header.
+  - **Interactive Mind Map**: Upgraded `InsightPane` to use `ReactFlow` for interactive, dynamic clinical path visualization.
+  - **Nested Cloud Navigation**: Implemented multi-level dropdowns in the header for navigating the knowledge base structure.
+- **CI Fix**:
+  - Resolved `BubbleMenu` import issue from `@tiptap/react/menus` and removed unsupported `tippyOptions`.
+  - Fixed `RedFlagNode` default export import mismatch.
+  - Added missing `Cpu` icon import in `lucide-react`.
+- **Status**: Completed, Verified (via local build), and Pushed to GitHub.
+
 ## [2026-05-10]
 ### BUGFIX: Firebase Auth Configuration Error
 - **Issue**: Live site `pt-cdss.web.app` reported `auth/configuration-not-found`.
