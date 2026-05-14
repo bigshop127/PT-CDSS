@@ -50,10 +50,7 @@ const INITIAL_LIBRARY: LibraryFolder[] = [
     id: '02',
     name: '動作分析與功能診斷',
     color: 'bg-orange-500',
-    children: [
-      { id: '02-1', name: '步態分析基礎', children: [] },
-      { id: '02-2', name: '功能性動作評估 (FMS)', children: [] },
-    ]
+    children: []
   },
   {
     id: '03',
@@ -69,19 +66,19 @@ const INITIAL_LIBRARY: LibraryFolder[] = [
   },
   {
     id: '05',
-    name: '神經物理治療',
+    name: '運動介入與穩定系統',
     color: 'bg-cyan-500',
     children: []
   },
   {
     id: '06',
-    name: '運動生理與訓練',
+    name: '神經物理治療 (暫定)',
     color: 'bg-blue-500',
     children: []
   },
   {
     id: '07',
-    name: '小兒物理治療',
+    name: '性能表現與進階科學',
     color: 'bg-indigo-500',
     children: []
   },
@@ -146,7 +143,7 @@ export const useLibraryStore = create<LibraryStore>()(
     }),
     {
       name: 'library-store',
-      version: 2, // Bump version to clear old storage
+      version: 3,
     }
   )
 );
