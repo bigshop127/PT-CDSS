@@ -15,11 +15,23 @@ import {
   Trash2,
   FileCode,
   FileText,
-  Link as LinkIcon
+  Link as LinkIcon,
+  MoreHorizontal,
+  Palette,
+  Type
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { cn } from '@/lib/utils';
+import { useLibraryStore, LibraryFolder, LibraryFile } from '@/store/useLibraryStore';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 interface SidebarSectionItem {
   id: string;
@@ -28,58 +40,56 @@ interface SidebarSectionItem {
   active?: boolean;
   notebookLmUrl?: string;
   color?: string;
+  type?: 'folder' | 'notebook' | 'gem' | 'conversation';
 }
 
 export const AppSidebar = () => {
   const [isHovered, setIsHovered] = useState(false);
-
-  // State for dynamic items
-  const [notebooks, setNotebooks] = useState<SidebarSectionItem[]>([
-    { id: '1', icon: <Brain className="w-4 h-4 text-rose-400" />, label: '大腦袋', notebookLmUrl: 'https://notebooklm.google.com/notebook/1' },
-    { id: '2', icon: <BookOpen className="w-4 h-4 text-orange-400" />, label: 'Claude 基本功', notebookLmUrl: 'https://notebooklm.google.com/notebook/2' },
-  ]);
-
-  const [gems, setGems] = useState<SidebarSectionItem[]>([
-    { id: '1', icon: <FileCode className="w-4 h-4 text-indigo-400" />, label: 'PT_Clinical_Path.skill' },
-    { id: '2', icon: <FileText className="w-4 h-4 text-emerald-400" />, label: 'Architecture_V1.md' },
-  ]);
-
-  const [folders, setFolders] = useState<SidebarSectionItem[]>([
-    { id: 'f1', icon: <Folder className="w-4 h-4" />, label: '頸椎評估資源', color: 'text-rose-400' },
-    { id: 'f2', icon: <Folder className="w-4 h-4" />, label: '腰椎運動處方', color: 'text-indigo-400' },
-  ]);
+  const { libraryFolders, notebooks, gems, addFolder, addNotebook, addGem, deleteItem, updateItem } = useLibraryStore();
 
   const [conversations, setConversations] = useState<SidebarSectionItem[]>([
-    { id: '1', icon: <MessageSquare className="w-4 h-4" />, label: '平台架構 V1', active: true },
-    { id: '2', icon: <MessageSquare className="w-4 h-4 text-slate-500" />, label: 'Claude CLI 連線問題' },
+    { id: 'c1', icon: <MessageSquare className="w-4 h-4" />, label: '平台架構 V1', active: true, type: 'conversation' },
+    { id: 'c2', icon: <MessageSquare className="w-4 h-4 text-slate-500" />, label: 'Claude CLI 連線問題', type: 'conversation' },
   ]);
 
   const addItem = (section: string) => {
-    const newItem: SidebarSectionItem = {
-      id: Math.random().toString(36).substr(2, 9),
-      icon: section === 'conversations' ? <MessageSquare className="w-4 h-4 text-slate-500" /> : <Folder className="w-4 h-4" />,
-      label: section === 'conversations' ? '新的對話' : '新增資料夾...',
-    };
-
-    if (section === 'notebooks') setNotebooks([...notebooks, { ...newItem, icon: <Brain className="w-4 h-4 text-slate-400" />, notebookLmUrl: '#' }]);
-    if (section === 'gems') setGems([...gems, { ...newItem, icon: <FileCode className="w-4 h-4 text-slate-400" /> }]);
-    if (section === 'folders') setFolders([...folders, { ...newItem, color: 'text-indigo-400' }]);
-    if (section === 'conversations') setConversations([newItem, ...conversations]);
+    if (section === 'notebooks') {
+      const name = prompt('筆記本名稱：');
+      const url = prompt('NotebookLM 網址：');
+      if (name && url) addNotebook(name, url);
+    } else if (section === 'gems') {
+      const name = prompt('GEM 資源名稱：');
+      if (name) addGem(name);
+    } else if (section === 'folders') {
+      const name = prompt('資料夾名稱：');
+      if (name) addFolder(null, name);
+    } else if (section === 'conversations') {
+      const newItem: SidebarSectionItem = {
+        id: Math.random().toString(36).substr(2, 9),
+        icon: <MessageSquare className="w-4 h-4 text-slate-500" />,
+        label: '新的對話',
+        type: 'conversation'
+      };
+      setConversations([newItem, ...conversations]);
+    }
   };
 
-  const deleteItem = (id: string, section: string) => {
-    if (section === 'notebooks') setNotebooks(notebooks.filter(i => i.id !== id));
-    if (section === 'gems') setGems(gems.filter(i => i.id !== id));
-    if (section === 'folders') setFolders(folders.filter(i => i.id !== id));
-    if (section === 'conversations') setConversations(conversations.filter(i => i.id !== id));
+  const handleDelete = (id: string, section: string) => {
+    if (section === 'conversations') {
+      setConversations(conversations.filter(c => c.id !== id));
+    } else {
+      deleteItem(id);
+    }
   };
 
-  const updateItem = (id: string, section: string, updates: Partial<SidebarSectionItem>) => {
-    const update = (items: SidebarSectionItem[]) => items.map(i => i.id === id ? { ...i, ...updates } : i);
-    if (section === 'notebooks') setNotebooks(update(notebooks));
-    if (section === 'gems') setGems(update(gems));
-    if (section === 'folders') setFolders(update(folders));
-    if (section === 'conversations') setConversations(update(conversations));
+  const handleUpdate = (id: string, updates: Partial<SidebarSectionItem>) => {
+    if (updates.label) {
+      updateItem(id, { name: updates.label });
+    } else if (updates.notebookLmUrl) {
+      updateItem(id, { url: updates.notebookLmUrl });
+    } else if (updates.color) {
+      updateItem(id, { color: updates.color });
+    }
   };
 
   return (
@@ -91,7 +101,6 @@ export const AppSidebar = () => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* 1. New Chat Button */}
       <div className="p-3">
         <Button 
           onClick={() => addItem('conversations')}
@@ -109,68 +118,62 @@ export const AppSidebar = () => {
 
       <ScrollArea className="flex-1">
         <div className="px-3 space-y-6 pt-4">
-          {/* 2. Notebooks */}
           <Section label="筆記本" isExpanded={isHovered} onAdd={() => addItem('notebooks')}>
             {notebooks.map(item => (
               <SidebarItem 
                 key={item.id} 
-                item={item} 
+                item={{ id: item.id, icon: <Brain className="w-4 h-4" />, label: item.name, notebookLmUrl: item.url, color: item.color, type: 'notebook' }} 
                 isExpanded={isHovered} 
-                onDelete={() => deleteItem(item.id, 'notebooks')} 
-                onUpdate={(updates) => updateItem(item.id, 'notebooks', updates)}
+                onDelete={() => handleDelete(item.id, 'notebooks')} 
+                onUpdate={(updates) => handleUpdate(item.id, updates)}
               />
             ))}
           </Section>
 
-          {/* 3. Gems (Special for .md/SKILL) */}
           <Section label="GEM 資源 (.md / SKILL)" isExpanded={isHovered} onAdd={() => addItem('gems')}>
             {gems.map(item => (
               <SidebarItem 
                 key={item.id} 
-                item={item} 
+                item={{ id: item.id, icon: <FileCode className="w-4 h-4" />, label: item.name, color: item.color, type: 'gem' }} 
                 isExpanded={isHovered} 
-                onDelete={() => deleteItem(item.id, 'gems')} 
-                onUpdate={(updates) => updateItem(item.id, 'gems', updates)}
+                onDelete={() => handleDelete(item.id, 'gems')} 
+                onUpdate={(updates) => handleUpdate(item.id, updates)}
               />
             ))}
           </Section>
 
-          {/* 4. Folders */}
           <Section label="資料夾" isExpanded={isHovered} onAdd={() => addItem('folders')}>
-            {folders.length === 0 ? (
+            {libraryFolders.filter(f => !['01','02','03','04','05','06','07','08','root-files'].includes(f.id)).length === 0 ? (
               <div className={cn("px-3 py-4 text-center border border-dashed border-slate-800 rounded-xl bg-slate-900/30", !isHovered && "hidden")}>
                 <Folder className="w-6 h-6 text-slate-700 mx-auto mb-2" />
-                <p className="text-[10px] text-slate-600 font-bold uppercase tracking-widest">暫無資料夾</p>
+                <p className="text-[10px] text-slate-600 font-bold uppercase tracking-widest">暫無自訂資料夾</p>
               </div>
             ) : (
-              folders.map(item => (
+              libraryFolders.filter(f => !['01','02','03','04','05','06','07','08','root-files'].includes(f.id)).map(item => (
                 <SidebarItem 
                   key={item.id} 
-                  item={item} 
+                  item={{ id: item.id, icon: <Folder className="w-4 h-4" />, label: item.name, color: item.color || 'text-indigo-400', type: 'folder' }} 
                   isExpanded={isHovered} 
-                  onDelete={() => deleteItem(item.id, 'folders')} 
-                  onUpdate={(updates) => updateItem(item.id, 'folders', updates)}
+                  onDelete={() => handleDelete(item.id, 'folders')} 
+                  onUpdate={(updates) => handleUpdate(item.id, updates)}
                 />
               ))
             )}
           </Section>
 
-          {/* 5. Recent Conversations */}
           <Section label="對話紀錄" isExpanded={isHovered} onAdd={() => addItem('conversations')}>
             {conversations.map(item => (
               <SidebarItem 
                 key={item.id} 
                 item={item} 
                 isExpanded={isHovered} 
-                onDelete={() => deleteItem(item.id, 'conversations')} 
-                onUpdate={(updates) => updateItem(item.id, 'conversations', updates)}
+                onDelete={() => handleDelete(item.id, 'conversations')} 
               />
             ))}
           </Section>
         </div>
       </ScrollArea>
 
-      {/* Footer Settings */}
       <div className="p-3 border-t border-slate-800/50 bg-slate-900/20">
         <SidebarItem 
           item={{ id: 'settings', icon: <Settings className="w-4 h-4" />, label: '設定與說明' }} 
@@ -197,16 +200,6 @@ const Section = ({ label, children, isExpanded, onAdd }: { label: string, childr
   </div>
 );
 
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { MoreHorizontal, Palette, Share2, Type } from 'lucide-react';
-
 const SidebarItem = ({ 
   item,
   isExpanded,
@@ -221,7 +214,7 @@ const SidebarItem = ({
   const handleClick = () => {
     if (item.notebookLmUrl) {
       window.open(item.notebookLmUrl, '_blank');
-    } else if (item.id.startsWith('gems')) {
+    } else if (item.type === 'gem') {
       alert(`已載入專用技能：${item.label}\nAI 助手現在將遵循此規範進行臨床決策。`);
     }
   };
@@ -261,7 +254,7 @@ const SidebarItem = ({
                   }} className="gap-2 text-xs focus:bg-indigo-500/20 focus:text-indigo-100">
                     <Type className="w-3.5 h-3.5" /> 重新命名
                   </DropdownMenuItem>
-                  {item.notebookLmUrl !== undefined && (
+                  {item.type === 'notebook' && (
                     <DropdownMenuItem onClick={() => {
                       const newUrl = prompt('輸入 NotebookLM 網址：', item.notebookLmUrl);
                       if (newUrl) onUpdate({ notebookLmUrl: newUrl });
@@ -269,7 +262,7 @@ const SidebarItem = ({
                       <LinkIcon className="w-3.5 h-3.5" /> 設定網址
                     </DropdownMenuItem>
                   )}
-                  {item.id.startsWith('f') && (
+                  {item.type === 'folder' && (
                     <>
                       <DropdownMenuItem onClick={() => {
                         const colors = ['text-rose-400', 'text-indigo-400', 'text-emerald-400', 'text-orange-400', 'text-amber-400', 'text-cyan-400', 'text-blue-400', 'text-violet-400'];
@@ -280,7 +273,6 @@ const SidebarItem = ({
                         <Palette className="w-3.5 h-3.5" /> 更改顏色區分
                       </DropdownMenuItem>
                       <DropdownMenuItem onClick={() => {
-                        // This would ideally open a new conversation linked to this folder
                         alert('已為此資料夾建立新的關聯對話');
                       }} className="gap-2 text-xs focus:bg-indigo-500/20 focus:text-indigo-100">
                         <MessageSquare className="w-3.5 h-3.5" /> 加入對話分析
@@ -312,4 +304,3 @@ const SidebarItem = ({
     </div>
   );
 };
-

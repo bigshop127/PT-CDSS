@@ -4,8 +4,10 @@ import { persist } from 'zustand/middleware';
 export interface LibraryFile {
   id: string;
   name: string;
-  type: 'file' | 'link' | 'pdf';
+  type: 'file' | 'link' | 'pdf' | 'notebook' | 'gem';
   url?: string;
+  color?: string;
+  linkedConversationId?: string;
 }
 
 export interface LibraryFolder {
@@ -13,13 +15,20 @@ export interface LibraryFolder {
   name: string;
   color?: string;
   children: (LibraryFolder | LibraryFile)[];
+  linkedConversationId?: string;
 }
 
 interface LibraryStore {
   libraryFolders: LibraryFolder[];
+  notebooks: LibraryFile[];
+  gems: LibraryFile[];
   addFolder: (parentId: string | null, name: string) => void;
+  addFile: (parentId: string, file: Omit<LibraryFile, 'id'>) => void;
+  addNotebook: (name: string, url: string) => void;
+  addGem: (name: string) => void;
   deleteItem: (id: string) => void;
-  updateFolder: (id: string, updates: Partial<LibraryFolder>) => void;
+  updateItem: (id: string, updates: Partial<LibraryFolder | LibraryFile>) => void;
+  linkConversation: (itemId: string, conversationId: string) => void;
 }
 
 const INITIAL_LIBRARY: LibraryFolder[] = [
@@ -122,10 +131,22 @@ const INITIAL_LIBRARY: LibraryFolder[] = [
   }
 ];
 
+const INITIAL_NOTEBOOKS: LibraryFile[] = [
+  { id: 'n1', name: '大腦袋', type: 'notebook', url: 'https://notebooklm.google.com/notebook/1', color: 'text-rose-400' },
+  { id: 'n2', name: 'Claude 基本功', type: 'notebook', url: 'https://notebooklm.google.com/notebook/2', color: 'text-orange-400' },
+];
+
+const INITIAL_GEMS: LibraryFile[] = [
+  { id: 'g1', name: 'PT_Clinical_Path.skill', type: 'gem', color: 'text-indigo-400' },
+  { id: 'g2', name: 'Architecture_V1.md', type: 'gem', color: 'text-emerald-400' },
+];
+
 export const useLibraryStore = create<LibraryStore>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       libraryFolders: INITIAL_LIBRARY,
+      notebooks: INITIAL_NOTEBOOKS,
+      gems: INITIAL_GEMS,
       addFolder: (parentId, name) => set((state) => {
         const newFolder: LibraryFolder = {
           id: Math.random().toString(36).substr(2, 9),
@@ -147,22 +168,15 @@ export const useLibraryStore = create<LibraryStore>()(
         };
         return { libraryFolders: updateRecursive(state.libraryFolders) as LibraryFolder[] };
       }),
-      deleteItem: (id) => set((state) => {
-        const deleteRecursive = (folders: (LibraryFolder | LibraryFile)[]): (LibraryFolder | LibraryFile)[] => {
-          return folders.filter(item => item.id !== id).map(item => {
-            if ('children' in item) {
-              return { ...item, children: deleteRecursive(item.children) };
-            }
-            return item;
-          });
+      addFile: (parentId, file) => set((state) => {
+        const newFile: LibraryFile = {
+          ...file,
+          id: Math.random().toString(36).substr(2, 9),
         };
-        return { libraryFolders: deleteRecursive(state.libraryFolders) as LibraryFolder[] };
-      }),
-      updateFolder: (id, updates) => set((state) => {
         const updateRecursive = (folders: (LibraryFolder | LibraryFile)[]): (LibraryFolder | LibraryFile)[] => {
           return folders.map(item => {
-            if (item.id === id) {
-              return { ...item, ...updates };
+            if ('children' in item && item.id === parentId) {
+              return { ...item, children: [...item.children, newFile] };
             }
             if ('children' in item) {
               return { ...item, children: updateRecursive(item.children) };
@@ -172,10 +186,52 @@ export const useLibraryStore = create<LibraryStore>()(
         };
         return { libraryFolders: updateRecursive(state.libraryFolders) as LibraryFolder[] };
       }),
+      addNotebook: (name, url) => set((state) => ({
+        notebooks: [...state.notebooks, { id: Math.random().toString(36).substr(2, 9), name, type: 'notebook', url, color: 'text-slate-400' }]
+      })),
+      addGem: (name) => set((state) => ({
+        gems: [...state.gems, { id: Math.random().toString(36).substr(2, 9), name, type: 'gem', color: 'text-slate-400' }]
+      })),
+      deleteItem: (id) => set((state) => {
+        const deleteRecursive = (folders: (LibraryFolder | LibraryFile)[]): (LibraryFolder | LibraryFile)[] => {
+          return folders.filter(item => item.id !== id).map(item => {
+            if ('children' in item) {
+              return { ...item, children: deleteRecursive(item.children) };
+            }
+            return item;
+          });
+        };
+        return { 
+          libraryFolders: deleteRecursive(state.libraryFolders) as LibraryFolder[],
+          notebooks: state.notebooks.filter(n => n.id !== id),
+          gems: state.gems.filter(g => g.id !== id)
+        };
+      }),
+      updateItem: (id, updates) => set((state) => {
+        const updateRecursive = (items: (LibraryFolder | LibraryFile)[]): (LibraryFolder | LibraryFile)[] => {
+          return items.map(item => {
+            if (item.id === id) {
+              return { ...item, ...updates };
+            }
+            if ('children' in item) {
+              return { ...item, children: updateRecursive(item.children) };
+            }
+            return item;
+          });
+        };
+        return { 
+          libraryFolders: updateRecursive(state.libraryFolders) as LibraryFolder[],
+          notebooks: state.notebooks.map(n => n.id === id ? { ...n, ...updates } as LibraryFile : n),
+          gems: state.gems.map(g => g.id === id ? { ...g, ...updates } as LibraryFile : g)
+        };
+      }),
+      linkConversation: (itemId, conversationId) => {
+        get().updateItem(itemId, { linkedConversationId: conversationId });
+      }
     }),
     {
       name: 'library-store',
-      version: 4,
+      version: 5,
     }
   )
 );

@@ -5,22 +5,30 @@ import { useUserStore } from '@/store/useUserStore';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { LogIn, Key, CheckCircle2 } from 'lucide-react';
+import { LogIn, Key, CheckCircle2, Users } from 'lucide-react';
 
 export const Onboarding = ({ onComplete }: { onComplete: () => void }) => {
   const [step, setStep] = useState(1);
+  const [profile, setProfileData] = useState({ name: '', role: 'Senior PT' });
   const [keys, setKeys] = useState({ openai: '', gemini: '' });
   const { setKeys: saveKeys, setProfile } = useUserStore();
 
   const handleGoogleLogin = async () => {
     const provider = new GoogleAuthProvider();
     try {
-      await signInWithPopup(auth, provider);
-      setProfile({ googleLinked: true });
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      setProfile({ googleLinked: true, name: user.displayName || '', role: 'Senior PT' });
+      setProfileData({ name: user.displayName || '', role: 'Senior PT' });
       setStep(2);
     } catch (error) {
       console.error("Login failed:", error);
     }
+  };
+
+  const handleSaveProfile = () => {
+    setProfile({ name: profile.name, role: profile.role });
+    setStep(3);
   };
 
   const handleSaveKeys = () => {
@@ -33,13 +41,13 @@ export const Onboarding = ({ onComplete }: { onComplete: () => void }) => {
       <Card className="w-full max-w-md bg-[#0f172a] border-slate-800 shadow-2xl">
         <CardHeader className="text-center pb-2">
           <div className="mx-auto w-12 h-12 bg-indigo-500/10 rounded-full flex items-center justify-center mb-4">
-            {step === 1 ? <LogIn className="text-indigo-400 w-6 h-6" /> : <Key className="text-emerald-400 w-6 h-6" />}
+            {step === 1 ? <LogIn className="text-indigo-400 w-6 h-6" /> : step === 2 ? <Users className="text-blue-400 w-6 h-6" /> : <Key className="text-emerald-400 w-6 h-6" />}
           </div>
           <CardTitle className="text-2xl font-bold text-white">
-            {step === 1 ? '歡迎使用 PT-CDSS' : '連結您的 AI 助手'}
+            {step === 1 ? '歡迎使用 PT-CDSS' : step === 2 ? '完善個人資料' : '連結您的 AI 助手'}
           </CardTitle>
           <CardDescription className="text-slate-400">
-            {step === 1 ? '請先登入您的 Google 帳戶以開始使用' : '請輸入您的 API Key 以啟用臨床決策支援'}
+            {step === 1 ? '請先登入您的 Google 帳戶以開始使用' : step === 2 ? '請輸入您的姓名與職稱' : '請輸入您的 API Key 以啟用臨床決策支援'}
           </CardDescription>
         </CardHeader>
         
@@ -52,6 +60,34 @@ export const Onboarding = ({ onComplete }: { onComplete: () => void }) => {
               <img src="https://www.google.com/favicon.ico" className="w-5 h-5" alt="Google" />
               使用 Google 帳戶登入
             </Button>
+          ) : step === 2 ? (
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">您的姓名</label>
+                <Input 
+                  placeholder="例如：Dr. Chen"
+                  className="bg-slate-900/50 border-slate-800 text-white h-11"
+                  value={profile.name}
+                  onChange={(e) => setProfileData({...profile, name: e.target.value})}
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">您的職稱</label>
+                <Input 
+                  placeholder="例如：Senior Physical Therapist"
+                  className="bg-slate-900/50 border-slate-800 text-white h-11"
+                  value={profile.role}
+                  onChange={(e) => setProfileData({...profile, role: e.target.value})}
+                />
+              </div>
+              <Button 
+                onClick={handleSaveProfile}
+                disabled={!profile.name}
+                className="w-full h-12 bg-indigo-600 hover:bg-indigo-500 text-white font-bold flex items-center justify-center gap-2 transition-all mt-4"
+              >
+                下一步：設定 API Key
+              </Button>
+            </div>
           ) : (
             <div className="space-y-4">
               <div className="space-y-2">

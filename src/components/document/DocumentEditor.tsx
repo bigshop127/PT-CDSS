@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { useEditor, EditorContent } from '@tiptap/react';
+import { useEditor, EditorContent, BubbleMenu } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Placeholder from '@tiptap/extension-placeholder';
 import CharacterCount from '@tiptap/extension-character-count';
@@ -26,13 +26,22 @@ import {
   Redo2, 
   Highlighter,
   MessageSquarePlus,
-  X
+  X,
+  CheckCircle2,
+  Reply,
+  MoreVertical
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useDocumentStore } from '@/store/useDocumentStore';
 import { useDocumentSave } from '@/hooks/useDocumentSave';
 import { AIOrchestrator } from '@/services/ai/AIOrchestrator';
 import { cn } from '@/lib/utils';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 interface Comment {
   id: string;
@@ -40,6 +49,8 @@ interface Comment {
   text: string;
   timestamp: Date;
   selectionRange: { from: number; to: number };
+  resolved: boolean;
+  replies: { author: string; text: string; timestamp: Date }[];
 }
 
 const EMPTY_TEMPLATE = {
@@ -75,12 +86,32 @@ export const DocumentEditor: React.FC<DocumentEditorProps> = ({ projectId }) => 
       author: 'Dr. Chen',
       text,
       timestamp: new Date(),
-      selectionRange: { from, to }
+      selectionRange: { from, to },
+      resolved: false,
+      replies: []
     };
     
     setComments([...comments, newComment]);
     editor.chain().focus().setHighlight({ color: '#fef08a' }).run();
   };
+
+  const handleReply = (commentId: string) => {
+    const text = prompt('輸入回覆內容：');
+    if (!text) return;
+    
+    setComments(comments.map(c => 
+      c.id === commentId 
+        ? { ...c, replies: [...c.replies, { author: 'Dr. Chen', text, timestamp: new Date() }] }
+        : c
+    ));
+  };
+
+  const handleResolve = (commentId: string) => {
+    setComments(comments.map(c => 
+      c.id === commentId ? { ...c, resolved: !c.resolved } : c
+    ));
+  };
+
   const { scheduleSave, loadDocument } = useDocumentSave(projectId, setSaveStatus);
   const orchestrator = React.useMemo(
     () => new AIOrchestrator(),
@@ -166,6 +197,28 @@ export const DocumentEditor: React.FC<DocumentEditorProps> = ({ projectId }) => 
 
   return (
     <div className="flex flex-col h-full bg-slate-100/30 relative overflow-hidden">
+      {/* Bubble Menu for quick formatting */}
+      <BubbleMenu editor={editor} tippyOptions={{ duration: 100 }}>
+        <div className="flex items-center gap-0.5 bg-white border border-slate-200 shadow-xl rounded-xl p-1 animate-in fade-in zoom-in duration-200">
+          <Button variant="ghost" size="sm" className={cn("h-7 w-7 p-0", editor.isActive('bold') && "bg-indigo-50 text-indigo-600")} onClick={() => editor.chain().focus().toggleBold().run()}>
+            <Bold className="w-3.5 h-3.5" />
+          </Button>
+          <Button variant="ghost" size="sm" className={cn("h-7 w-7 p-0", editor.isActive('italic') && "bg-indigo-50 text-indigo-600")} onClick={() => editor.chain().focus().toggleItalic().run()}>
+            <Italic className="w-3.5 h-3.5" />
+          </Button>
+          <Button variant="ghost" size="sm" className={cn("h-7 w-7 p-0", editor.isActive('underline') && "bg-indigo-50 text-indigo-600")} onClick={() => editor.chain().focus().toggleUnderline().run()}>
+            <UnderlineIcon className="w-3.5 h-3.5" />
+          </Button>
+          <div className="w-px h-4 bg-slate-200 mx-1" />
+          <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-amber-500" onClick={addComment}>
+            <MessageSquarePlus className="w-3.5 h-3.5" />
+          </Button>
+          <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-indigo-600" onClick={handlePolish}>
+            <Sparkles className="w-3.5 h-3.5" />
+          </Button>
+        </div>
+      </BubbleMenu>
+
       <div className="flex flex-col bg-white border-b border-slate-200 shadow-sm z-20">
         <div className="flex items-center px-4 h-8 bg-slate-50 gap-4 border-b border-slate-200/50">
           <div className="text-[10px] font-black text-indigo-700 border-b-2 border-indigo-600 h-full flex items-center px-2 cursor-pointer">檔案</div>
@@ -367,16 +420,34 @@ export const DocumentEditor: React.FC<DocumentEditorProps> = ({ projectId }) => 
         <div className="w-64 flex flex-col gap-4 py-4">
           <div className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2 flex items-center gap-2">
             <Highlighter className="w-3.5 h-3.5" />
-            臨床備註 ({comments.length})
+            臨床備註 ({comments.filter(c => !c.resolved).length})
           </div>
           {comments.map((comment) => (
-            <div key={comment.id} className="bg-white border border-slate-200 shadow-sm rounded-xl p-4 relative group animate-in slide-in-from-right-4 duration-300">
-              <button 
-                onClick={() => setComments(comments.filter(c => c.id !== comment.id))}
-                className="absolute top-2 right-2 p-1 text-slate-300 hover:text-rose-500 opacity-0 group-hover:opacity-100 transition-all"
-              >
-                <X className="w-3 h-3" />
-              </button>
+            <div 
+              key={comment.id} 
+              className={cn(
+                "bg-white border border-slate-200 shadow-sm rounded-xl p-4 relative group animate-in slide-in-from-right-4 duration-300",
+                comment.resolved && "opacity-50 grayscale"
+              )}
+            >
+              <div className="absolute top-2 right-2 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-all">
+                <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleResolve(comment.id)}>
+                  <CheckCircle2 className={cn("w-3.5 h-3.5", comment.resolved ? "text-emerald-500" : "text-slate-300")} />
+                </Button>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" size="icon" className="h-6 w-6">
+                      <MoreVertical className="w-3.5 h-3.5 text-slate-400" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="bg-white border-slate-200">
+                    <DropdownMenuItem onClick={() => setComments(comments.filter(c => c.id !== comment.id))} className="text-rose-500 text-[11px] font-bold">
+                      刪除備註
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
+
               <div className="flex items-center gap-2 mb-2">
                 <div className="w-6 h-6 rounded-lg bg-indigo-50 flex items-center justify-center text-[10px] font-black text-indigo-600">
                   {comment.author[0]}
@@ -386,7 +457,37 @@ export const DocumentEditor: React.FC<DocumentEditorProps> = ({ projectId }) => 
                   <span className="text-[9px] text-slate-400 font-bold">{comment.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
                 </div>
               </div>
-              <p className="text-[11px] text-slate-600 font-medium leading-relaxed">{comment.text}</p>
+              <p className="text-[11px] text-slate-600 font-medium leading-relaxed mb-3">{comment.text}</p>
+              
+              {/* Replies */}
+              {comment.replies.length > 0 && (
+                <div className="space-y-3 mt-3 pt-3 border-t border-slate-100">
+                  {comment.replies.map((reply, i) => (
+                    <div key={i} className="flex gap-2">
+                      <div className="w-4 h-4 rounded bg-slate-100 flex items-center justify-center text-[8px] font-black text-slate-500 shrink-0 mt-0.5">
+                        {reply.author[0]}
+                      </div>
+                      <div className="flex flex-col">
+                        <div className="flex items-center gap-2">
+                          <span className="text-[10px] font-bold text-slate-700">{reply.author}</span>
+                          <span className="text-[8px] text-slate-400">{reply.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                        </div>
+                        <p className="text-[10px] text-slate-500 leading-relaxed">{reply.text}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="h-7 px-2 text-[10px] font-bold text-indigo-600 hover:bg-indigo-50 gap-1.5 mt-2"
+                onClick={() => handleReply(comment.id)}
+              >
+                <Reply className="w-3 h-3" />
+                回覆
+              </Button>
             </div>
           ))}
           {comments.length === 0 && (

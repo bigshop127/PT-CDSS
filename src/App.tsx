@@ -8,26 +8,32 @@ import { useUserStore } from '@/store/useUserStore';
 function App() {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [isAuthLoading, setIsAuthLoading] = useState(true);
-  const { isConfigured } = useUserStore();
+  const { isConfigured, setUid, syncFromFirestore } = useUserStore();
   const [showOnboarding, setShowOnboarding] = useState(false);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       setCurrentUser(user);
       setIsAuthLoading(false);
       
-      // If user is logged in but not configured, show onboarding
-      if (user && !isConfigured()) {
-        setShowOnboarding(true);
-      } else if (!user) {
-        setShowOnboarding(true);
+      if (user) {
+        setUid(user.uid);
+        await syncFromFirestore();
+        
+        // After syncing, check if configured
+        if (!isConfigured()) {
+          setShowOnboarding(true);
+        } else {
+          setShowOnboarding(false);
+        }
       } else {
-        setShowOnboarding(false);
+        setUid(null);
+        setShowOnboarding(true);
       }
     });
 
     return () => unsubscribe();
-  }, [isConfigured]);
+  }, [isConfigured, setUid, syncFromFirestore]);
 
   if (isAuthLoading) {
     return (

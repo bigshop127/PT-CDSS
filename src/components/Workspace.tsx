@@ -217,6 +217,37 @@ const WorkspaceContent = ({ projectId, userId }: { projectId: string; userId: st
               ))}
             </div>
 
+            {/* Model Selector */}
+            <div className="flex items-center gap-2 border-l border-slate-200/60 pl-4">
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outline" size="sm" className="h-9 px-3 bg-slate-50 border-slate-200 text-[11px] font-bold gap-2 rounded-xl hover:bg-white hover:border-indigo-200 transition-all">
+                    <Cpu className="w-3.5 h-3.5 text-indigo-500" />
+                    {settings.preferredModel}
+                    <ChevronDown className="w-3 h-3 text-slate-400" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56 p-2 rounded-2xl border-slate-200/60 shadow-2xl backdrop-blur-xl bg-white/95">
+                  <DropdownMenuLabel className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-3 py-2">選擇 AI 模型</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  {[
+                    { id: 'gemini-2.0-flash', name: 'Gemini 2.0 Flash (最快)', icon: <Sparkles className="w-3.5 h-3.5 text-indigo-500" /> },
+                    { id: 'gemini-1.5-pro', name: 'Gemini 1.5 Pro (最強)', icon: <Sparkles className="w-3.5 h-3.5 text-purple-500" /> },
+                    { id: 'gpt-4o', name: 'GPT-4o', icon: <Sparkles className="w-3.5 h-3.5 text-emerald-500" /> }
+                  ].map((m) => (
+                    <DropdownMenuItem 
+                      key={m.id} 
+                      className={cn("gap-3 py-2.5", settings.preferredModel === m.id && "bg-indigo-50 text-indigo-700")}
+                      onClick={() => setProfile({ preferredModel: m.id as any })}
+                    >
+                      {m.icon}
+                      <span className="text-[11px] font-bold">{m.name}</span>
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+
             {/* Panel Toggles - Premium feel */}
             <div className="flex items-center gap-2.5 border-l border-slate-200/60 pl-4 mr-2">
               <Tooltip>
