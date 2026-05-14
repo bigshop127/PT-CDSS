@@ -17,7 +17,7 @@ import { Badge } from "@/components/ui/badge";
 import { useFlowStore } from "@/store/useFlowStore";
 import { nodesToMermaid } from "@/lib/mermaidExport";
 import { cn } from "@/lib/utils";
-import { RedFlagNode } from "../flow/RedFlagNode";
+import RedFlagNode from "../flow/RedFlagNode";
 
 const nodeTypes = {
   redFlag: RedFlagNode,

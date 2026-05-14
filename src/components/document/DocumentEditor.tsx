@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { useEditor, EditorContent, BubbleMenu } from '@tiptap/react';
+import { useEditor, EditorContent } from '@tiptap/react';
+import { BubbleMenu } from '@tiptap/react/menus';
 import StarterKit from '@tiptap/starter-kit';
 import Placeholder from '@tiptap/extension-placeholder';
 import CharacterCount from '@tiptap/extension-character-count';
@@ -198,7 +199,7 @@ export const DocumentEditor: React.FC<DocumentEditorProps> = ({ projectId }) => 
   return (
     <div className="flex flex-col h-full bg-slate-100/30 relative overflow-hidden">
       {/* Bubble Menu for quick formatting */}
-      <BubbleMenu editor={editor} tippyOptions={{ duration: 100 }}>
+      <BubbleMenu editor={editor}>
         <div className="flex items-center gap-0.5 bg-white border border-slate-200 shadow-xl rounded-xl p-1 animate-in fade-in zoom-in duration-200">
           <Button variant="ghost" size="sm" className={cn("h-7 w-7 p-0", editor.isActive('bold') && "bg-indigo-50 text-indigo-600")} onClick={() => editor.chain().focus().toggleBold().run()}>
             <Bold className="w-3.5 h-3.5" />

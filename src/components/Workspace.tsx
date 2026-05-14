@@ -9,7 +9,7 @@ import { AIOrchestrator } from '@/services/ai/AIOrchestrator';
 
 import { FinalizeDialog } from './flow/FinalizeDialog';
 import { Button } from '@/components/ui/button';
-import { Sparkles, Search, Link as LinkIcon, Cloud, Users, Plus, History as HistoryIcon } from 'lucide-react';
+import { Sparkles, Search, Link as LinkIcon, Cloud, Users, Plus, History as HistoryIcon, Cpu } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
