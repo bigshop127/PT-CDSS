@@ -292,8 +292,17 @@ const WorkspaceContent = ({ projectId, userId }: { projectId: string; userId: st
                     <Plus className="w-4 h-4 text-slate-400" />
                     <span className="text-[11px] font-bold text-slate-700">邀請協作者</span>
                   </DropdownMenuItem>
+                  <DropdownMenuItem className="gap-3 py-2.5 text-rose-500 focus:text-rose-600" onClick={() => {
+                    if (confirm('確定要清除所有系統快取並重置嗎？這將還原初始資料夾結構。')) {
+                      localStorage.clear();
+                      window.location.reload();
+                    }
+                  }}>
+                    <HistoryIcon className="w-4 h-4" />
+                    <span className="text-[11px] font-bold">強制重置系統快取</span>
+                  </DropdownMenuItem>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem className="gap-3 py-2.5 text-rose-500 focus:text-rose-600">
+                  <DropdownMenuItem className="gap-3 py-2.5 text-slate-400 focus:text-rose-600">
                     <HistoryIcon className="w-4 h-4" />
                     <span className="text-[11px] font-bold">登出系統</span>
                   </DropdownMenuItem>
