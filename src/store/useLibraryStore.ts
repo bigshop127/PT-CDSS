@@ -50,43 +50,75 @@ const INITIAL_LIBRARY: LibraryFolder[] = [
     id: '02',
     name: '動作分析與功能診斷',
     color: 'bg-orange-500',
-    children: []
+    children: [
+      { id: '02-1', name: '步態分析基礎', children: [] },
+      { id: '02-2', name: '功能性動作評估 (FMS)', children: [] },
+    ]
   },
   {
     id: '03',
     name: '臨床樞樑技術',
     color: 'bg-amber-500',
-    children: []
+    children: [
+      { id: '03-1', name: '脊椎操作技術', children: [] },
+      { id: '03-2', name: '關節鬆動術實務', children: [] },
+    ]
   },
   {
     id: '04',
     name: '徒手治療系統',
     color: 'bg-emerald-500',
-    children: []
+    children: [
+      { id: '04-1', name: '肌筋膜放鬆術', children: [] },
+      { id: '04-2', name: '淋巴引流技術', children: [] },
+    ]
   },
   {
     id: '05',
     name: '運動介入與穩定系統',
     color: 'bg-cyan-500',
-    children: []
+    children: [
+      { id: '05-1', name: '核心穩定訓練', children: [] },
+      { id: '05-2', name: '動態神經肌肉穩定技術 (DNS)', children: [] },
+    ]
   },
   {
     id: '06',
-    name: '神經物理治療 (暫定)',
+    name: '神經物理治療',
     color: 'bg-blue-500',
-    children: []
+    children: [
+      { id: '06-1', name: '中風復健指引', children: [] },
+      { id: '06-2', name: '帕金森氏症治療', children: [] },
+    ]
   },
   {
     id: '07',
     name: '性能表現與進階科學',
     color: 'bg-indigo-500',
-    children: []
+    children: [
+      { id: '07-1', name: '運動員傷害預防', children: [] },
+      { id: '07-2', name: '肌力與體能訓練科學', children: [] },
+    ]
   },
   {
     id: '08',
     name: '專科與術後復健',
     color: 'bg-violet-500',
-    children: []
+    children: [
+      { id: '08-1', name: '前十字韌帶 (ACL) 術後復健', children: [] },
+      { id: '08-2', name: '全膝關節置換術 (TKR) 指引', children: [] },
+    ]
+  },
+  {
+    id: 'root-files',
+    name: '根目錄文件 (雲端直屬)',
+    color: 'bg-slate-500',
+    children: [
+      { id: 'rf1', name: '全部書單.pdf', type: 'pdf', url: 'https://drive.google.com/file/d/1_all_books_pdf/view' },
+      { id: 'rf2', name: '書單整理.docx', type: 'file', url: 'https://drive.google.com/file/d/1_book_list_doc/view' },
+      { id: 'rf3', name: '代做清單.docx', type: 'file', url: 'https://drive.google.com/file/d/1_todo_list_doc/view' },
+      { id: 'rf4', name: 'Claude Code CLI 完整架構指南.md', type: 'file', url: '#' },
+    ]
   }
 ];
 
@@ -143,7 +175,7 @@ export const useLibraryStore = create<LibraryStore>()(
     }),
     {
       name: 'library-store',
-      version: 3,
+      version: 4,
     }
   )
 );
