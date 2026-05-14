@@ -96,7 +96,7 @@ const NestedLibraryItem = ({ item }: { item: LibraryFolder | LibraryFile }) => {
 
 const WorkspaceContent = ({ projectId, userId }: { projectId: string; userId: string }) => {
   const { libraryFolders } = useLibraryStore();
-  const { settings } = useUserStore();
+  const { settings, setProfile } = useUserStore();
   const { syncToRemote } = useProjectSync(projectId, userId);
   const orchestrator = useMemo(() => new AIOrchestrator(), []);
 
