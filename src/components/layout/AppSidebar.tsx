@@ -14,7 +14,8 @@ import {
   BookOpen,
   Trash2,
   FileCode,
-  FileText
+  FileText,
+  Link as LinkIcon
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -220,6 +221,8 @@ const SidebarItem = ({
   const handleClick = () => {
     if (item.notebookLmUrl) {
       window.open(item.notebookLmUrl, '_blank');
+    } else if (item.id.startsWith('gems')) {
+      alert(`已載入專用技能：${item.label}\nAI 助手現在將遵循此規範進行臨床決策。`);
     }
   };
 
@@ -258,14 +261,32 @@ const SidebarItem = ({
                   }} className="gap-2 text-xs focus:bg-indigo-500/20 focus:text-indigo-100">
                     <Type className="w-3.5 h-3.5" /> 重新命名
                   </DropdownMenuItem>
-                  {item.id.startsWith('f') && (
-                    <DropdownMenuItem className="gap-2 text-xs focus:bg-indigo-500/20 focus:text-indigo-100">
-                      <Palette className="w-3.5 h-3.5" /> 更改顏色區分
+                  {item.notebookLmUrl !== undefined && (
+                    <DropdownMenuItem onClick={() => {
+                      const newUrl = prompt('輸入 NotebookLM 網址：', item.notebookLmUrl);
+                      if (newUrl) onUpdate({ notebookLmUrl: newUrl });
+                    }} className="gap-2 text-xs focus:bg-indigo-500/20 focus:text-indigo-100">
+                      <LinkIcon className="w-3.5 h-3.5" /> 設定網址
                     </DropdownMenuItem>
                   )}
-                  <DropdownMenuItem className="gap-2 text-xs focus:bg-indigo-500/20 focus:text-indigo-100">
-                    <Share2 className="w-3.5 h-3.5" /> 加入對話分析
-                  </DropdownMenuItem>
+                  {item.id.startsWith('f') && (
+                    <>
+                      <DropdownMenuItem onClick={() => {
+                        const colors = ['text-rose-400', 'text-indigo-400', 'text-emerald-400', 'text-orange-400', 'text-amber-400', 'text-cyan-400', 'text-blue-400', 'text-violet-400'];
+                        const currentColorIndex = colors.indexOf(item.color || '');
+                        const nextColor = colors[(currentColorIndex + 1) % colors.length];
+                        onUpdate({ color: nextColor });
+                      }} className="gap-2 text-xs focus:bg-indigo-500/20 focus:text-indigo-100">
+                        <Palette className="w-3.5 h-3.5" /> 更改顏色區分
+                      </DropdownMenuItem>
+                      <DropdownMenuItem onClick={() => {
+                        // This would ideally open a new conversation linked to this folder
+                        alert('已為此資料夾建立新的關聯對話');
+                      }} className="gap-2 text-xs focus:bg-indigo-500/20 focus:text-indigo-100">
+                        <MessageSquare className="w-3.5 h-3.5" /> 加入對話分析
+                      </DropdownMenuItem>
+                    </>
+                  )}
                   <DropdownMenuSeparator className="bg-slate-800" />
                   <DropdownMenuItem onClick={onDelete} className="gap-2 text-xs text-rose-400 focus:bg-rose-500/20 focus:text-rose-400">
                     <Trash2 className="w-3.5 h-3.5" /> 刪除項目

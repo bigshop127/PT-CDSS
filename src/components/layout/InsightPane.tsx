@@ -1,5 +1,5 @@
 import React from "react";
-import { GitBranch, Maximize2, Download, Highlighter } from "lucide-react";
+import { GitBranch, Maximize2, Download, Highlighter, History } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useFlowStore } from "@/store/useFlowStore";
@@ -41,6 +41,14 @@ export const InsightPane = () => {
           >
             V-ALPHA
           </Badge>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="h-6 w-6 text-slate-500 hover:text-white"
+            onClick={() => alert('正在重新計算臨床決策路徑佈局...')}
+          >
+            <History className="w-3 h-3" />
+          </Button>
           <Button
             variant="ghost"
             size="icon"

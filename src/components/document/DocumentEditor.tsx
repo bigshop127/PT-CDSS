@@ -219,15 +219,14 @@ export const DocumentEditor: React.FC<DocumentEditorProps> = ({ projectId }) => 
                 >
                   <UnderlineIcon className="w-3.5 h-3.5" />
                 </Button>
-                <Button 
-                  variant="ghost" 
-                  size="sm" 
-                  className={cn("h-7 w-7 p-0 rounded-md", editor.isActive('strike') && "bg-indigo-100 text-indigo-700")} 
-                  onClick={() => editor.chain().focus().toggleStrike().run()}
-                >
-                  <Strikethrough className="w-3.5 h-3.5" />
-                </Button>
                 <div className="w-px h-5 bg-slate-100 mx-1" />
+                <input
+                  type="color"
+                  onInput={e => editor.chain().focus().setColor((e.target as HTMLInputElement).value).run()}
+                  value={editor.getAttributes('textStyle').color || '#000000'}
+                  className="w-6 h-6 p-0 border-none bg-transparent cursor-pointer"
+                  title="文字顏色"
+                />
                 <Button 
                   variant="ghost" 
                   size="sm" 
@@ -238,7 +237,7 @@ export const DocumentEditor: React.FC<DocumentEditorProps> = ({ projectId }) => 
                 </Button>
               </div>
             </div>
-            <span className="text-[9px] font-bold text-slate-400 uppercase tracking-tighter">字型樣式</span>
+            <span className="text-[9px] font-bold text-slate-400 uppercase tracking-tighter">字型與顏色</span>
           </div>
 
           <div className="flex flex-col items-center justify-between border-r border-slate-100 px-2 mr-1">

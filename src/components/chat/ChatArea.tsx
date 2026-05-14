@@ -18,6 +18,17 @@ interface ChatAreaProps {
   semanticHistory: string;
 }
 
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { ChevronDown } from 'lucide-react';
+import { useUserStore } from '@/store/useUserStore';
+
 export const ChatArea: React.FC<ChatAreaProps> = ({
   messages,
   chatInput,
@@ -26,6 +37,9 @@ export const ChatArea: React.FC<ChatAreaProps> = ({
   isLoading,
   semanticHistory
 }) => {
+  const { settings, setProfile } = useUserStore();
+  const currentModel = settings?.preferredModel || 'gemini-1.5-pro';
+
   const nodes = useFlowStore((s) => s.nodes);
   const acceptAllGhostNodes = useFlowStore((s) => s.acceptAllGhostNodes);
   const ghostCount = nodes.filter((n) => n.data?.isGhost).length;
@@ -55,6 +69,28 @@ export const ChatArea: React.FC<ChatAreaProps> = ({
         </div>
         
         <div className="flex items-center gap-2">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="sm" className="h-7 px-2 text-[9px] font-black text-slate-500 hover:text-orange-600 gap-1 uppercase tracking-widest border border-slate-100 rounded-lg">
+                {currentModel}
+                <ChevronDown className="w-3 h-3" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-48 bg-white border-slate-200 shadow-xl rounded-xl">
+              <DropdownMenuLabel className="text-[10px] font-black text-slate-400 uppercase tracking-widest">選擇 AI 推理引擎</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onClick={() => setProfile({ preferredModel: 'gemini-1.5-pro' })} className="text-xs font-bold gap-2 focus:bg-orange-50 focus:text-orange-700">
+                <Sparkles className="w-3.5 h-3.5 text-orange-500" /> Gemini 1.5 Pro
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setProfile({ preferredModel: 'gemini-1.5-flash' })} className="text-xs font-bold gap-2 focus:bg-orange-50 focus:text-orange-700">
+                <Zap className="w-3.5 h-3.5 text-amber-500" /> Gemini 1.5 Flash
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setProfile({ preferredModel: 'gpt-4o' })} className="text-xs font-bold gap-2 focus:bg-indigo-50 focus:text-indigo-700">
+                <Bot className="w-3.5 h-3.5 text-indigo-500" /> GPT-4o
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+
           <Badge variant="outline" className="border-orange-200 text-orange-700 bg-orange-50/50 text-[9px] font-black px-2 py-0.5">
             <Zap className="w-2.5 h-2.5 mr-1 fill-orange-500 text-orange-500" />
             TURBO

@@ -36,7 +36,7 @@ const INITIAL_LIBRARY: LibraryFolder[] = [
             id: '01-1-1',
             name: 'Explain Pain',
             children: [
-              { id: '01-1-1-1', name: 'Explain Pain 完整版.pdf', type: 'pdf', url: '#' }
+              { id: '01-1-1-1', name: 'Explain Pain 完整版.pdf', type: 'pdf', url: 'https://drive.google.com/file/d/1_dummy_pdf_link/view' }
             ]
           },
           { id: '01-1-2', name: 'Motivational Interviewing', children: [] }
@@ -59,19 +59,13 @@ const INITIAL_LIBRARY: LibraryFolder[] = [
     id: '03',
     name: '臨床樞樑技術',
     color: 'bg-amber-500',
-    children: [
-      { id: '03-1', name: '脊椎操作技術', children: [] },
-      { id: '03-2', name: '關節鬆動術實務', children: [] },
-    ]
+    children: []
   },
   {
     id: '04',
     name: '徒手治療系統',
     color: 'bg-emerald-500',
-    children: [
-      { id: '04-1', name: '肌筋膜放鬆術', children: [] },
-      { id: '04-2', name: '淋巴引流技術', children: [] },
-    ]
+    children: []
   },
   {
     id: '05',
@@ -93,7 +87,7 @@ const INITIAL_LIBRARY: LibraryFolder[] = [
   },
   {
     id: '08',
-    name: '高齡與長照實務',
+    name: '專科與術後復健',
     color: 'bg-violet-500',
     children: []
   }

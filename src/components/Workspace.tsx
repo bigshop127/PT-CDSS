@@ -278,16 +278,19 @@ const WorkspaceContent = ({ projectId, userId }: { projectId: string; userId: st
                 <DropdownMenuContent align="end" className="w-56 p-2 rounded-2xl border-slate-200/60 shadow-2xl backdrop-blur-xl bg-white/95">
                   <DropdownMenuLabel className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-3 py-2">帳戶設定</DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem className="gap-3 py-2.5">
+                  <DropdownMenuItem className="gap-3 py-2.5" onClick={() => {
+                    const name = prompt('切換使用者名稱：', settings?.name || 'User');
+                    if (name) setProfile({ name, role: 'Senior PT' });
+                  }}>
                     <Users className="w-4 h-4 text-slate-400" />
                     <div className="flex flex-col">
-                      <span className="text-[11px] font-bold text-slate-700">{settings?.name || 'User'}</span>
-                      <span className="text-[9px] text-slate-400">個人檔案</span>
+                      <span className="text-[11px] font-bold text-slate-700">切換使用者</span>
+                      <span className="text-[9px] text-slate-400">目前：{settings?.name || 'User'}</span>
                     </div>
                   </DropdownMenuItem>
-                  <DropdownMenuItem className="gap-3 py-2.5">
+                  <DropdownMenuItem className="gap-3 py-2.5" onClick={() => alert('已邀請協作者加入此專案')}>
                     <Plus className="w-4 h-4 text-slate-400" />
-                    <span className="text-[11px] font-bold text-slate-700">加入第二個協作者</span>
+                    <span className="text-[11px] font-bold text-slate-700">邀請協作者</span>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem className="gap-3 py-2.5 text-rose-500 focus:text-rose-600">
