@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import { ReactFlowProvider } from 'reactflow';
 import 'reactflow/dist/style.css';
 import { Panel, Group, Separator } from 'react-resizable-panels';
@@ -95,7 +95,7 @@ const NestedLibraryItem = ({ item }: { item: LibraryFolder | LibraryFile }) => {
 };
 
 const WorkspaceContent = ({ projectId, userId }: { projectId: string; userId: string }) => {
-  const { libraryFolders } = useLibraryStore();
+  const { libraryFolders, fetchCloudLibrary } = useLibraryStore();
   const { settings, setProfile } = useUserStore();
   const { syncToRemote } = useProjectSync(projectId, userId);
   const orchestrator = useMemo(() => new AIOrchestrator(), []);
@@ -108,6 +108,10 @@ const WorkspaceContent = ({ projectId, userId }: { projectId: string; userId: st
   // Panel Visibility States
   const [showAiChat, setShowAiChat] = useState(true);
   const [showInsight, setShowInsight] = useState(true);
+
+  useEffect(() => {
+    fetchCloudLibrary();
+  }, [fetchCloudLibrary]);
 
   const handleSendMessage = async (text: string) => {
     if (!text.trim()) return;

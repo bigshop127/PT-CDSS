@@ -1,5 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import { httpsCallable } from 'firebase/functions';
+import { functions } from '@/lib/firebase';
 
 export interface LibraryFile {
   id: string;
@@ -22,6 +24,7 @@ interface LibraryStore {
   libraryFolders: LibraryFolder[];
   notebooks: LibraryFile[];
   gems: LibraryFile[];
+  isLoadingCloud: boolean;
   addFolder: (parentId: string | null, name: string) => void;
   addFile: (parentId: string, file: Omit<LibraryFile, 'id'>) => void;
   addNotebook: (name: string, url: string) => void;
@@ -29,6 +32,7 @@ interface LibraryStore {
   deleteItem: (id: string) => void;
   updateItem: (id: string, updates: Partial<LibraryFolder | LibraryFile>) => void;
   linkConversation: (itemId: string, conversationId: string) => void;
+  fetchCloudLibrary: () => Promise<void>;
 }
 
 const INITIAL_LIBRARY: LibraryFolder[] = [
@@ -147,6 +151,25 @@ export const useLibraryStore = create<LibraryStore>()(
       libraryFolders: INITIAL_LIBRARY,
       notebooks: INITIAL_NOTEBOOKS,
       gems: INITIAL_GEMS,
+      isLoadingCloud: false,
+      fetchCloudLibrary: async () => {
+        try {
+          set({ isLoadingCloud: true });
+          const fetchDriveContent = httpsCallable<void, LibraryFolder>(functions, 'fetchDriveContent');
+          const result = await fetchDriveContent();
+          
+          if (result.data) {
+            set((state) => {
+              const filtered = state.libraryFolders.filter(f => f.id !== result.data.id && f.id !== 'root-files');
+              return { libraryFolders: [result.data, ...filtered] };
+            });
+          }
+        } catch (error) {
+          console.error("Failed to fetch cloud library:", error);
+        } finally {
+          set({ isLoadingCloud: false });
+        }
+      },
       addFolder: (parentId, name) => set((state) => {
         const newFolder: LibraryFolder = {
           id: Math.random().toString(36).substr(2, 9),

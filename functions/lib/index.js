@@ -1,10 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.geminiProxy = void 0;
+exports.fetchDriveContent = exports.geminiProxy = void 0;
 const https_1 = require("firebase-functions/v2/https");
 const params_1 = require("firebase-functions/params");
 const generative_ai_1 = require("@google/generative-ai");
 const admin = require("firebase-admin");
+const googleapis_1 = require("googleapis");
 if (admin.apps.length === 0) {
     admin.initializeApp();
 }
@@ -104,5 +105,55 @@ PROPOSE LOGICAL NEXT STEPS AS GHOST NODES.`;
     const chatResult = await chatModel.generateContent(userInput);
     const chatText = chatResult.response.text();
     return { intent: "CHIT_CHAT", message: chatText };
+});
+exports.fetchDriveContent = (0, https_1.onCall)({
+    region: "asia-east1",
+    timeoutSeconds: 120,
+}, async (request) => {
+    try {
+        const auth = new googleapis_1.google.auth.GoogleAuth({
+            scopes: ['https://www.googleapis.com/auth/drive.readonly'],
+        });
+        const drive = googleapis_1.google.drive({ version: 'v3', auth });
+        const ROOT_FOLDER_ID = "1OslCCU-8tY3y9p084hWJeO78o7HKIYug";
+        const getFolderStructure = async (folderId) => {
+            var _a;
+            const res = await drive.files.list({
+                q: `'${folderId}' in parents and trashed=false`,
+                fields: "files(id, name, mimeType, webViewLink)",
+                orderBy: "folder, name"
+            });
+            const children = [];
+            for (const file of res.data.files || []) {
+                if (file.mimeType === "application/vnd.google-apps.folder") {
+                    children.push({
+                        id: file.id,
+                        name: file.name,
+                        children: await getFolderStructure(file.id),
+                    });
+                }
+                else {
+                    children.push({
+                        id: file.id,
+                        name: file.name,
+                        type: ((_a = file.mimeType) === null || _a === void 0 ? void 0 : _a.includes("pdf")) ? "pdf" : "file",
+                        url: file.webViewLink,
+                    });
+                }
+            }
+            return children;
+        };
+        const children = await getFolderStructure(ROOT_FOLDER_ID);
+        return {
+            id: ROOT_FOLDER_ID,
+            name: "雲端知識庫",
+            children,
+            color: "bg-indigo-500"
+        };
+    }
+    catch (error) {
+        console.error("Drive API Error:", error);
+        throw new https_1.HttpsError("internal", "Failed to fetch Drive content");
+    }
 });
 //# sourceMappingURL=index.js.map

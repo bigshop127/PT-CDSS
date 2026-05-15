@@ -2,6 +2,7 @@ import { onCall, HttpsError } from "firebase-functions/v2/https";
 import { defineSecret } from "firebase-functions/params";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import * as admin from "firebase-admin";
+import { google } from "googleapis";
 
 if (admin.apps.length === 0) {
   admin.initializeApp();
@@ -158,5 +159,60 @@ PROPOSE LOGICAL NEXT STEPS AS GHOST NODES.`;
     const chatText = chatResult.response.text();
 
     return { intent: "CHIT_CHAT", message: chatText };
+  }
+);
+
+export const fetchDriveContent = onCall(
+  {
+    region: "asia-east1",
+    timeoutSeconds: 120,
+  },
+  async (request) => {
+    try {
+      const auth = new google.auth.GoogleAuth({
+        scopes: ['https://www.googleapis.com/auth/drive.readonly'],
+      });
+      const drive = google.drive({ version: 'v3', auth });
+      const ROOT_FOLDER_ID = "1OslCCU-8tY3y9p084hWJeO78o7HKIYug";
+      
+      const getFolderStructure = async (folderId: string): Promise<any[]> => {
+        const res = await drive.files.list({
+          q: `'${folderId}' in parents and trashed=false`,
+          fields: "files(id, name, mimeType, webViewLink)",
+          orderBy: "folder, name"
+        });
+        
+        const children = [];
+        for (const file of res.data.files || []) {
+          if (file.mimeType === "application/vnd.google-apps.folder") {
+            children.push({
+              id: file.id,
+              name: file.name,
+              children: await getFolderStructure(file.id!),
+            });
+          } else {
+            children.push({
+              id: file.id,
+              name: file.name,
+              type: file.mimeType?.includes("pdf") ? "pdf" : "file",
+              url: file.webViewLink,
+            });
+          }
+        }
+        return children;
+      };
+
+      const children = await getFolderStructure(ROOT_FOLDER_ID);
+      
+      return { 
+        id: ROOT_FOLDER_ID,
+        name: "雲端知識庫",
+        children,
+        color: "bg-indigo-500"
+      };
+    } catch (error) {
+      console.error("Drive API Error:", error);
+      throw new HttpsError("internal", "Failed to fetch Drive content");
+    }
   }
 );
